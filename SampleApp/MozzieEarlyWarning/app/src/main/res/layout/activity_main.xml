@@ -1,0 +1,175 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/div1">
+        <TextView
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="User Information"
+            android:textColor="#176495"
+            android:id="@+id/genDet_t"/>
+        <View
+            android:background="#176495"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/genDet_t"
+            android:layout_marginBottom="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/std_text"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="Current Location:"
+                android:layout_weight="3" />
+            <TextView
+                style="@style/std_text"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="x,y"
+                android:layout_weight="2"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:src="@drawable/map_test"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/std_text"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="Blood Type:"
+                android:layout_weight="1" />
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <TextView
+                    android:paddingLeft="10px"
+                    android:paddingRight="10px"
+                    style="@style/std_text"
+                    android:text="AB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bloodtype"
+                    android:id="@+id/bloodType"
+                    android:onClick="onClick"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/std_text"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="Temperature:"
+                android:layout_weight="1"/>
+            <TextView
+                style="@style/std_text"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="24 degrees"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/std_text"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="Moisture levels:"
+                android:layout_weight="1" />
+            <TextView
+                style="@style/std_text"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="300"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/std_text"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="Estimated Risk:"
+                android:layout_weight="1" />
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <View android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="3dp"
+                    android:background="@drawable/risk_indicator"/>
+                <View android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="3dp"
+                    android:background="@drawable/risk_indicator"/>
+                <View android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="3dp"
+                    android:background="@drawable/risk_indicator"/>
+                <View android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="3dp"
+                    android:background="@drawable/risk_indicator"/>
+                <View android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="3dp"
+                    android:background="@drawable/risk_indicator"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="Connect to MEWW"
+            android:id="@+id/button"
+            />
+
+    </LinearLayout>
+</RelativeLayout>
