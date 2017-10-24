@@ -32,7 +32,7 @@ public class EventsHelper extends SQLiteOpenHelper {
     //-----Variables------
     public static final int DB_VERSION = 1;
     //Paths
-    private static final String DB_PATH = "data/data/sp.bolog/databases/";
+    private static final String DB_PATH = "data/data/ft4sua.sutdapp1d/databases/";
     private static final String DB_NAME = "saved_events";                        //packaged db
     private static final String L_DB_NAME = "events_scheduler";                 //locally saved db
 
