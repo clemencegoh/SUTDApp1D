@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ft4sua.sutdapp1d.DatabasePackage.DatabaseTester;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -40,6 +42,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        /***---Database Test
+         * Check out this class for sample usage---***/
+        //DatabaseTester test=new DatabaseTester();
+        //test.test(this,this);
     }
 
     @Override
