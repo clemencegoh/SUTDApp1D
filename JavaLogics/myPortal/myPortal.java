@@ -77,17 +77,23 @@ public class myPortal {
         // TODO: pointerA might be redundant, deprecate eventually
         int ptA = 0;
         int ptB = 1;
-        String[] table = new String[96]; //Max size
+
+        String[] table = new String[98]; //Max size
         try {
+            System.out.printf("data size: %s\n",rawData.size());
             for (Element data : rawData) {
+                System.out.printf("data longtext: %s\n",data.text());
                 while (table[ptB] != null) {
                     ptB++;
+                    System.out.printf("Node skipped, not nil ptB: %s\n",ptB);
                 }
                 if (data.text().length() == 1) {
                     table[ptB] = " - ";
 
-                } else {
-                    if (data.text().length() > 7) {
+                }
+                else {
+                    if (data.text().length() > 13) {
+
                         //TODO: logic for event handling here
                         // Idea here is that this would be the first time it touches
                         // the event, then skips it later, due to the not null catcher
@@ -96,40 +102,62 @@ public class myPortal {
                         Matcher m = p.matcher(data.text());
                         int count = 0;
                         int[] time = new int[2];
+
                         // Note that only 2 times should be stated
+
                         while (m.find()){
+
                             // Time is PM, change to 24 hour
                             if (m.group().contains("PM")){
                                 String[] temp1 = m.group().split(":");
-                                time[count] = Integer.parseInt(temp1[0]) + 12;
-                                if (temp1[1].contains("30")) time[count] += 1;
+                                int tempTime = Integer.parseInt(temp1[0]);
+                                if (tempTime!=12){
+                                    time[count] = Integer.parseInt(temp1[0]) + 12;
+                                }else{
+                                    time[count] = Integer.parseInt(temp1[0]);
+                                }
+                                if (count==1){
+                                    if (temp1[1].contains("30")) time[count] += 1;
+                                }
                             }
                             // Time is AM
                             else{
                                 String[] temp1 = m.group().split(":");
                                 time[count] = Integer.parseInt(temp1[0]);
-                                if (temp1[1].contains("30")) time[count] += 1;
+                                if (count==1){
+                                    if (temp1[1].contains("30")) time[count] += 1;
+                                }
                             }
                             count++;
+                            if (count > 1) count=0;
                         }
+
                         int timeDiff = time[1]-time[0];
+                        System.out.printf("Timediff: %s\n",timeDiff);
+
                         for (int i=0;i<timeDiff;i++){
                             table[ptB+8*i] = data.text();
                         }
 
+
                     }
+
                     // Put data in the table
                     table[ptB] = data.text();
+
                 }
                 ptB++;
                 if ((ptB - ptA) > 7) {
-                    ptA = ptB;
-                    table[ptB - 1] += "\n";
+                    ptA += 8;
+                    System.out.printf("PointerA: %s\n",ptA);
+                    table[ptA - 1] += "\n";
                 }
+
+                System.out.printf("PTB: %s\n",ptB);
             }
             return table;
         }catch (Exception ex){
-            System.out.println("error occured during construction");
+            System.out.printf("error occured during construction:\n%s\n",ex);
         }
         return null;
         }
