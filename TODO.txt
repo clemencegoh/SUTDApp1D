@@ -1,0 +1,34 @@
+School Lifestyle app
+\\Myportal Timetable access (Clemence)
+-login, get timetable details
+-return timestamp,date,event,tag
+
+\\Provide Updates based on school events
+\\DSBJ alert/notification (Yu Jin)
+-read root website 
+-return timestamp,date,event,tag
+-announcements alert dialog
+
+\\App UI design (Swon Lek)
+-Main page
+-nav drawer
+-styles.xml
+
+\\Calender/Scheduler (Kenjyi)
+-viewpager
+-view in days of week
+-view in days of month
+*intense ui fun
+
+\\Local Database (Ray)
+-add/edit/delete functions
+-get function
+-synchrozation
+
+\\User Login functions (Ting Yu)
+-app login page + shared preferences
+-firebase user database
+
+\\Events add/edit
+-app add/edit page
+-firebase events database

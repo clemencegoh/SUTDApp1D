@@ -1,4 +1,0 @@
-#Sun Oct 08 17:16:10 SGT 2017
-base.0=C\:\\Users\\Clemence Goh\\AndroidStudioProjects\\MyApp_SUTD\\learningapp\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
-renamed.0=classes.dex
-file.0=C\:\\Users\\Clemence Goh\\AndroidStudioProjects\\MyApp_SUTD\\learningapp\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
