@@ -1,12 +1,12 @@
 School Lifestyle app
 \\Myportal Timetable access (Clemence)
 -login, get timetable details
--return timestamp,date,event,tag
+-return [["day,date", event, starttime, endtime, venue,tag],etc..]
 
 \\Provide Updates based on school events
 \\DSBJ alert/notification (Yu Jin)
 -read root website 
--return timestamp,date,event,tag
+-return [["day,date", event, starttime, endtime, venue,tag],etc..]
 -announcements alert dialog
 
 \\App UI design (Swon Lek)
