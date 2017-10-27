@@ -99,8 +99,18 @@ public class Spider2 {
             if (x != -1) {
                 String rawevent = bodyText.substring(x, y);
                 while (rawevent.contains("Read more")) {
-                    String[] event = new String[4];
-                    event[0] = daysinweek[i].substring(0, 3);
+                    String[] event = new String[5];
+                    String date;
+                    int dateindex= bodyText.indexOf(", 2017");
+                    if (numbers.contains(bodyText.charAt(dateindex-2))){
+                        date = bodyText.substring(dateindex-2,dateindex);
+                    } else {
+                        date = bodyText.substring(dateindex-1,dateindex);
+                    }
+                    dateindex = bodyText.indexOf(" ", 12);
+                    event[0] = date + bodyText.substring(dateindex,dateindex+4);
+
+                    event[1] = daysinweek[i].substring(0, 3);
                     int timeindex = rawevent.indexOf("pm,");
                     if (timeindex == -1) {
                         timeindex = rawevent.indexOf("am,");
