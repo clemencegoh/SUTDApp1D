@@ -8,8 +8,8 @@ import java.util.Arrays;
 
 public class myPortalTest {
     public static void main(String[] args) {
-        myPortal Profile = new myPortal();
-        /* getTimeTableDetails(username,password) */
-        String[][] s = Profile.getTimeTableDetails();
+        myPortal clemenceProfile = new myPortal();
+        secret pass = new secret();
+        String[][] s = clemenceProfile.getTimeTableDetails("1002075",pass.getPassword());
     }
 }

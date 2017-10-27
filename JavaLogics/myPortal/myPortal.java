@@ -204,6 +204,11 @@ public class myPortal {
         for (int i=1;i<8;i++){
             String[] temp = TTString[i].split(" ");
             dayDate[count] = temp[0].toUpperCase().substring(0,3);
+            if (dayDate[count].equals("SAT")){
+                dayDate[count] = "THU";
+            }else if (dayDate[count].equals("SUN")){
+                dayDate[count] = "FRI";
+            }
             dayDate[count] += ",";
             dayDate[count] += temp[1] + " " + temp[2];
             count++;
@@ -215,41 +220,66 @@ public class myPortal {
             }
             else{
                 /* Look for event - timing - venue */
-                Pattern p = Pattern.compile("(.*)((1[012]|[1-9]):([0-5][0-9])(\\s)?([Aa]|[pP])[mM]) - " +
-                        "((1[012]|[1-9]):([0-5][0-9])(\\s)?([Aa]|[pP])[mM])(.*)");
+                Pattern p = Pattern.compile("(.* )((1[012]|[0-9]):([0-5][0-9]))(\\s)?(([Aa]|[pP])[mM]) - " +
+                        "((1[012]|[0-9]):([0-5][0-9]))(\\s)?(([Aa]|[pP])[mM])(.*)");
                 Matcher m = p.matcher(TTString[i]);
                 if (m.find()){
+                    System.out.println(m.group(6));
+                    String StartTime = m.group(2);
+                    String EndTime = m.group(8);
+                    String event = m.group(1);
+                    String venue = m.group(14);
+                    int Time;
+                    if (m.group(6).contains("PM")){
+                        int tempTime = Integer.parseInt(m.group(9));
+                        if (tempTime!=12){
+                            Time = Integer.parseInt(m.group(3)) + 12;
+                        }else{
+                            Time = Integer.parseInt(m.group(3));
+                        }
+                        StartTime = String.format("%s:%s",Time,m.group(4));
+                    }
+
+                    if (m.group(12).contains("PM")){
+                        int tempTime = Integer.parseInt(m.group(9));
+                        if (tempTime!=12){
+                            Time = Integer.parseInt(m.group(9)) + 12;
+                        }else{
+                            Time = Integer.parseInt(m.group(9));
+                        }
+                        EndTime = String.format("%s:%s",Time,m.group(10));
+                    }
                     switch (i-count){
                         case 1: // Monday
-                            toReturn[Tracker] = new String[]{dayDate[0],m.group(1),m.group(2),m.group(7),m.group(12),"timetable"};
+                            toReturn[Tracker] = new String[]{dayDate[0],event,StartTime,EndTime,venue,"timetable"};
                             Tracker++;
                             break;
                         case 2: // Tuesday
-                            toReturn[Tracker] = new String[]{dayDate[1],m.group(1),m.group(2),m.group(7),m.group(12),"timetable"};
+                            toReturn[Tracker] = new String[]{dayDate[1],event,StartTime,EndTime,venue,"timetable"};
                             Tracker++;
                             break;
                         case 3: // Wednesday
-                            toReturn[Tracker] = new String[]{dayDate[2],m.group(1),m.group(2),m.group(7),m.group(12),"timetable"};
+                            toReturn[Tracker] = new String[]{dayDate[2],event,StartTime,EndTime,venue,"timetable"};
                             Tracker++;
                             break;
                         case 4: // Thursday
-                            toReturn[Tracker] = new String[]{dayDate[3],m.group(1),m.group(2),m.group(7),m.group(12),"timetable"};
+                            toReturn[Tracker] = new String[]{dayDate[3],event,StartTime,EndTime,venue,"timetable"};
                             Tracker++;
                             break;
                         case 5: // Friday
-                            toReturn[Tracker] = new String[]{dayDate[4],m.group(1),m.group(2),m.group(7),m.group(12),"timetable"};
+                            toReturn[Tracker] = new String[]{dayDate[4],event,StartTime,EndTime,venue,"timetable"};
                             Tracker++;
                             break;
                         case 6: // Saturday
-                            toReturn[Tracker] = new String[]{dayDate[5],m.group(1),m.group(2),m.group(7),m.group(12),"timetable"};
+                            toReturn[Tracker] = new String[]{dayDate[5],event,StartTime,EndTime,venue,"timetable"};
                             Tracker++;
                             break;
                         case 7: // Sunday
-                            toReturn[Tracker] = new String[]{dayDate[6],m.group(1),m.group(2),m.group(7),m.group(12),"timetable"};
+                            toReturn[Tracker] = new String[]{dayDate[6],event,StartTime,EndTime,venue,"timetable"};
                             Tracker++;
                             break;
                         default:
-                            toReturn[Tracker] = new String[]{"Unknown",m.group(1),m.group(2),m.group(7),m.group(12),"timetable"};
+                            toReturn[Tracker] = new String[]{"Unknown",event,StartTime,EndTime,venue,"timetable"};
                             Tracker++;
                             break;
                     }
