@@ -89,6 +89,9 @@ public class Spider2 {
         String bodyText = this.htmlDocument.body().text();
         String body = this.htmlDocument.body().toString();
         String[] daysinweek = {"MON ", "TUE ", "WED ", "THU ", "FRI ", "please refer to the latest Communications Guide"};
+        Set<Character> numbers = new HashSet<Character>();
+        numbers.add('0');numbers.add('1');numbers.add('2');numbers.add('3');numbers.add('4');numbers.add('5');numbers.add('6');
+        numbers.add('7');numbers.add('8');numbers.add('9');
         ArrayList<String[]> week_events = new ArrayList<String[]>();
         int searchpoint;
         String searchlocation;
@@ -99,7 +102,7 @@ public class Spider2 {
             if (x != -1) {
                 String rawevent = bodyText.substring(x, y);
                 while (rawevent.contains("Read more")) {
-                    String[] event = new String[5];
+                    String[] event = new String[6];
                     String date;
                     int dateindex= bodyText.indexOf(", 2017");
                     if (numbers.contains(bodyText.charAt(dateindex-2))){
@@ -108,21 +111,60 @@ public class Spider2 {
                         date = bodyText.substring(dateindex-1,dateindex);
                     }
                     dateindex = bodyText.indexOf(" ", 12);
-                    event[0] = date + bodyText.substring(dateindex,dateindex+4);
-
-                    event[1] = daysinweek[i].substring(0, 3);
+                    event[0] = daysinweek[i].substring(0, 3) + "," + date + bodyText.substring(dateindex,dateindex+4);;
                     int timeindex = rawevent.indexOf("pm,");
-                    if (timeindex == -1) {
+                    if ((timeindex == -1)||(timeindex>rawevent.indexOf("Read more"))){
                         timeindex = rawevent.indexOf("am,");
+                        int spaceindex = rawevent.indexOf(" ", timeindex - 5);
+                        event[1] = rawevent.substring(4, spaceindex);
+                        String rawtime = rawevent.substring(spaceindex + 1, timeindex);
+                        if (rawtime.length() == 1){
+                            event[2] = "0" + rawtime + "00";
+                        } else if (rawtime.length() == 2){
+                            event[2] = rawtime + "00";
+                        } else if (rawtime.length() == 3){
+                            event[2] = "0" + rawtime;
+                        } else {
+                            event[2] = rawtime;
+                        }
+                        int val = Integer.parseInt(event[2].substring(0,2)) + 2;
+                        if (val < 10){
+                            event[3] = "0" + Integer.toString(val) + event[2].substring(2,4);
+                        } else {
+                            event[3] = Integer.toString(val) + event[2].substring(2, 4);
+                        }
+
+                    } else {
+                        int spaceindex = rawevent.indexOf(" ", timeindex - 5);
+                        event[1] = rawevent.substring(4, spaceindex);
+                        int rawtime = Integer.parseInt(rawevent.substring(spaceindex + 1, timeindex));
+                        if (rawtime < 13){
+                            event[2] = Integer.toString(rawtime*100 + 1200);
+                            if (rawtime < 10){
+                                event[3] = Integer.toString((rawtime+2)*100 + 1200);
+                            } else {
+                                event[3] = Integer.toString((rawtime+2-12)*100 + 1200);
+                            }
+                        } else {
+                            event[2] = Integer.toString(rawtime + 1200);
+                            if (rawtime < 1000){
+                                event[3] = Integer.toString(rawtime+200 + 1200);
+                            } else {
+                                event[3] = Integer.toString((rawtime-1000) + 1200);
+                            }
+                        }
                     }
-                    int spaceindex = rawevent.indexOf(" ", timeindex - 5);
-                    event[1] = rawevent.substring(4, spaceindex);
-                    event[2] = rawevent.substring(spaceindex + 1, timeindex + 2);
                     StringBuilder venue = new StringBuilder();
+                    int breakpoint = body.indexOf("Read more");
+                    while (breakpoint < 600){
+                        body = body.substring(body.indexOf("Read more")+6);
+                        breakpoint = body.indexOf("Read more");
+                    }
                     searchpoint = body.indexOf("pm,",body.indexOf(event[1]));
-                    if (searchpoint == -1) {
+                    if ((searchpoint == -1) || (searchpoint > body.indexOf("Read more"))) {
                         searchpoint = body.indexOf("am,",body.indexOf(event[1]));
                     }
+
                     searchlocation = body.substring(searchpoint+4, searchpoint + 70);
                     for (int j =0; j < 70; j++){
                         if (rawevent.charAt(timeindex+4+j) == searchlocation.charAt(0+j)){
@@ -131,9 +173,11 @@ public class Spider2 {
                             break;
                         }
                     }
-                    event[3] = venue.toString();
+                    event[4] = venue.toString();
                     rawevent = rawevent.substring(rawevent.indexOf("Read more") + 6);
+                    body = body.substring(body.indexOf("Read more")+6);
                     week_events.add(event);
+                    event[5] = "School event";
                 }
             }
         }
@@ -141,10 +185,4 @@ public class Spider2 {
         return week_events;
     }
 
-
-    public List<String> getLinks()
-    {
-        return this.links;
-    }
-
-}
+}}
