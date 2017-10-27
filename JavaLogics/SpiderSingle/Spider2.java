@@ -170,6 +170,7 @@ public class Spider2 {
                         if (rawevent.charAt(timeindex+4+j) == searchlocation.charAt(0+j)){
                             venue.append(rawevent.charAt(timeindex+4+j));
                         } else {
+                            venue.delete(venue.length()-1,venue.length());
                             break;
                         }
                     }
