@@ -215,6 +215,9 @@ public class myPortal {
         }
         count = 0;
         for (int i=8;i<TTString.length;i++){
+            if (TTString[i]==null){
+                continue;
+            }
             if (times.contains(TTString[i])){
                 count = i;
             }
@@ -224,7 +227,6 @@ public class myPortal {
                         "((1[012]|[0-9]):([0-5][0-9]))(\\s)?(([Aa]|[pP])[mM])(.*)");
                 Matcher m = p.matcher(TTString[i]);
                 if (m.find()){
-                    System.out.println(m.group(6));
                     String StartTime = m.group(2);
                     String EndTime = m.group(8);
                     String event = m.group(1);

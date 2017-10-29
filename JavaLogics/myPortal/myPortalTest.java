@@ -8,8 +8,9 @@ import java.util.Arrays;
 
 public class myPortalTest {
     public static void main(String[] args) {
-        myPortal clemenceProfile = new myPortal();
+        myPortal Profile = new myPortal();
         secret pass = new secret();
-        String[][] s = clemenceProfile.getTimeTableDetails("1002075",pass.getPassword());
+        String[][] s = Profile.getTimeTableDetails();
+
     }
 }
