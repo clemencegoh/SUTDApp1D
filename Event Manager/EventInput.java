@@ -27,6 +27,7 @@ public class EventInput extends AppCompatActivity {
     private List<String> mySubscriptions;
     private String id;
 
+    // user inputs and buttons
     private Event newEvent;
     private EditText nameInput;
     private EditText dateInput;
@@ -48,6 +49,7 @@ public class EventInput extends AppCompatActivity {
         myEvents = new ArrayList<Event>();
         id = "1002169";
 
+        // assign inputs
         nameInput = (EditText) findViewById(R.id.nameInput);
         dateInput = (EditText) findViewById(R.id.dateInput);
         startTimeInput = (EditText) findViewById(R.id.startTimeInput);
@@ -91,12 +93,6 @@ public class EventInput extends AppCompatActivity {
             i.setUid(newEvent.getKey());
             newEvent.setValue(i);
             myEvents.add(i);
-        }
-
-        Collections.sort(myEvents);
-        System.out.print("Your Events: ");
-        for (int i = 0; i < test.size(); i++) {
-            System.out.print(test.get(i).getName() + " ");
         }
     }
 
