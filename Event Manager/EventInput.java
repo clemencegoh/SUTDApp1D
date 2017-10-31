@@ -11,10 +11,10 @@ import android.widget.Toast;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 
-import java.util.Collections;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TreeSet;
+import java.util.Set;
 
 public class EventInput extends AppCompatActivity {
 
@@ -23,7 +23,7 @@ public class EventInput extends AppCompatActivity {
     private DatabaseReference allEvents;
 
     // local
-    private List<Event> myEvents;
+    private Set<Event> myEvents;
     private List<String> mySubscriptions;
     private String id;
 
@@ -45,8 +45,8 @@ public class EventInput extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         allEvents = database.getReference("events");
-        mySubscriptions = new ArrayList<String>();
-        myEvents = new ArrayList<Event>();
+        mySubscriptions = new LinkedList<String>();
+        myEvents = new TreeSet<Event>();
         id = "1002169";
 
         // assign inputs
@@ -103,27 +103,26 @@ public class EventInput extends AppCompatActivity {
     /**
      * ADMINISTRATOR METHODS
      */
-    // create a new event, add to local database and upload to firebase
+    // create a new event
     public void createEvent(Event e) {
-        DatabaseReference newEvent = allEvents.push();
-        e.setUid(newEvent.getKey());
-        newEvent.setValue(e);
-        myEvents.add(e);
+        DatabaseReference newEvent = allEvents.push();  // unique id assigned to node
+        e.setUid(newEvent.getKey());                    // assign uid to event instance
+        newEvent.setValue(e);                           // set node value to event instance
+        myEvents.add(e);                                // add event instance to local database
     }
 
-    // edit existing event, update local database and firebase
+    // edit existing event
     public void editEvent(Event e, String s) {
-        allEvents.child(s).setValue(e);
-        for (Event i : myEvents) {
+        allEvents.child(s).setValue(e);                 // update firebase
+        for (Event i : myEvents) {                      // update local database
             if (s.equals(i.getUid())) {
-                int index = myEvents.indexOf(i);
-                myEvents.remove(index);
+                myEvents.remove(i);
                 myEvents.add(e);
             }
         }
     }
 
-    // remove event from local database and firebase
+    // remove event
     public void deleteEvent(Event e) {
         allEvents.child(e.getUid()).removeValue();
         myEvents.remove(e);
