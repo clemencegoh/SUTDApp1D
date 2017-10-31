@@ -9,8 +9,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseError;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.TreeSet;
+import java.util.Set;
 
 public class YourEvents extends AppCompatActivity {
 
@@ -20,7 +22,7 @@ public class YourEvents extends AppCompatActivity {
     private ChildEventListener myListener;
 
     // local
-    protected List<Event> myEvents;
+    protected Set<Event> myEvents;
     protected List<String> mySubscriptions;
     protected String id;
 
@@ -30,18 +32,18 @@ public class YourEvents extends AppCompatActivity {
         setContentView(R.layout.activity_your_events);
 
         database = FirebaseDatabase.getInstance();
-        database.setPersistenceEnabled(true);           // offline support, i.e. check and update changes upon reconnection
+        database.setPersistenceEnabled(true);            // offline support, i.e. check and update changes upon reconnection
         allEvents = database.getReference("events");
-        mySubscriptions = new ArrayList<String>();
-        myEvents = new ArrayList<Event>();
+        mySubscriptions = new LinkedList<String>();
+        myEvents = new TreeSet<Event>();                 // sort by natural order (comparable)
         id = "1002169";
 
         myListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Event e = dataSnapshot.getValue(Event.class);
-                if (mySubscriptions.contains(e.getTag())) {
-                    myEvents.add(e);
+                if (mySubscriptions.contains(e.getTag())) {     // user is subscribed
+                    myEvents.add(e);                            // add event to local database
                     // send notification
                 }
             }
@@ -50,12 +52,9 @@ public class YourEvents extends AppCompatActivity {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Event e = dataSnapshot.getValue(Event.class);
                 for (Event i : myEvents) {
-                    // event is in local database
-                    if (s.equals(i.getUid())) {
-                        // update local database
-                        int index = myEvents.indexOf(i);
-                        myEvents.remove(index);
-                        myEvents.add(e);
+                    String uid = i.getUid();
+                    if (s.equals(uid)) {        // event is in local database
+                        myEvents.add(e);        // update local database
                         // send notification
                     }
                 }
@@ -63,12 +62,12 @@ public class YourEvents extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Event e = dataSnapshot.getValue(Event.class);
-                // event is in local database
-                if (myEvents.contains(e)) {
-                    // remove from local database
-                    int index = myEvents.indexOf(e);
-                    myEvents.remove(index);
+                String s = dataSnapshot.getKey();
+                for (Event i : myEvents) {
+                    String uid = i.getUid();
+                    if (s.equals(uid)) {             // event is in local database
+                        myEvents.remove(i);          // remove from local database
+                    }
                 }
             }
 
@@ -77,7 +76,7 @@ public class YourEvents extends AppCompatActivity {
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
 
             @Override
-            // error case
+            // not required
             public void onCancelled(DatabaseError databaseError) {}
         };
     }
@@ -86,8 +85,8 @@ public class YourEvents extends AppCompatActivity {
         myEvents.add(e);
     }
 
-    public void removeOnPress(Event e) {
-        myEvents.remove(e);
+    public void removeOnPress(String s) {
+        myEvents.remove(s);
     }
 
     public void addSubscription(String tag) {
