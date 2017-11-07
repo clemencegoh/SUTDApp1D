@@ -1,6 +1,9 @@
 package com.ft4sua.sutdapp1d;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -76,6 +79,11 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id==R.id.action_logout){
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);;
+            prefs.edit().putInt(getString(R.string.login_key), 0).apply();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
