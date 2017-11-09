@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -51,17 +52,17 @@ public class EventsHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "events";
     public final static String COLUMN_ID = "ID";
     public final static String COLUMN_EventType = "EventType";
-    public final static String COLUMN_Event = "Event";
+    public final static String COLUMN_Event = "Event";  //if ==100xxxx admin else unique event/timetable
     public final static String COLUMN_Details = "Details";
     public final static String COLUMN_StartDate = "StartDate";
     public final static String COLUMN_EndDate = "EndDate";
-    public final static String COLUMN_Admin = "Admin";
-    public final static String COLUMN_LastSync = "LastSync";
+    public final static String COLUMN_EventTag = "EventTag";  //can combine w/ eventType field
+    public final static String COLUMN_EventDate = "EventDate";
     public final static String[] ALL_COLUMNS_USER_ENTER = new String[]{COLUMN_EventType,
-            COLUMN_Event, COLUMN_Details, COLUMN_StartDate, COLUMN_EndDate, COLUMN_Admin};
+            COLUMN_Event, COLUMN_Details, COLUMN_EventDate, COLUMN_StartDate, COLUMN_EndDate, COLUMN_EventTag};
     public final static String[] ALL_COLUMNS = new String[]{COLUMN_ID, COLUMN_EventType,
-            COLUMN_Event, COLUMN_Details, COLUMN_StartDate, COLUMN_EndDate, COLUMN_Admin,
-            COLUMN_LastSync};
+            COLUMN_Event, COLUMN_Details, COLUMN_StartDate, COLUMN_EndDate, COLUMN_EventTag,
+            COLUMN_EventDate};
     //<---End of DB fields-->
 
     //Use getInstance to initialize instead of this
@@ -87,8 +88,8 @@ public class EventsHelper extends SQLiteOpenHelper {
                 COLUMN_Details + " TEXT," +
                 COLUMN_StartDate + " TEXT," +
                 COLUMN_EndDate + " TEXT," +
-                COLUMN_Admin + " TEXT," +
-                COLUMN_LastSync + " TEXT" +
+                COLUMN_EventTag + " TEXT," +
+                COLUMN_EventDate + " TEXT" +
                 ")";
 
         db.execSQL(CREATE_USERS_TABLE);
@@ -185,6 +186,36 @@ public class EventsHelper extends SQLiteOpenHelper {
 
     //-------------------------ADD FUNCTIONS-----------------------------
     //TODO: Depending on event type, send changes to server
+    public void addEvent(final Event event, final Context con, Activity act){
+        db = getWritableDatabase();
+        db.beginTransaction();
+        final ProgressDialog pd = new ProgressDialog(con);
+        pd.setTitle("Please Wait");
+        pd.setMessage("Adding Event");
+        pd.show();
+
+        HashMap<String,String> data=event.get();
+
+        Boolean status=true;
+        try {
+            ContentValues values = new ContentValues();
+            for (int m = 0; ALL_COLUMNS_USER_ENTER.length > m; m++) {
+                if (data.get(ALL_COLUMNS_USER_ENTER[m]) != null) {
+                    values.put(ALL_COLUMNS_USER_ENTER[m], data.get(ALL_COLUMNS_USER_ENTER[m]));
+                }
+            }
+            db.insertOrThrow(TABLE_NAME, null, values);
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            status=false;
+        } finally {
+            db.endTransaction();
+            pd.dismiss();
+            if (status) Toast.makeText(con, "Event successfully added", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(con, "Failed to add event", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void addEvent(final Bundle data, final Context con, Activity act) { // Add event into database /true = success /false = error
 
         // Create and/or open the database for writing

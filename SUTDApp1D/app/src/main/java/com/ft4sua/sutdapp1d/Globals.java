@@ -15,19 +15,19 @@ public class Globals extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        EH = EventsHelper.getInstance(getApplicationContext());
-        EH.open();
+//        EH = EventsHelper.getInstance(getApplicationContext());
+//        EH.open();
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
-        EH.close();
+//        EH.close();
     }
 
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
-        EH.close();
+//        EH.close();
     }
 }
