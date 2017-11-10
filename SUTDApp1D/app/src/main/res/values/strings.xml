@@ -28,7 +28,8 @@
         completions.
     </string>
 
-
+    <!--Event details-->
+    <string name="title_activity_add_event">Add Event</string>
     <string name="event_name">Event</string>
     <string name="event_venue">Venue</string>
     <string name="event_details">Details</string>

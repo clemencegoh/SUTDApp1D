@@ -9,7 +9,7 @@ import com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper;
  */
 
 public class Globals extends Application {
-    public static Long currentEventID;
+    public static String currentEventID;
     private EventsHelper EH;
 
     @Override

@@ -17,9 +17,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ft4sua.sutdapp1d.DatabasePackage.DatabaseTester;
+import com.ft4sua.sutdapp1d.EventPackage.AddEventActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Intent addEventIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +31,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                addEventIntent=new Intent(MainActivity.this, AddEventActivity.class);
+                startActivity(addEventIntent);
             }
         });
 

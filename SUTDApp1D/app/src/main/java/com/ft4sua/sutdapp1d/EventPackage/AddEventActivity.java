@@ -1,5 +1,6 @@
 package com.ft4sua.sutdapp1d.EventPackage;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -9,25 +10,23 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.ft4sua.sutdapp1d.DatabasePackage.Event;
+import com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper;
 import com.ft4sua.sutdapp1d.R;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.TreeSet;
-import java.util.Set;
+//import java.util.LinkedList;
+//import java.util.List;
 
 public class AddEventActivity extends AppCompatActivity {
 
-    // firebase
-    private FirebaseDatabase database;
-    private DatabaseReference allEvents;
+
     //private F
     // local
-    private Set<Event> myEvents;
-    private List<String> mySubscriptions;
-    private String id;
+    //private Set<Event> myEvents;
+    private EventsHelper EH;
+    //private List<String> mySubscriptions; //Use Shared preferences
+//    private String id;
 
     // user inputs and buttons
     private Event newEvent;
@@ -38,18 +37,18 @@ public class AddEventActivity extends AppCompatActivity {
     private EditText venueInput;
     private EditText idInput;
     private EditText tagInput;
-    private Button createButton;
+    private FloatingActionButton doneButton;
+    private FloatingActionButton editButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
-        database = FirebaseDatabase.getInstance();
-        allEvents = database.getReference("events");
-        mySubscriptions = new LinkedList<String>();
-        myEvents = new TreeSet<Event>();
-        id = "1002169";
+        EH=EventsHelper.getInstance(this);
+//        mySubscriptions = new LinkedList<String>();
+//        myEvents = new TreeSet<Event>();
+        //id = "1002169";
 
         // assign inputs
         nameInput = (EditText) findViewById(R.id.nameInput);
@@ -60,8 +59,10 @@ public class AddEventActivity extends AppCompatActivity {
         idInput = (EditText) findViewById(R.id.idInput);
         tagInput = (EditText) findViewById(R.id.tagInput);
 
-        createButton = (Button) findViewById(R.id.fab_edit);
-        createButton.setOnClickListener(new View.OnClickListener() {
+        editButton = (FloatingActionButton) findViewById(R.id.fab_edit);
+        editButton.setVisibility(View.GONE);
+        doneButton = (FloatingActionButton) findViewById(R.id.fab_done);
+        doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = nameInput.getText().toString();
@@ -73,29 +74,30 @@ public class AddEventActivity extends AppCompatActivity {
                 String tag = tagInput.getText().toString();
 
                 newEvent = new Event(name, date, start, end, venue, id, tag);
-                createEvent(newEvent);
-
-                showToast("Your event has been created.");
+                //createEvent(newEvent);
+                EH.addEvent(newEvent,AddEventActivity.this);
+                finish();
+                //showToast("Your event has been created.");
             }
         });
 
         // test firebase upload
-        List<Event> test = new LinkedList<Event>();
-        test.add(new Event("Sing Song", "Mon, 30 Oct 2017", "16:00",
-                "18:00", "MPH", "1002169", "Choir"));
-        test.add(new Event("Ping Pong", "Wed, 01 Nov 2017", "16:00",
-                "18:00", "MPH", "1002169", "Choir"));
-        test.add(new Event("Shake Hand", "Mon, 30 Oct 2017", "20:00",
-                "22:00", "Dance Studio 1", "1002169", "Dance"));
-        test.add(new Event("Shake Leg", "Wed, 01 Nov 2017", "20:00",
-                "22:00", "Dance Studio 4", "1002169", "Dance"));
+        //List<Event> test = new LinkedList<Event>();
+//        test.add(new Event("Sing Song", "Mon, 30 Oct 2017", "16:00",
+//                "18:00", "MPH", "1002169", "Choir"));
+//        test.add(new Event("Ping Pong", "Wed, 01 Nov 2017", "16:00",
+//                "18:00", "MPH", "1002169", "Choir"));
+//        test.add(new Event("Shake Hand", "Mon, 30 Oct 2017", "20:00",
+//                "22:00", "Dance Studio 1", "1002169", "Dance"));
+//        test.add(new Event("Shake Leg", "Wed, 01 Nov 2017", "20:00",
+//                "22:00", "Dance Studio 4", "1002169", "Dance"));
 
-        for (Event i : test) {
-            DatabaseReference newEvent = allEvents.push();
-            i.setUid(newEvent.getKey());
-            newEvent.setValue(i);
-            myEvents.add(i);
-        }
+//        for (Event i : test) {
+//            DatabaseReference newEvent = allEvents.push();
+//            i.setUid(newEvent.getKey());
+//            newEvent.setValue(i);
+//            EH.addEvent(i,this,this);
+//        }
     }
 
     public void showToast(String text) {
@@ -104,29 +106,32 @@ public class AddEventActivity extends AppCompatActivity {
 
     /**
      * ADMINISTRATOR METHODS
+     * TODO: Move to local database helper
      */
     // create a new event
     public void createEvent(Event e) {
-        DatabaseReference newEvent = allEvents.push();  // unique id assigned to node
-        e.setUid(newEvent.getKey());                    // assign uid to event instance
-        newEvent.setValue(e);                           // set node value to event instance
-        myEvents.add(e);                                // add event instance to local database
+//        DatabaseReference newEvent = allEvents.push();  // unique id assigned to node
+//        e.setUid(newEvent.getKey());                    // assign uid to event instance
+//        newEvent.setValue(e);                           // set node value to event instance
+        EH.addEvent(e,this);                     // add event instance to local database
     }
 
     // edit existing event
     public void editEvent(Event e, String s) {
-        allEvents.child(s).setValue(e);                 // update firebase
-        for (Event i : myEvents) {                      // update local database
-            if (s.equals(i.getUid())) {
-                myEvents.remove(i);
-                myEvents.add(e);
-            }
-        }
+//        allEvents.child(s).setValue(e);                 // update firebase
+        EH.editEvent(s,e,this);
+//        for (Event i : myEvents) {                      // update local database
+//            if (s.equals(i.getUid())) {
+//                myEvents.remove(i);
+//                myEvents.add(e);
+//            }
+//        }
     }
 
     // remove event
     public void deleteEvent(Event e) {
-        allEvents.child(e.getUid()).removeValue();
-        myEvents.remove(e);
+//        allEvents.child(e.getUid()).removeValue();
+
+//        myEvents.remove(e);
     }
 }

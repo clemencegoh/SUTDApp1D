@@ -33,6 +33,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -311,11 +312,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private final String mEmail;
         private final String mPassword;
         SharedPreferences prefs;
+        Context context;
 
         UserLoginTask(String email, String password, Context context) {
             mEmail = email;
             mPassword = password;
-            prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            this.context=context;
+            prefs = PreferenceManager.getDefaultSharedPreferences(this.context);
         }
 
         @Override
@@ -348,6 +351,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 prefs.edit().putInt(getString(R.string.login_key), Integer.parseInt(mEmail)).apply();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                Toast.makeText(context, "Welcome, "+mEmail, Toast.LENGTH_SHORT).show();
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

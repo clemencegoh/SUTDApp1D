@@ -1,7 +1,9 @@
 package com.ft4sua.sutdapp1d.DatabasePackage;
 
+import android.os.Bundle;
+import android.util.Log;
+
 import java.util.Arrays;
-import java.util.HashMap;
 
 import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_Details;
 import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_EndDate;
@@ -38,16 +40,17 @@ public class Event implements Comparable<Event> {
     }
 
     // getters and setters
-    public HashMap<String,String> get(){
-        HashMap<String,String> data=new HashMap<>(8);
-        data.put(COLUMN_ID,uid);
-        data.put(COLUMN_Event,name);
-        data.put(COLUMN_EventDate,date);
-        data.put(COLUMN_StartDate,start);
-        data.put(COLUMN_EndDate,end);
-        data.put(COLUMN_Details,venue);
-        data.put(COLUMN_EventType,admin);
-        data.put(COLUMN_EventTag,tag);
+    public Bundle getBundle(){
+        Bundle data=new Bundle(8);
+        data.putString(COLUMN_ID,uid);
+        data.putString(COLUMN_Event,name);
+        data.putString(COLUMN_EventDate,date);
+        data.putString(COLUMN_StartDate,start);
+        data.putString(COLUMN_EndDate,end);
+        data.putString(COLUMN_Details,venue);
+        data.putString(COLUMN_EventType,admin);
+        data.putString(COLUMN_EventTag,tag);
+        Log.v("!!!!Event bundle: ",data.toString());
         return data;
     }
 
