@@ -17,6 +17,7 @@ public class DatabaseTester {
     public void test(Context con, Activity act){
         EventsHelper EH= EventsHelper.getInstance(con);
 
+        // Deprecated functions
         //---adding---
         Bundle input=new Bundle();
         input.putString(EventsHelper.COLUMN_EventType, "0");        //0-User def, 1-myportal timetable, 2-unique event
@@ -24,7 +25,7 @@ public class DatabaseTester {
         input.putString(EventsHelper.COLUMN_Details, "thisisnoahophappyssmekfadboard");
         input.putString(EventsHelper.COLUMN_StartDate, "000");
         input.putString(EventsHelper.COLUMN_EndDate, "111");
-        input.putString(EventsHelper.COLUMN_Admin, "1000040");      //set based on SharedPreferences if user is admin
+        input.putString(EventsHelper.COLUMN_EventTag, "DSBJ");      //set based on SharedPreferences if user is admin
         Log.i("Bundle", String.valueOf(input));
         EH.addEvent(input,con,act);
 

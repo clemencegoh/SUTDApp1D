@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.ft4sua.sutdapp1d.R;
 import com.ft4sua.sutdapp1d.Globals;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -43,6 +46,10 @@ public class EventsHelper extends SQLiteOpenHelper {
     protected static SQLiteDatabase db;
     private static EventsHelper sInstance;
 
+    // firebase
+    private FirebaseDatabase database;
+    private DatabaseReference allEvents;
+
     private SharedPreferences SP;
     private SharedPreferences.Editor SPE;
 
@@ -51,22 +58,24 @@ public class EventsHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "events";
     public final static String COLUMN_ID = "ID";
     public final static String COLUMN_EventType = "EventType";
-    public final static String COLUMN_Event = "Event";
+    public final static String COLUMN_Event = "Event";  //if ==100xxxx admin else unique event/timetable
     public final static String COLUMN_Details = "Details";
     public final static String COLUMN_StartDate = "StartDate";
     public final static String COLUMN_EndDate = "EndDate";
-    public final static String COLUMN_Admin = "Admin";
-    public final static String COLUMN_LastSync = "LastSync";
+    public final static String COLUMN_EventTag = "EventTag";  //can combine w/ eventType field
+    public final static String COLUMN_EventDate = "EventDate";
     public final static String[] ALL_COLUMNS_USER_ENTER = new String[]{COLUMN_EventType,
-            COLUMN_Event, COLUMN_Details, COLUMN_StartDate, COLUMN_EndDate, COLUMN_Admin};
+            COLUMN_Event, COLUMN_Details, COLUMN_EventDate, COLUMN_StartDate, COLUMN_EndDate, COLUMN_EventTag};
     public final static String[] ALL_COLUMNS = new String[]{COLUMN_ID, COLUMN_EventType,
-            COLUMN_Event, COLUMN_Details, COLUMN_StartDate, COLUMN_EndDate, COLUMN_Admin,
-            COLUMN_LastSync};
+            COLUMN_Event, COLUMN_Details, COLUMN_StartDate, COLUMN_EndDate, COLUMN_EventTag,
+            COLUMN_EventDate};
     //<---End of DB fields-->
 
     //Use getInstance to initialize instead of this
     public EventsHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+        database = FirebaseDatabase.getInstance();
+        allEvents = database.getReference("events");
         this.context = context;
     }
 
@@ -81,14 +90,15 @@ public class EventsHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_NAME +
                 "(" +
-                COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
+                COLUMN_ID + " TEXT UNIQUE," +
                 COLUMN_EventType + " TEXT," +
                 COLUMN_Event + " TEXT," +
                 COLUMN_Details + " TEXT," +
                 COLUMN_StartDate + " TEXT," +
                 COLUMN_EndDate + " TEXT," +
-                COLUMN_Admin + " TEXT," +
-                COLUMN_LastSync + " TEXT" +
+                COLUMN_EventTag + " TEXT," +
+                COLUMN_EventDate + " TEXT," +
+                "PRIMARY KEY("+COLUMN_ID+")"+
                 ")";
 
         db.execSQL(CREATE_USERS_TABLE);
@@ -184,7 +194,42 @@ public class EventsHelper extends SQLiteOpenHelper {
     
 
     //-------------------------ADD FUNCTIONS-----------------------------
-    //TODO: Depending on event type, send changes to server
+    public void addEvent(final Event event, final Context con){
+        db = getWritableDatabase();
+        db.beginTransaction();
+        final ProgressDialog pd = new ProgressDialog(con);
+        pd.setTitle("Please Wait");
+        pd.setMessage("Adding Event");
+        pd.show();
+
+        //push to firebase
+        DatabaseReference newEvent = allEvents.push();      // unique id assigned to node
+        event.setUid(newEvent.getKey());                     // assign uid to event instance
+        newEvent.setValue(event);                           // set node value to event instance
+        Log.v("Event: ",event.toString());
+
+        //add to local
+        Bundle data=event.getBundle();
+        Boolean status=true;
+        try {
+            ContentValues values = new ContentValues();
+            for (int m = 0; ALL_COLUMNS.length > m; m++) {
+                if (data.get(ALL_COLUMNS[m]) != null) {
+                    values.put(ALL_COLUMNS[m], data.getString(ALL_COLUMNS[m]));
+                }
+            }
+            db.insertOrThrow(TABLE_NAME, null, values);
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            status=false;
+        } finally {
+            db.endTransaction();
+            pd.dismiss();
+            if (status) Toast.makeText(con, "Event successfully added", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(con, "Failed to add event", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void addEvent(final Bundle data, final Context con, Activity act) { // Add event into database /true = success /false = error
 
         // Create and/or open the database for writing
@@ -217,7 +262,38 @@ public class EventsHelper extends SQLiteOpenHelper {
 
 
     //-------------------------EDIT FUNCTIONS-----------------------------
-    //TODO: Depending on event type, send changes to server
+    public void editEvent(final String uid, final Event event, final Context con) { //update event details /true = success /false = error
+
+        final ProgressDialog pd = new ProgressDialog(con);
+        pd.setTitle("Please Wait");
+        pd.setMessage("Editing Event");
+        pd.show();
+
+        allEvents.child(uid).setValue(event);                 // update firebase
+
+        Bundle data=event.getBundle();
+        Boolean status=true;
+        try {
+            ContentValues values = new ContentValues();
+            for (int m = 0; ALL_COLUMNS.length > m; m++) {
+                if (data.getString(ALL_COLUMNS[m]) != null) {
+                    values.put(ALL_COLUMNS[m], data.getString(ALL_COLUMNS[m]));
+                }
+            }
+            db.update(TABLE_NAME, values, COLUMN_ID + " = ?",
+                    new String[] { String.valueOf(uid) });
+                    //new String[] { String.valueOf(Globals.currentEventID) });
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            status=false;
+        } finally {
+            db.endTransaction();
+            pd.dismiss();
+            if (status) Toast.makeText(con, "Event successfully edited", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(con, "Failed to edit event", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void editEvent(final Bundle data, final Context con, Activity act) { //update event details /true = success /false = error
 
         final ProgressDialog pd = new ProgressDialog(con);
@@ -264,7 +340,7 @@ public class EventsHelper extends SQLiteOpenHelper {
                 super.onPreExecute();
                 pd.show();
                 if (clickPosition == null) {
-                    ID[0] = Long.toString(Globals.currentEventID);
+                    ID[0] = Globals.currentEventID;
                 } else {
 //                    if (clickPosition + 1 > EventList.size()) {
 //                        Log.v("EH(GroundWaterObDelete)", "Error Delete - exceeded groundwaterIDList range");
@@ -282,9 +358,10 @@ public class EventsHelper extends SQLiteOpenHelper {
                     ContentValues values = new ContentValues();
                     //TODO: Check EventType; Update status for server sync and User permissions to delete (if admin)
                     //values.put(COLUMN_Status, 0);
-
-                    rEvent[0] = db.update(TABLE_NAME, values, COLUMN_ID + "='" +
-                            ID[0] + "'", null);
+                    db.delete(TABLE_NAME, COLUMN_ID + "='" +
+                            ID[0] + "'",null);
+//                    rEvent[0] = db.update(TABLE_NAME, values, COLUMN_ID + "='" +
+//                            ID[0] + "'", null);
                     return true;
                 } else {
                     return false;

@@ -1,6 +1,9 @@
 package com.ft4sua.sutdapp1d;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -14,9 +17,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ft4sua.sutdapp1d.DatabasePackage.DatabaseTester;
+import com.ft4sua.sutdapp1d.EventPackage.AddEventActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Intent addEventIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +31,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                addEventIntent=new Intent(MainActivity.this, AddEventActivity.class);
+                startActivity(addEventIntent);
             }
         });
 
@@ -76,6 +84,11 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id==R.id.action_logout){
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);;
+            prefs.edit().putInt(getString(R.string.login_key), 0).apply();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
