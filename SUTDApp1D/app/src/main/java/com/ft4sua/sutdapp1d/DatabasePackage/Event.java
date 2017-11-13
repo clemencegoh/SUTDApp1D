@@ -22,20 +22,33 @@ public class Event implements Comparable<Event> {
     private String start;       // HH:MM
     private String end;
     private String venue;
-    private String admin;       // student ID
+    private String type;        // if user generated: student ID    else: 0-timetable 1-root events
     private String tag;         // subscription name
 
     private static final String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May",
             "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
     public Event(String name, String date, String start, String end,
-                 String venue, String admin, String tag) {
+                 String venue, String type){
+        uid = "";
         this.name = name;
         this.date = date;
         this.start = start;
         this.end = end;
         this.venue = venue;
-        this.admin = admin;
+        this.type = type;
+        tag = "";
+    }
+
+    public Event(String name, String date, String start, String end,
+                 String venue, String type, String tag) {
+        uid="";
+        this.name = name;
+        this.date = date;
+        this.start = start;
+        this.end = end;
+        this.venue = venue;
+        this.type = type;
         this.tag = tag;
     }
 
@@ -48,7 +61,7 @@ public class Event implements Comparable<Event> {
         data.putString(COLUMN_StartDate,start);
         data.putString(COLUMN_EndDate,end);
         data.putString(COLUMN_Details,venue);
-        data.putString(COLUMN_EventType,admin);
+        data.putString(COLUMN_EventType,type);
         data.putString(COLUMN_EventTag,tag);
         Log.v("!!!!Event bundle: ",data.toString());
         return data;
@@ -72,8 +85,8 @@ public class Event implements Comparable<Event> {
     public String getVenue() { return venue; }
     public void setVenue(String venue) {this.venue = venue; }
 
-    public String getAdmin() { return admin; }
-    public void setAdmin(String id) { this.admin = id; }
+    public String getAdmin() { return type; }
+    public void setAdmin(String id) { this.type = id; }
 
     public String getTag() { return tag; }
     public void setTag(String tag) { this.tag = tag; }
