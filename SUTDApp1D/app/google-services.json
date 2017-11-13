@@ -1,0 +1,107 @@
+{
+  "project_info": {
+    "project_number": "957334503879",
+    "firebase_url": "https://scheduler-29b9d.firebaseio.com",
+    "project_id": "scheduler-29b9d",
+    "storage_bucket": "scheduler-29b9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957334503879:android:5a5ccbd8ddbadda2",
+        "android_client_info": {
+          "package_name": "com.example.tingyu.scheduler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "957334503879-8vg808oasvb9aakr72g5g6ok3s1hd5n9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tingyu.scheduler",
+            "certificate_hash": "88e18f63c36669cf5cd8a9a7ddf5ef2d85a11228"
+          }
+        },
+        {
+          "client_id": "957334503879-8roh5tt2p90s3fqflr3r6u2l28a6vq22.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tingyu.scheduler",
+            "certificate_hash": "59079e68ff881b416791ce7d29f164f5028c514f"
+          }
+        },
+        {
+          "client_id": "957334503879-fg1jd5860ohp2bjushat1pmp6vfgoae9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoCPAipCgQ0QwU7x_X8XAmhvWN__9HBTs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "957334503879-fg1jd5860ohp2bjushat1pmp6vfgoae9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957334503879:android:1721360fad2d4d7e",
+        "android_client_info": {
+          "package_name": "com.ft4sua.sutdapp1d"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "957334503879-i83hh42e4fe5ujlc7hc0r2t10go2ac7m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ft4sua.sutdapp1d",
+            "certificate_hash": "d767326fcad0ce27d02239004afa0057ce3759d6"
+          }
+        },
+        {
+          "client_id": "957334503879-fg1jd5860ohp2bjushat1pmp6vfgoae9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoCPAipCgQ0QwU7x_X8XAmhvWN__9HBTs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "957334503879-fg1jd5860ohp2bjushat1pmp6vfgoae9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
