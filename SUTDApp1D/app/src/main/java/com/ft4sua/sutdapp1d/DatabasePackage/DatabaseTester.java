@@ -7,27 +7,29 @@ import android.util.Log;
 
 import com.ft4sua.sutdapp1d.MainActivity;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Choco〜bourbon on 25-Oct-17.
  */
 
 public class DatabaseTester {
-    public void test(Context con, Activity act){
+    public void test(Context con){
         EventsHelper EH= EventsHelper.getInstance(con);
 
-        // Deprecated functions
         //---adding---
-        Bundle input=new Bundle();
-        input.putString(EventsHelper.COLUMN_EventType, "0");        //0-User def, 1-myportal timetable, 2-unique event
-        input.putString(EventsHelper.COLUMN_Event, "Test Day");
-        input.putString(EventsHelper.COLUMN_Details, "thisisnoahophappyssmekfadboard");
-        input.putString(EventsHelper.COLUMN_StartDate, "000");
-        input.putString(EventsHelper.COLUMN_EndDate, "111");
-        input.putString(EventsHelper.COLUMN_EventTag, "DSBJ");      //set based on SharedPreferences if user is admin
-        Log.i("Bundle", String.valueOf(input));
-        EH.addEvent(input,con,act);
+        List<Event> test=new ArrayList<>();
+        test.add(new Event("Sing Song", "Mon, 30 Oct 2017", "16:00",
+                "18:00", "MPH", "1"));
+        test.add(new Event("Ping Pong", "Wed, 01 Nov 2017", "16:00",
+                "18:00", "MPH", "1"));
+        test.add(new Event("Shake Hand", "Mon, 30 Oct 2017", "20:00",
+                "22:00", "Dance Studio 1", "1"));
+        test.add(new Event("Shake Leg", "Wed, 01 Nov 2017", "20:00",
+                "22:00", "Dance Studio 4", "1"));
+        EH.addLocalEvents(test,con);
 
         //---getList---
         List<Bundle> l= EH.getEventList();

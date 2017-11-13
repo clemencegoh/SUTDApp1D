@@ -2,7 +2,7 @@
     <string name="app_name">Subscriber1DApp</string>
     <!-- Shared preferences keys -->
     <string name="login_key">com.ft4sua.sutdapp1d.login_key</string>
-    <string name="subscriptions">com.ft4sua.sutdapp1d.subscriptions</string>
+    <string name="subscriptions_key">com.ft4sua.sutdapp1d.subscriptions_key</string>
     <!-- Database version -->
     <string name="eventsVer_key">eventsVer_key</string>
 

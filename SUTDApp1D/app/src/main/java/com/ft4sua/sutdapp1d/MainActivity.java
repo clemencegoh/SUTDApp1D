@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
         /***---Database Test
          * Check out this class for sample usage---***/
         //DatabaseTester test=new DatabaseTester();
-        //test.test(this,this);
+        //test.test(this);
     }
 
     @Override

@@ -77,7 +77,6 @@ public class AddEventActivity extends AppCompatActivity {
                 //createEvent(newEvent);
                 EH.addEvent(newEvent,AddEventActivity.this);
                 finish();
-                //showToast("Your event has been created.");
             }
         });
 
@@ -119,7 +118,7 @@ public class AddEventActivity extends AppCompatActivity {
     // edit existing event
     public void editEvent(Event e, String s) {
 //        allEvents.child(s).setValue(e);                 // update firebase
-        EH.editEvent(s,e,this);
+        EH.editEvent(e,this);
 //        for (Event i : myEvents) {                      // update local database
 //            if (s.equals(i.getUid())) {
 //                myEvents.remove(i);
