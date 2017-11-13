@@ -1,4 +1,4 @@
-package SpiderSingle;
+package Android1D.SUTDApp1D.app.src.main.java.com.ft4sua.sutdapp1d.Connections;
 
 /**
  * Created by Yu Jin on 10/20/2017.
@@ -11,10 +11,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 
 public class Spider2 {
-    // We'll use a fake USER_AGENT so the web server thinks the robot is a normal web browser.
     private static final String USER_AGENT =
             "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.112 Safari/535.1";
     private List<String> links = new LinkedList<String>();
@@ -22,14 +26,6 @@ public class Spider2 {
     public boolean crawled = false;
 
 
-    /**
-     * This performs all the work. It makes an HTTP request, checks the response, and then gathers
-     * up all the links on the page. Perform a searchForWord after the successful crawl
-     *
-     * @param url
-     *            - The URL to visit
-     * @return whether or not the crawl was successful
-     */
     public boolean crawl(String url)
     {
         try
@@ -71,18 +67,18 @@ public class Spider2 {
      *            - The word or string to look for
      * @return whether or not the word was found
      */
-    public ArrayList<String[]> search()
+    public ArrayList<Event> search()
     {
         // Defensive coding. This method should only be used after a successful crawl.
         if (crawled == false){
             System.out.println("Crawl(link) first");
-            return new ArrayList<String[]>();
+            return new ArrayList<Event>();
         }
 
         if(this.htmlDocument == null)
         {
             System.out.println("ERROR! Call crawl() before performing analysis on the document");
-            return new ArrayList<String[]>();
+            return new ArrayList<Event>();
         }
         System.out.println("Searching for the word " + "...");
 
@@ -92,7 +88,7 @@ public class Spider2 {
         Set<Character> numbers = new HashSet<Character>();
         numbers.add('0');numbers.add('1');numbers.add('2');numbers.add('3');numbers.add('4');numbers.add('5');numbers.add('6');
         numbers.add('7');numbers.add('8');numbers.add('9');
-        ArrayList<String[]> week_events = new ArrayList<String[]>();
+        ArrayList<Event> week_events = new ArrayList<Event>();
         int searchpoint;
         String searchlocation;
 
@@ -170,14 +166,16 @@ public class Spider2 {
                         if (rawevent.charAt(timeindex+4+j) == searchlocation.charAt(0+j)){
                             venue.append(rawevent.charAt(timeindex+4+j));
                         } else {
+                            venue.delete(venue.length()-1,venue.length());
                             break;
                         }
                     }
                     event[4] = venue.toString();
                     rawevent = rawevent.substring(rawevent.indexOf("Read more") + 6);
                     body = body.substring(body.indexOf("Read more")+6);
-                    week_events.add(event);
                     event[5] = "School event";
+                    Event event1 = new Event(event[2],event[0]+"|"+event[1],event[3],event[4],event[5],"1");
+                    week_events.add(event1);
                 }
             }
         }
@@ -185,4 +183,4 @@ public class Spider2 {
         return week_events;
     }
 
-}}
+}
