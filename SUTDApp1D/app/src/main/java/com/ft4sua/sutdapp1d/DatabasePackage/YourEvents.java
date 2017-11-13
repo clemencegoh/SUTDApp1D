@@ -1,4 +1,4 @@
-package com.ft4sua.sutdapp1d.DatabasePackage;
+package com.example.tingyu.scheduler;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,30 +15,30 @@ import java.util.TreeSet;
 import java.util.Set;
 
 public class YourEvents extends AppCompatActivity {
-/*/TODO: Move this to main activity itself/*/
 
-    // firebase
+    // FIREBASE
     private FirebaseDatabase database;
     private DatabaseReference allEvents;
     private ChildEventListener myListener;
 
-    // local
+    // LOCAL
     protected Set<Event> myEvents;
     protected List<String> mySubscriptions;
-    //protected String id;
+    protected String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_your_events);
+        setContentView(R.layout.activity_your_events);
 
         database = FirebaseDatabase.getInstance();
         database.setPersistenceEnabled(true);            // offline support, i.e. check and update changes upon reconnection
         allEvents = database.getReference("events");
         mySubscriptions = new LinkedList<String>();
         myEvents = new TreeSet<Event>();                 // sort by natural order (comparable)
-        //id = "1002169";
+        id = "1002169";
 
+        // LISTENER
         myListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -73,13 +73,14 @@ public class YourEvents extends AppCompatActivity {
             }
 
             @Override
-            // not required
+            // NOT REQUIRED
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
 
             @Override
-            // not required
+            // NOT REQUIRED
             public void onCancelled(DatabaseError databaseError) {}
         };
+        allEvents.addChildEventListener(myListener);
     }
 
     public void addOnPress(Event e) {
