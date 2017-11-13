@@ -1,9 +1,10 @@
-package Android1D.SUTDApp1D.app.src.main.java.com.ft4sua.sutdapp1d.Connections;
+package com.ft4sua.sutdapp1d.Connections;
 
 /**
  * Created by Yu Jin on 10/20/2017.
  */
 
+import com.ft4sua.sutdapp1d.DatabasePackage.Event;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -174,7 +175,7 @@ public class Spider2 {
                     rawevent = rawevent.substring(rawevent.indexOf("Read more") + 6);
                     body = body.substring(body.indexOf("Read more")+6);
                     event[5] = "School event";
-                    Event event1 = new Event(event[2],event[0]+"|"+event[1],event[3],event[4],event[5],"1");
+                    Event event1 = new Event(event[1],event[0],event[3],event[4],event[5],"1");
                     week_events.add(event1);
                 }
             }

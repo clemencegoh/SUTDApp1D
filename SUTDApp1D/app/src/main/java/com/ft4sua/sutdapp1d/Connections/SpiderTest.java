@@ -1,5 +1,7 @@
-package Android1D.SUTDApp1D.app.src.main.java.com.ft4sua.sutdapp1d.Connections;
+package com.ft4sua.sutdapp1d.Connections;
 
+
+import com.ft4sua.sutdapp1d.DatabasePackage.Event;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -21,8 +23,12 @@ public class SpiderTest
         Spider2 b = new Spider2();
         b.crawl("http://root.sutd.edu.sg/2017/09/25/tldr-25-sep-17-issue/");
         ArrayList<Event> a = b.search();
+        System.out.println(a.get(0).getName());
+        System.out.println(a.get(0).getDate());
+        System.out.println(a.get(0).getStart());
 
         b.crawl("http://root.sutd.edu.sg/2017/10/02/tldr-2-oct-17-issue/");
         a = b.search();
+
     }
 }
