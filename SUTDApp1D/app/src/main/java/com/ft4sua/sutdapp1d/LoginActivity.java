@@ -162,8 +162,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        final String email = mEmailView.getText().toString();
+        final String password = mPasswordView.getText().toString();
+        Log.i("Username:","/"+email+"/");
+        Log.i("password:","/"+password+"/");
         boolean cancel = false;
         View focusView = null;
 
@@ -194,12 +196,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             //TODO LOGIN to myportal
             showProgress(true);
-            try{
-                myPortal profile = new myPortal();
-                Event[] events = profile.timeTable(email, password);
-            }catch(Exception e){
-                Log.d("Login","User or password may be wrong");
-            }
+            Thread downloadThread = new Thread(){
+                public void run(){
+                    try{
+                        myPortal profile = new myPortal();
+                        Event[] events = profile.timeTable(email, password);
+                        Log.i("Login","Login successful, events initialized");
+                    }catch(Exception e){
+                        Log.d("Login","User or password may be wrong");
+                    }
+                }
+            };
+            downloadThread.start();
 
             mAuthTask = new UserLoginTask(email, password, this);
             mAuthTask.execute((Void) null);

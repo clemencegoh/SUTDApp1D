@@ -40,14 +40,20 @@ public class myPortal {
         this.password = password;
     }
 
+    private static final String USER_AGENT =
+            "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML," +
+                    " like Gecko) Chrome/13.0.782.112 Safari/535.1";
+
     private Document timeTableHtmlBody(){
         try{
             Connection.Response init = Jsoup.
                     connect(this.url).
+                    userAgent(USER_AGENT).
                     validateTLSCertificates(false).followRedirects(true).
                     method(Connection.Method.GET).execute();
             Connection.Response login = Jsoup.
                     connect(this.url).
+                    userAgent(USER_AGENT).
                     validateTLSCertificates(false).followRedirects(true).
                     data("userid",this.userId).
                     data("pwd",this.password).
@@ -57,6 +63,7 @@ public class myPortal {
 
             Document doc = Jsoup.
                     connect("https://sams.sutd.edu.sg/psc/CSPRD/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SSR_SSENRL_SCHD_W.GBL").
+                    userAgent(USER_AGENT).
                     validateTLSCertificates(false).
                     followRedirects(true).
                     cookies(login.cookies()).
@@ -167,6 +174,9 @@ public class myPortal {
 
         // Get html body from a connection
         Document doc = this.timeTableHtmlBody();
+        if (doc.text().isEmpty()){
+            System.out.println("Empty doc");
+        }
 
         // First round of parsing to look for elements needed
         System.out.println("Start of Document Parsing...\n");
@@ -180,11 +190,9 @@ public class myPortal {
             // Second round of parsing to construct the timetable from data
             timetable = this.constructTable(overall);
 //            System.out.println(Arrays.toString(timetable));
-
-        }catch(Exception ex){
-            System.out.printf("Error at parsing table stage:\n%s\n",ex);
-        }finally {
             System.out.println("Parsing of table done.");
+        }catch(Exception ex) {
+            System.out.printf("Error at parsing table stage:\n%s\n", ex);
         }
         return timetable;
     }
