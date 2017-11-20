@@ -14,8 +14,8 @@ import java.util.Arrays;
 public class myPortalTest {
     public static void main(String[] args) {
         myPortal profile = new myPortal();
-        String username = "exampleUser";
-        String password = "foo";
+        String username = "";
+        String password = "";
         try{
             Event[] s = profile.timeTable(username,password);
             System.out.println(s[0].getName());
