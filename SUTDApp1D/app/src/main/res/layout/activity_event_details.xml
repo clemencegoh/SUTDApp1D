@@ -7,92 +7,126 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/event_name"/>
-            <EditText
-                android:id="@+id/nameInput"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:ems="10"
-                android:hint="Event Name"
-                android:inputType="text"
-                android:singleLine="false" />
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/event_venue"/>
+                android:orientation="horizontal"
+                android:layout_marginEnd="@dimen/detail_titles_horizontal">
+                <Spinner
+                    android:id="@+id/event_type_dropdown"
+                    android:layout_marginTop="@dimen/detail_titles_top"
+                    android:layout_marginStart="@dimen/detail_titles_horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/event_type"
+                    android:spinnerMode="dropdown"
+                    />
+                <EditText
+                    android:id="@+id/eventNameInput"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_marginTop="@dimen/detail_titles_top"
+                    android:hint="Event Name"
+                    android:inputType="text"
+                    android:singleLine="false"
+                    />
+            </LinearLayout>
+
+
             <EditText
                 android:id="@+id/venueInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                style="@style/detail_fields"
                 android:hint="Venue"
                 android:inputType="text" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/event_date"/>
-            <EditText
-                android:id="@+id/dateInput"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Date"
-                android:inputType="text" />
+                android:layout_marginRight="@dimen/detail_titles_horizontal"
+                android:layout_marginTop="@dimen/detail_titles_top"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/detail_date"
+                    android:text="@string/event_date"
+                    android:textSize="@dimen/detail_titles_text_size"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/event_startDate"/>
-            <EditText
-                android:id="@+id/startTimeInput"
+                <TextView
+                    android:id="@+id/dateInput"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:hint="@string/select_date"
+                    android:textSize="@dimen/detail_text_size"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginRight="2dp"
+                    android:background="@drawable/dropdown_border"
+                    />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Start Time"
-                android:inputType="text" />
+                android:layout_marginEnd="@dimen/detail_titles_horizontal"
+                android:layout_marginTop="@dimen/detail_titles_top"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/detail_date"
+                    android:text="@string/event_time"
+                    android:textSize="@dimen/detail_titles_text_size"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/event_endDate"/>
-            <EditText
-                android:id="@+id/endTimeInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="End Time"
-                android:inputType="text" />
+                <TextView
+                    android:id="@+id/startTimeInput"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:hint="@string/select_start_time"
+                    android:textSize="@dimen/detail_text_size"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/dropdown_border"
+                    />
+                <TextView
+                    android:id="@+id/endTimeInput"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:hint="@string/select_end_time"
+                    android:textSize="@dimen/detail_text_size"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="2dp"
+                    android:background="@drawable/dropdown_border"
+                    />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/event_admin"/>
+
+
             <EditText
                 android:id="@+id/idInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                style="@style/detail_fields"
                 android:hint="Admin ID"
                 android:inputType="text" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/event_tag"/>
-            <EditText
-                android:id="@+id/tagInput"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:ems="10"
-                android:hint="Tag"
-                android:inputType="text" />
         </LinearLayout>
     </ScrollView>
     <android.support.design.widget.FloatingActionButton

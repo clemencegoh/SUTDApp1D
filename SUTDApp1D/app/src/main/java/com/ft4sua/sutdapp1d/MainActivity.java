@@ -15,9 +15,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ft4sua.sutdapp1d.DatabasePackage.DatabaseTester;
 import com.ft4sua.sutdapp1d.EventPackage.AddEventActivity;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,11 +50,25 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        TextView studentName = (TextView) headerView.findViewById(R.id.student_name);
+        ImageView profilePic = (ImageView) headerView.findViewById(R.id.profile_pic);
+
+        //TODO: if database records student names, change this to display student name. Otherwise just student ID
+        studentName.setText(R.string.student_name);
+        profilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: bring to profile page
+                Toast.makeText(view.getContext(), "clicked on profile pic", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         /***---Database Test
          * Check out this class for sample usage---***/
@@ -84,11 +103,6 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        } else if (id==R.id.action_logout){
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);;
-            prefs.edit().putInt(getString(R.string.login_key), 0).apply();
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -100,18 +114,17 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_event_manager) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_subs_events) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_sync_timetable) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id==R.id.action_logout) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            prefs.edit().putInt(getString(R.string.login_key), 0).apply();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

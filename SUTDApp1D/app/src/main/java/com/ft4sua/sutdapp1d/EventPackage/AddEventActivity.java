@@ -1,12 +1,20 @@
 package com.ft4sua.sutdapp1d.EventPackage;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.ft4sua.sutdapp1d.DatabasePackage.Event;
@@ -14,6 +22,13 @@ import com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper;
 import com.ft4sua.sutdapp1d.R;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
+
+import org.w3c.dom.Text;
+
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 //import java.util.LinkedList;
 //import java.util.List;
@@ -31,14 +46,19 @@ public class AddEventActivity extends AppCompatActivity {
     // user inputs and buttons
     private Event newEvent;
     private EditText nameInput;
-    private EditText dateInput;
-    private EditText startTimeInput;
-    private EditText endTimeInput;
+    private TextView dateInput;
+    private TextView startTimeInput;
+    private TextView endTimeInput;
     private EditText venueInput;
     private EditText idInput;
-    private EditText tagInput;
+    private Spinner eventType;
     private FloatingActionButton doneButton;
     private FloatingActionButton editButton;
+    private DatePickerDialog datePickerDialog;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private TimePickerDialog timePickerDialog;
+    private TimePickerDialog.OnTimeSetListener startTimeSetListener;
+    private TimePickerDialog.OnTimeSetListener endTimeSetListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +71,83 @@ public class AddEventActivity extends AppCompatActivity {
         //id = "1002169";
 
         // assign inputs
-        nameInput = (EditText) findViewById(R.id.nameInput);
-        dateInput = (EditText) findViewById(R.id.dateInput);
-        startTimeInput = (EditText) findViewById(R.id.startTimeInput);
-        endTimeInput = (EditText) findViewById(R.id.endTimeInput);
+        nameInput = (EditText) findViewById(R.id.eventNameInput);
+        dateInput = (TextView) findViewById(R.id.dateInput);
+        startTimeInput = (TextView) findViewById(R.id.startTimeInput);
+        endTimeInput = (TextView) findViewById(R.id.endTimeInput);
         venueInput = (EditText) findViewById(R.id.venueInput);
         idInput = (EditText) findViewById(R.id.idInput);
-        tagInput = (EditText) findViewById(R.id.tagInput);
+        eventType = (Spinner) findViewById(R.id.event_type_dropdown);
+
+        // Pick out Date
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month ++;
+                String date = day + "/" + month + "/" + year;
+                dateInput.setText(date);
+            }
+        };
+        dateInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                datePickerDialog = new DatePickerDialog(
+                        AddEventActivity.this,
+                        mDateSetListener, year, month, day);
+                datePickerDialog.getWindow();
+                datePickerDialog.show();
+            }
+        });
+
+
+        // Pick out Time
+        startTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hr, int min) {
+                String time = hr + ":" + min;
+                startTimeInput.setText(time);
+            }
+        };
+        endTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hr, int min) {
+                String time = hr + ":" + min;
+                endTimeInput.setText(time);
+            }
+        };
+        startTimeInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int hr = cal.get(Calendar.HOUR_OF_DAY);
+                int min = cal.get(Calendar.MINUTE);
+                timePickerDialog = new TimePickerDialog(
+                        AddEventActivity.this,
+                        startTimeSetListener, hr, min, true);
+                timePickerDialog.show();
+            }
+        });
+        endTimeInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int hr = cal.get(Calendar.HOUR_OF_DAY);
+                int min = cal.get(Calendar.MINUTE);
+                timePickerDialog = new TimePickerDialog(
+                        AddEventActivity.this,
+                        endTimeSetListener, hr, min, true);
+                timePickerDialog.show();
+            }
+        });
+
+
+
+
 
         editButton = (FloatingActionButton) findViewById(R.id.fab_edit);
         editButton.setVisibility(View.GONE);
@@ -71,7 +161,7 @@ public class AddEventActivity extends AppCompatActivity {
                 String end = endTimeInput.getText().toString();
                 String venue = venueInput.getText().toString();
                 String id = idInput.getText().toString();
-                String tag = tagInput.getText().toString();
+                String tag = eventType.getSelectedItem().toString();
 
                 newEvent = new Event(name, date, start, end, venue, id, tag);
                 //createEvent(newEvent);
@@ -97,6 +187,9 @@ public class AddEventActivity extends AppCompatActivity {
 //            newEvent.setValue(i);
 //            EH.addEvent(i,this,this);
 //        }
+    }
+    public void setDateTimeField() {
+
     }
 
     public void showToast(String text) {
@@ -133,4 +226,6 @@ public class AddEventActivity extends AppCompatActivity {
 
 //        myEvents.remove(e);
     }
+
+
 }

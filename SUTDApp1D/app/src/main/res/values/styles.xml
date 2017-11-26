@@ -19,4 +19,17 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!-- Event Details -->
+    <style name="detail_titles">
+        <item name="android:layout_marginLeft">@dimen/detail_titles_horizontal</item>
+        <item name="android:layout_marginRight">@dimen/detail_titles_horizontal</item>
+        <item name="android:textSize">@dimen/detail_titles_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="detail_fields">
+        <item name="android:layout_marginLeft">@dimen/detail_titles_horizontal</item>
+        <item name="android:layout_marginRight">@dimen/detail_titles_horizontal</item>
+        <item name="android:textSize">@dimen/detail_text_size</item>
+        <item name="android:ems">10</item>
+    </style>
 </resources>
