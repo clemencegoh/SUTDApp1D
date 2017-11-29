@@ -12,16 +12,16 @@
 
     </group>
 
-    <item android:title="Sync Class Timetable">
+    <item android:title="@string/nav_sync_timetable">
         <menu>
             <item
                 android:id="@+id/nav_sync_timetable"
                 android:icon="@drawable/ic_sync_black_24dp"
-                android:title="@string/syncMyPortal" />
+                android:title="@string/nav_syncMyPortal" />
             <item
                 android:id="@+id/action_logout"
                 android:icon="@drawable/ic_arrow_back_black_24dp"
-                android:title="Logout"
+                android:title="@string/action_logout"
                 app:showAsAction="never"
                 />
         </menu>

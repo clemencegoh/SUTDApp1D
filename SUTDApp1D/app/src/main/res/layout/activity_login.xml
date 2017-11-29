@@ -49,13 +49,13 @@
                     android:layout_height="@dimen/login_logo"
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
-                    android:src="@drawable/ic_date_range_black_24dp"
+                    android:src="@drawable/app_logo_w"
                     android:tint="@android:color/white"
                     />
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp">
+                    android:layout_marginTop="@dimen/nav_header_vertical_spacing">
 
                     <AutoCompleteTextView
                         android:id="@+id/studentID"

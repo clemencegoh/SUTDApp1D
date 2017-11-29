@@ -31,8 +31,11 @@ dependencies {
     compile 'com.google.firebase:firebase-database:10.0.1'
     compile 'org.jsoup:jsoup:1.11.1'
     compile 'de.hdodenhof:circleimageview:2.2.0'
+
     testCompile 'junit:junit:4.12'
 }
+
+
 
 
 

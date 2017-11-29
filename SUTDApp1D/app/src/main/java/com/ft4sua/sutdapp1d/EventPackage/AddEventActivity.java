@@ -145,10 +145,6 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
         editButton = (FloatingActionButton) findViewById(R.id.fab_edit);
         editButton.setVisibility(View.GONE);
         doneButton = (FloatingActionButton) findViewById(R.id.fab_done);

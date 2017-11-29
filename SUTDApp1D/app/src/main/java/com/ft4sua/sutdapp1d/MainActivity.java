@@ -5,7 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,15 +20,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ft4sua.sutdapp1d.DatabasePackage.DatabaseTester;
 import com.ft4sua.sutdapp1d.EventPackage.AddEventActivity;
 
-import org.w3c.dom.Text;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Intent addEventIntent;
+    private Intent profilePageIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +59,16 @@ public class MainActivity extends AppCompatActivity
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         TextView studentName = (TextView) headerView.findViewById(R.id.student_name);
         ImageView profilePic = (ImageView) headerView.findViewById(R.id.profile_pic);
-
-        //TODO: if database records student names, change this to display student name. Otherwise just student ID
-        studentName.setText(R.string.student_name);
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: bring to profile page
-                Toast.makeText(view.getContext(), "clicked on profile pic", Toast.LENGTH_SHORT).show();
+                profilePageIntent = new Intent(MainActivity.this, ProfilePage.class);
+                startActivity(profilePageIntent);
             }
         });
+        //TODO: if database records student names, change this to display student name. Otherwise just student ID. Link to settings?
+        // or edit student name from here idk
+        studentName.setText(R.string.student_name);
 
 
         /***---Database Test
@@ -115,6 +116,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_event_manager) {
+            Toast.makeText(MainActivity.this, "Events u created", Toast.LENGTH_SHORT).show();
+
 
         } else if (id == R.id.nav_subs_events) {
 

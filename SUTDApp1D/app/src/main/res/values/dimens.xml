@@ -13,7 +13,7 @@
 
     <!-- Image Size -->
     <dimen name="profile_pic">80dp</dimen>
-    <dimen name="login_logo">110dp</dimen>
+    <dimen name="login_logo">120dp</dimen>
 
     <!-- Event Details -->
     <dimen name="detail_titles_top">16dp</dimen>
@@ -21,6 +21,17 @@
     <dimen name="detail_titles_text_size">18sp</dimen>
     <dimen name="detail_text_size">18sp</dimen>
     <dimen name="detail_date">19dp</dimen>
+    <dimen name="page_title">30sp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
+    <!-- Event Manager RecyclerView-->
+    <dimen name="event_name_text_size">20sp</dimen>
+    <dimen name="event_details_text_size">16sp</dimen>
+    <dimen name="expand_height">132dp</dimen>
+    <dimen name="expand_padding">16dp</dimen>
+    <dimen name="collapse_height">80dp</dimen>
+
 
 
 </resources>

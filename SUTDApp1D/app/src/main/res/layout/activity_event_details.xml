@@ -1,134 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin">
-
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!-- Page title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/page_title"
+                android:text="@string/title_activity_add_event"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:gravity="center_horizontal"
+                android:background="@drawable/dropdown_border"/>
+            <!-- details -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginEnd="@dimen/detail_titles_horizontal">
-                <Spinner
-                    android:id="@+id/event_type_dropdown"
-                    android:layout_marginTop="@dimen/detail_titles_top"
-                    android:layout_marginStart="@dimen/detail_titles_horizontal"
-                    android:layout_width="0dp"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin">
+
+                <!-- Event name and type -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:entries="@array/event_type"
-                    android:spinnerMode="dropdown"
-                    />
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="@dimen/detail_titles_horizontal">
+                    <Spinner
+                        android:id="@+id/event_type_dropdown"
+                        android:layout_marginTop="@dimen/detail_titles_top"
+                        android:layout_marginStart="@dimen/detail_titles_horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:entries="@array/event_type"
+                        android:spinnerMode="dropdown"
+                        />
+                    <EditText
+                        android:id="@+id/eventNameInput"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_marginTop="@dimen/detail_titles_top"
+                        android:hint="Event Name"
+                        android:inputType="text"
+                        android:singleLine="false"
+                        />
+                </LinearLayout>
+                <!-- Venue -->
                 <EditText
-                    android:id="@+id/eventNameInput"
-                    android:layout_width="0dp"
+                    android:id="@+id/venueInput"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:layout_marginTop="@dimen/detail_titles_top"
-                    android:hint="Event Name"
-                    android:inputType="text"
-                    android:singleLine="false"
-                    />
+                    style="@style/detail_fields"
+                    android:hint="Venue"
+                    android:inputType="text" />
+                <!-- Date -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/detail_titles_horizontal"
+                    android:layout_marginTop="@dimen/detail_titles_top">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/detail_date"
+                        android:text="@string/event_date"
+                        android:textSize="@dimen/detail_titles_text_size"/>
+
+                    <TextView
+                        android:id="@+id/dateInput"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
+                        android:hint="@string/select_date"
+                        android:textSize="@dimen/detail_text_size"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_marginEnd="2dp"
+                        android:background="@drawable/dropdown_border"
+                        />
+                </LinearLayout>
+                <!-- Time -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/detail_titles_horizontal"
+                    android:layout_marginTop="@dimen/detail_titles_top">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/detail_date"
+                        android:text="@string/event_time"
+                        android:textSize="@dimen/detail_titles_text_size"/>
+                    <TextView
+                        android:id="@+id/startTimeInput"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:hint="@string/select_start_time"
+                        android:textSize="@dimen/detail_text_size"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/dropdown_border"
+                        />
+                    <TextView
+                        android:id="@+id/endTimeInput"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:hint="@string/select_end_time"
+                        android:textSize="@dimen/detail_text_size"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="2dp"
+                        android:background="@drawable/dropdown_border"
+                        />
+                </LinearLayout>
+                <!-- Organiser IDs -->
+                <EditText
+                    android:id="@+id/idInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/detail_fields"
+                    android:hint="Admin ID"
+                    android:inputType="text" />
             </LinearLayout>
-
-
-            <EditText
-                android:id="@+id/venueInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/detail_fields"
-                android:hint="Venue"
-                android:inputType="text" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/detail_titles_horizontal"
-                android:layout_marginTop="@dimen/detail_titles_top"
-                >
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="@dimen/detail_date"
-                    android:text="@string/event_date"
-                    android:textSize="@dimen/detail_titles_text_size"/>
-
-                <TextView
-                    android:id="@+id/dateInput"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:layout_width="0dp"
-                    android:hint="@string/select_date"
-                    android:textSize="@dimen/detail_text_size"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:layout_marginRight="2dp"
-                    android:background="@drawable/dropdown_border"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/detail_titles_horizontal"
-                android:layout_marginTop="@dimen/detail_titles_top"
-                >
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="@dimen/detail_date"
-                    android:text="@string/event_time"
-                    android:textSize="@dimen/detail_titles_text_size"/>
-
-                <TextView
-                    android:id="@+id/startTimeInput"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:hint="@string/select_start_time"
-                    android:textSize="@dimen/detail_text_size"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/dropdown_border"
-                    />
-                <TextView
-                    android:id="@+id/endTimeInput"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:hint="@string/select_end_time"
-                    android:textSize="@dimen/detail_text_size"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="2dp"
-                    android:background="@drawable/dropdown_border"
-                    />
-            </LinearLayout>
-
-
-
-            <EditText
-                android:id="@+id/idInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/detail_fields"
-                android:hint="Admin ID"
-                android:inputType="text" />
-
         </LinearLayout>
+
     </ScrollView>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_done"
         android:layout_width="wrap_content"
@@ -143,4 +155,5 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src ="@drawable/ic_action_edit" />
+
 </FrameLayout>
