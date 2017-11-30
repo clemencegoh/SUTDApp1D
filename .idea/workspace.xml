@@ -11,19 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ed55f397-63a4-4ad0-ad8d-3f39aa47cd23" name="Default" comment="UI: added Event Manager, SubsnEvents. need to figue out all the shared pref and fragments">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/build.gradle" afterPath="$PROJECT_DIR$/SUTDApp1D/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/AddEventActivity.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/AddEventActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/MainActivity.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/activity_event_details.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/activity_event_details.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/app_bar_main.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/app_bar_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/content_main.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/content_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/nav_header_main.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/nav_header_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/menu/activity_main_drawer.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/menu/activity_main_drawer.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/styles.xml" />
     </list>
     <ignored path="Android1D.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -71,8 +58,8 @@
       <file leaf-file-name="activity_event_details.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/activity_event_details.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1142">
-              <caret line="143" column="45" lean-forward="false" selection-start-line="143" selection-start-column="45" selection-end-line="143" selection-end-column="45" />
+            <state relative-caret-position="2825">
+              <caret line="113" column="56" lean-forward="true" selection-start-line="113" selection-start-column="56" selection-end-line="113" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -593,7 +580,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512030165837" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512030298304" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -641,7 +628,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512030165837" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512030298304" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -804,7 +791,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511989656665</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="UI: added Event Manager, SubsnEvents. need to figue out all the shared pref and fragments">
+      <created>1512030185498</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1512030185498</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1344,8 +1338,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/activity_event_details.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1142">
-          <caret line="143" column="45" lean-forward="false" selection-start-line="143" selection-start-column="45" selection-end-line="143" selection-end-column="45" />
+        <state relative-caret-position="2825">
+          <caret line="113" column="56" lean-forward="true" selection-start-line="113" selection-start-column="56" selection-end-line="113" selection-end-column="56" />
           <folding />
         </state>
       </provider>
