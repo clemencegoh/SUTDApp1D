@@ -8,7 +8,8 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_marginTop="35dp"
+    android:background="@drawable/nav_header_bg"
     >
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -16,7 +17,7 @@
         android:layout_width="@dimen/profile_pic"
         android:layout_height="@dimen/profile_pic"
         android:src="@drawable/user"
-        app:civ_border_width="1dp"
+        app:civ_border_width="0.5dp"
         app:civ_border_color="@color/lightGray"
         android:layout_marginTop="@dimen/nav_header_vertical_spacing"
         />
@@ -25,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+        android:layout_marginTop="0dp"
         android:text="@string/nav_welcome"
         android:textColor="@android:color/black"
         />
@@ -33,7 +34,10 @@
         android:id="@+id/student_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:text="@string/student_name"/>
+        android:textColor="@color/lightGray"
+        android:text="@string/student_name"
+        android:textSize="@dimen/event_name_text_size"
+        android:textStyle="bold"
+        android:textAllCaps="true"/>
 
 </LinearLayout>

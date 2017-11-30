@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,14 +19,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ft4sua.sutdapp1d.EventPackage.AddEventActivity;
+import com.ft4sua.sutdapp1d.EventPackage.EventManager;
 
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Intent addEventIntent;
     private Intent profilePageIntent;
+    private Intent subsEventsIntent;
+    private Intent eventManagerIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +41,13 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                addEventIntent=new Intent(MainActivity.this, AddEventActivity.class);
+                addEventIntent = new Intent(MainActivity.this, AddEventActivity.class);
                 startActivity(addEventIntent);
             }
         });
 
+        // TODO: either convert SubEventactivity to fragment (might screw up the tab fragments)
+        // TODO: when clicking calendar , it's actually back press. idk
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_main);
+
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         TextView studentName = (TextView) headerView.findViewById(R.id.student_name);
         ImageView profilePic = (ImageView) headerView.findViewById(R.id.profile_pic);
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity
         //DatabaseTester test=new DatabaseTester();
         //test.test(this);
     }
+
 
     @Override
     public void onBackPressed() {
@@ -117,9 +120,14 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_event_manager) {
             Toast.makeText(MainActivity.this, "Events u created", Toast.LENGTH_SHORT).show();
+            eventManagerIntent = new Intent(MainActivity.this, EventManager.class);
+            startActivity(eventManagerIntent);
 
 
         } else if (id == R.id.nav_subs_events) {
+            Toast.makeText(MainActivity.this, "Events u subbed", Toast.LENGTH_SHORT).show();
+            subsEventsIntent = new Intent(MainActivity.this, SubsEventsActivity.class);
+            startActivity(subsEventsIntent);
 
         } else if (id == R.id.nav_sync_timetable) {
 
@@ -128,6 +136,7 @@ public class MainActivity extends AppCompatActivity
             prefs.edit().putInt(getString(R.string.login_key), 0).apply();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
+        } else if (id==R.id.nav_main){
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

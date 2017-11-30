@@ -54,12 +54,15 @@
         <item>Fifth Row</item>
         <item>Ad Hoc</item>
     </string-array>
-    
+
     <!-- Event Manager ( RecyclerView and expandable items ) -->
     <string name="event_type">Event Type</string>
     <string name="duration">Start Time - End Time</string>
     <string name="delete">delete</string>
     <string name="edit">edit</string>
-
+    <string name="title_activity_subs_events">SubsEventsActivity</string>
+    <string name="sub_tab_title">Subscriptions</string>
+    <string name="event_tab_title">Events</string>
+    <string name="calendar">Calendar</string>
 
 </resources>

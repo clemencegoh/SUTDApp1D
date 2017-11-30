@@ -4,7 +4,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="nav_header_height">200dp</dimen>
+    <dimen name="nav_header_height">250dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
     <!-- Padding -->
@@ -27,11 +27,15 @@
 
     <!-- Event Manager RecyclerView-->
     <dimen name="event_name_text_size">20sp</dimen>
-    <dimen name="event_details_text_size">16sp</dimen>
+    <dimen name="event_details_text_size">14sp</dimen>
     <dimen name="expand_height">132dp</dimen>
     <dimen name="expand_padding">16dp</dimen>
     <dimen name="collapse_height">80dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
 
+    <!-- Subs and Events -->
+    <dimen name="event_card_height">90dp</dimen>
+    <dimen name="event_manager_card_height">120dp</dimen>
 
 
 </resources>
