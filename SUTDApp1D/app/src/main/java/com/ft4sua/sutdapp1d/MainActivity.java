@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ft4sua.sutdapp1d.EventPackage.AddEventActivity;
-import com.ft4sua.sutdapp1d.EventPackage.EventManager;
+//import com.ft4sua.sutdapp1d.EventPackage.EventManager;
 
 
 public class MainActivity extends AppCompatActivity
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                profilePageIntent = new Intent(MainActivity.this, ProfilePage.class);
+                //profilePageIntent = new Intent(MainActivity.this, ProfilePage.class);
                 startActivity(profilePageIntent);
             }
         });
@@ -123,13 +123,13 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_event_manager) {
             Toast.makeText(MainActivity.this, "Events u created", Toast.LENGTH_SHORT).show();
-            eventManagerIntent = new Intent(MainActivity.this, EventManager.class);
+            //eventManagerIntent = new Intent(MainActivity.this, EventManager.class);
             startActivity(eventManagerIntent);
 
 
         } else if (id == R.id.nav_subs_events) {
             Toast.makeText(MainActivity.this, "Events u subbed", Toast.LENGTH_SHORT).show();
-            subsEventsIntent = new Intent(MainActivity.this, SubsEventsActivity.class);
+            //subsEventsIntent = new Intent(MainActivity.this, SubsEventsActivity.class);
             startActivity(subsEventsIntent);
 
         } else if (id == R.id.nav_sync_timetable) {
