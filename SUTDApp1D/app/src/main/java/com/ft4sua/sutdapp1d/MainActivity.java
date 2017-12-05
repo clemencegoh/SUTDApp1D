@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     private Intent profilePageIntent;
     private Intent subsEventsIntent;
     private Intent eventManagerIntent;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         TextView studentName = (TextView) headerView.findViewById(R.id.student_name);
         ImageView profilePic = (ImageView) headerView.findViewById(R.id.profile_pic);
+        //ViewPager viewPager = (ViewPager) headerView.findViewById(R.id.viewpager);
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
