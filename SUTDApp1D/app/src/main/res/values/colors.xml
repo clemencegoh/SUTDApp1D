@@ -14,4 +14,5 @@
     <color name="sutd_green">#AAB377</color>
     <color name="sutd_purple">#B290AB</color>
     <color name="sutd_red">#DB5769</color>
+    <color name="transparent">#00000000</color>
 </resources>

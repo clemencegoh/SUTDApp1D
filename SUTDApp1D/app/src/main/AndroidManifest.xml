@@ -49,7 +49,6 @@
             android:name=".SubsEventsActivity"
             android:label="@string/title_activity_subs_events"
             android:theme="@style/AppTheme" />
-        <activity android:name=".EventPackage.EventManager"></activity>
     </application>
 
 </manifest>
