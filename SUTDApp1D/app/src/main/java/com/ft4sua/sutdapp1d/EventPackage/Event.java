@@ -11,11 +11,14 @@ import java.util.List;
  */
 
 public class Event {
-    String event_name;
-    String event_details;
+    String event_name, event_date, event_type, event_start, event_end, event_venue;
 
-    public Event(String name, String details) {
-        this.event_name = name;
-        this.event_details = details;
+    public Event(String event_name, String event_date, String event_type, String event_start, String event_end, String event_venue) {
+        this.event_name = event_name;
+        this.event_date = event_date;
+        this.event_type = event_type;
+        this.event_start = event_start;
+        this.event_end = event_end;
+        this.event_venue = event_venue;
     }
 }

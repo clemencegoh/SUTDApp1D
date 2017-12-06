@@ -10,7 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed55f397-63a4-4ad0-ad8d-3f39aa47cd23" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/CardChild.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/CardCreator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/CardParent.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/card_collapsed.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/card_expanded.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/build.gradle" afterPath="$PROJECT_DIR$/SUTDApp1D/app/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventManagerFragment.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventManagerFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/Event.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/Event.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/RVAdapter.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/RVAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/content_event_manager.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/content_event_manager.xml" />
     </list>
     <ignored path="Android1D.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -99,7 +109,7 @@
       <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
+            <state relative-caret-position="7100">
               <caret line="330" column="26" lean-forward="false" selection-start-line="330" selection-start-column="26" selection-end-line="330" selection-end-column="26" />
               <folding />
             </state>
@@ -109,7 +119,7 @@
       <file leaf-file-name="RVAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/RVAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2400">
+            <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -119,8 +129,8 @@
       <file leaf-file-name="myPortal.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Connections/myPortal.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="160" column="20" lean-forward="false" selection-start-line="160" selection-start-column="20" selection-end-line="160" selection-end-column="20" />
+            <state relative-caret-position="300">
+              <caret line="171" column="42" lean-forward="true" selection-start-line="171" selection-start-column="42" selection-end-line="171" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -180,6 +190,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -208,7 +220,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -489,7 +500,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -579,7 +589,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512578315285" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512590304004" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -627,7 +637,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512578315285" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512590304004" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -818,7 +828,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512577960874</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="UI: converted Event Manager (dont touch Event Manager yet) and Calendar to fragment, left subscriptionsandevents, profile page, settings for each fragments. Can start integrating Login Activity and Calendar.">
+      <created>1512578336718</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1512578336718</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView">
@@ -831,18 +848,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1942" height="1102" extended-state="0" />
+    <frame x="-11" y="-11" width="1942" height="1102" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32988507" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32997763" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32792583" sideWeight="0.5043243" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4295302" sideWeight="0.49567568" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42857143" sideWeight="0.49567568" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -861,6 +878,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32997763" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908458" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1297,14 +1315,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="46" column="63" lean-forward="false" selection-start-line="46" selection-start-column="63" selection-end-line="46" selection-end-column="63" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/EventManager.java" />
     <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
+        <state relative-caret-position="7100">
           <caret line="330" column="26" lean-forward="false" selection-start-line="330" selection-start-column="26" selection-end-line="330" selection-end-column="26" />
           <folding />
         </state>
@@ -1312,7 +1329,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/RVAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2400">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -1320,8 +1337,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Connections/myPortal.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="160" column="20" lean-forward="false" selection-start-line="160" selection-start-column="20" selection-end-line="160" selection-end-column="20" />
+        <state relative-caret-position="300">
+          <caret line="171" column="42" lean-forward="true" selection-start-line="171" selection-start-column="42" selection-end-line="171" selection-end-column="42" />
           <folding />
         </state>
       </provider>
