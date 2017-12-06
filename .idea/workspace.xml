@@ -9,51 +9,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed55f397-63a4-4ad0-ad8d-3f39aa47cd23" name="Default" comment="UI: converted Event Manager (dont touch Event Manager yet) and Calendar to fragment, left subscriptionsandevents, profile page, settings for each fragments. Can start integrating Login Activity and Calendar.">
+    <list default="true" id="ed55f397-63a4-4ad0-ad8d-3f39aa47cd23" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/.gitignore" afterPath="$PROJECT_DIR$/SUTDApp1D/app/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/build.gradle" afterPath="$PROJECT_DIR$/SUTDApp1D/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/google-services.json" afterPath="$PROJECT_DIR$/SUTDApp1D/app/google-services.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/SUTDApp1D/app/gradle/wrapper/gradle-wrapper.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/gradlew" afterPath="$PROJECT_DIR$/SUTDApp1D/app/gradlew" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/gradlew.bat" afterPath="$PROJECT_DIR$/SUTDApp1D/app/gradlew.bat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/local.properties" afterPath="$PROJECT_DIR$/SUTDApp1D/app/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/proguard-rules.pro" afterPath="$PROJECT_DIR$/SUTDApp1D/app/proguard-rules.pro" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/androidTest/java/com/ft4sua/sutdapp1d/ExampleInstrumentedTest.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/androidTest/java/com/ft4sua/sutdapp1d/ExampleInstrumentedTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Connections/Spider2.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Connections/Spider2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Connections/SpiderTest.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Connections/SpiderTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Connections/myPortal.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Connections/myPortal.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Connections/myPortalTest.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Connections/myPortalTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/DatabasePackage/DatabaseTester.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/DatabasePackage/DatabaseTester.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/DatabasePackage/Event.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/DatabasePackage/Event.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/DatabasePackage/EventsHelper.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/DatabasePackage/EventsHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/DatabasePackage/YourEvents.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/DatabasePackage/YourEvents.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/AddEventActivity.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/AddEventActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Globals.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Globals.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Launcher.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Launcher.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/LoginActivity.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/LoginActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/MainActivity.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/drawable-v21/ic_menu_camera.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/drawable-v21/ic_menu_camera.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/drawable-v21/ic_menu_gallery.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/drawable-v21/ic_menu_gallery.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/drawable-v21/ic_menu_manage.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/drawable-v21/ic_menu_manage.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/drawable-v21/ic_menu_send.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/drawable-v21/ic_menu_send.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/drawable-v21/ic_menu_share.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/drawable-v21/ic_menu_share.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/drawable-v21/ic_menu_slideshow.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/drawable-v21/ic_menu_slideshow.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/activity_event_details.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/activity_event_details.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/activity_login.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/activity_login.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/app_bar_main.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/app_bar_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/content_main.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/content_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/nav_header_main.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/nav_header_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/menu/activity_main_drawer.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/menu/activity_main_drawer.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/menu/main.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/menu/main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/drawables.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/drawables.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/values/styles.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/test/java/com/ft4sua/sutdapp1d/ExampleUnitTest.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/test/java/com/ft4sua/sutdapp1d/ExampleUnitTest.java" />
     </list>
     <ignored path="Android1D.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -185,7 +142,7 @@
       </map>
     </option>
     <push-targets>
-      <push-target-info target-remote="origin" target-branch="master" repo="$PROJECT_DIR$" source="lok" />
+      <push-target-info target-remote="origin" target-branch="lok" repo="$PROJECT_DIR$" source="lok" />
     </push-targets>
   </component>
   <component name="GradleLocalSettings">
@@ -622,7 +579,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512577939273" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512578315285" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -670,7 +627,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512577939273" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512578315285" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -854,7 +811,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512030344475</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="UI: converted Event Manager (dont touch Event Manager yet) and Calendar to fragment, left subscriptionsandevents, profile page, settings for each fragments. Can start integrating Login Activity and Calendar.">
+      <created>1512577960874</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1512577960874</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -868,18 +832,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1102" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32988507" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32997763" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32997763" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32792583" sideWeight="0.5043243" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1442953" sideWeight="0.49567568" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4295302" sideWeight="0.49567568" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -901,6 +864,32 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908458" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
