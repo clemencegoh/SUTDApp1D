@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -117,18 +118,11 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_event_manager) {
             Toast.makeText(MainActivity.this, "Events u created", Toast.LENGTH_SHORT).show();
             Class fragmentClass = EventManagerFragment.class;
-            android.support.v4.app.Fragment fragment = null;
-            try {
-                fragment = (android.support.v4.app.Fragment) fragmentClass.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+            navigateTo(fragmentClass);
         } else if (id == R.id.nav_subs_events) {
             Toast.makeText(MainActivity.this, "Events u subbed", Toast.LENGTH_SHORT).show();
-            subsEventsIntent = new Intent(MainActivity.this, SubsEventsActivity.class);
-            startActivity(subsEventsIntent);
+            Class fragmentClass = SubsEventsFragment.class;
+            navigateTo(fragmentClass);
 
         } else if (id == R.id.nav_sync_timetable) {
             Toast.makeText(MainActivity.this, "Timetable synced", Toast.LENGTH_SHORT).show();
@@ -138,22 +132,25 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         } else if (id==R.id.nav_cal){
-//            calendarIntent = new Intent(MainActivity.this, CalendarActivity.class);
-//            startActivity(calendarIntent);
+
             // set initial fragment
             Class fragmentClass = CalendarFragment.class;
-            android.support.v4.app.Fragment fragment = null;
-            try {
-                fragment = (android.support.v4.app.Fragment) fragmentClass.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+            navigateTo(fragmentClass);
         }
 ;
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void navigateTo(Class fragmentClass){
+        android.support.v4.app.Fragment fragment = null;
+        try {
+            fragment = (android.support.v4.app.Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 }

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.ft4sua.sutdapp1d.SubsEventsActivity"
-    tools:showIn="@layout/activity_subs_events">
+    tools:context="com.ft4sua.sutdapp1d.SubsEventsFragment"
+    tools:showIn="@layout/fragment_subs_events">
 
     <android.support.v4.view.ViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"

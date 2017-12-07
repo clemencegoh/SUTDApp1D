@@ -26,8 +26,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 TabEvents event = new TabEvents();
                 return event;
+            default:
+                return null;
         }
-        return null;
     }
 
     @Override

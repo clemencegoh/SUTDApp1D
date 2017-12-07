@@ -46,7 +46,7 @@
             android:label="@string/title_activity_add_event" />
         <activity android:name=".ProfilePage" />
         <activity
-            android:name=".SubsEventsActivity"
+            android:name=".SubsEventsFragment"
             android:label="@string/title_activity_subs_events"
             android:theme="@style/AppTheme" />
     </application>

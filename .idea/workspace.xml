@@ -10,17 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed55f397-63a4-4ad0-ad8d-3f39aa47cd23" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/CardChild.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/CardCreator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/CardParent.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/card_collapsed.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/card_expanded.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/SubsEventsActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/activity_subs_events.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/build.gradle" afterPath="$PROJECT_DIR$/SUTDApp1D/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventManagerFragment.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventManagerFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/Event.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/Event.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/RVAdapter.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/RVAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/content_event_manager.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/content_event_manager.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/MainActivity.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/SubsEvents/ViewPagerAdapter.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/SubsEvents/ViewPagerAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/app_bar_tabs.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/app_bar_tabs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/content_subs_events.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/content_subs_events.xml" />
     </list>
     <ignored path="Android1D.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -99,7 +97,7 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3275">
+            <state relative-caret-position="3250">
               <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
               <folding />
             </state>
@@ -129,8 +127,8 @@
       <file leaf-file-name="myPortal.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Connections/myPortal.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="171" column="42" lean-forward="true" selection-start-line="171" selection-start-column="42" selection-end-line="171" selection-end-column="42" />
+            <state relative-caret-position="3850">
+              <caret line="171" column="42" lean-forward="false" selection-start-line="171" selection-start-column="42" selection-end-line="171" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -191,7 +189,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="AndroidView" />
+      <pane id="Scratches" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -220,6 +218,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -500,7 +499,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -589,7 +587,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512590304004" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512625429849" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -637,7 +635,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512590304004" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512625429849" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -835,7 +833,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512578336718</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="UI: (EventManager: Gave up on expandable recyclers, now is just recycler.) converted Event Manager and Calendar to fragment, left subscriptionsandevents, profile page, settings for each fragments. Can start integrating Login Activity and Calendar.">
+      <created>1512590480711</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1512590480711</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView">
@@ -848,7 +853,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1942" height="1102" extended-state="6" />
+    <frame x="-11" y="-11" width="1942" height="1102" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -926,7 +931,8 @@
     <MESSAGE value="UI: added Event Manager, SubsnEvents. need to figue out all the shared pref and fragments" />
     <MESSAGE value="UI: added Event Manager, SubsnEvents. need to figure out all the shared pref and fragments" />
     <MESSAGE value="UI: converted Event Manager (dont touch Event Manager yet) and Calendar to fragment, left subscriptionsandevents, profile page, settings for each fragments. Can start integrating Login Activity and Calendar." />
-    <option name="LAST_COMMIT_MESSAGE" value="UI: converted Event Manager (dont touch Event Manager yet) and Calendar to fragment, left subscriptionsandevents, profile page, settings for each fragments. Can start integrating Login Activity and Calendar." />
+    <MESSAGE value="UI: (EventManager: Gave up on expandable recyclers, now is just recycler.) converted Event Manager and Calendar to fragment, left subscriptionsandevents, profile page, settings for each fragments. Can start integrating Login Activity and Calendar." />
+    <option name="LAST_COMMIT_MESSAGE" value="UI: (EventManager: Gave up on expandable recyclers, now is just recycler.) converted Event Manager and Calendar to fragment, left subscriptionsandevents, profile page, settings for each fragments. Can start integrating Login Activity and Calendar." />
   </component>
   <component name="WindowStateProjectService">
     <state width="339" height="441" key="Git.Branch.Popup" />
@@ -1304,20 +1310,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3275">
+        <state relative-caret-position="3250">
           <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/NavigationActivity.java" />
-    <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/SubsEventsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="46" column="63" lean-forward="false" selection-start-line="46" selection-start-column="63" selection-end-line="46" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/SubsEventsActivity.java" />
     <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventPackage/EventManager.java" />
     <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1337,8 +1337,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/Connections/myPortal.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="171" column="42" lean-forward="true" selection-start-line="171" selection-start-column="42" selection-end-line="171" selection-end-column="42" />
+        <state relative-caret-position="3850">
+          <caret line="171" column="42" lean-forward="false" selection-start-line="171" selection-start-column="42" selection-end-line="171" selection-end-column="42" />
           <folding />
         </state>
       </provider>
