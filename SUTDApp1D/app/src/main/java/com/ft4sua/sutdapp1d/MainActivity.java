@@ -5,7 +5,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,38 +19,48 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ft4sua.sutdapp1d.DatabasePackage.DatabaseTester;
+import com.ft4sua.sutdapp1d.DatabasePackage.Event;
 import com.ft4sua.sutdapp1d.EventPackage.AddEventActivity;
+
+import java.util.List;
 //import com.ft4sua.sutdapp1d.EventPackage.EventManager;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TimeSlotDialogFragment.TimeSlotDialogListener {
 
     private Intent addEventIntent;
     private Intent profilePageIntent;
     private Intent subsEventsIntent;
     private Intent eventManagerIntent;
     private ViewPager viewPager;
+    private SectionPagerAdapter sectionPagerAdapter;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addEventIntent = new Intent(MainActivity.this, AddEventActivity.class);
-                startActivity(addEventIntent);
-            }
-        });
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                addEventIntent = new Intent(MainActivity.this, AddEventActivity.class);
+//                startActivity(addEventIntent);
+//            }
+//        });
 
         // TODO: either convert SubEventactivity to fragment (might screw up the tab fragments)
         // TODO: when clicking calendar , it's actually back press. idk
@@ -63,7 +77,29 @@ public class MainActivity extends AppCompatActivity
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         TextView studentName = (TextView) headerView.findViewById(R.id.student_name);
         ImageView profilePic = (ImageView) headerView.findViewById(R.id.profile_pic);
-        //ViewPager viewPager = (ViewPager) headerView.findViewById(R.id.viewpager);
+
+        //setContentView(R.layout.fragment_view_pager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        sectionPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(sectionPagerAdapter);
+
+
+
+//        Button button = (Button)findViewById(R.id.goto_first);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                viewPager.setCurrentItem(0);
+//            }
+//        });
+//        button = (Button)findViewById(R.id.goto_last);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                viewPager.setCurrentItem(mAdapter.NUM_ITEMS-1);
+//            }
+//        });
+
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,15 +107,15 @@ public class MainActivity extends AppCompatActivity
                 startActivity(profilePageIntent);
             }
         });
-        //TODO: if database records student names, change this to display student name. Otherwise just student ID. Link to settings?
-        // or edit student name from here idk
+//        //TODO: if database records student names, change this to display student name. Otherwise just student ID. Link to settings?
+//        // or edit student name from here idk
         studentName.setText(R.string.student_name);
-
 
         /***---Database Test
          * Check out this class for sample usage---***/
-        //DatabaseTester test=new DatabaseTester();
-        //test.test(this);
+//        DatabaseTester test=new DatabaseTester();
+//        test.test(getActivity());
+
     }
 
 
@@ -145,5 +181,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+
     }
 }

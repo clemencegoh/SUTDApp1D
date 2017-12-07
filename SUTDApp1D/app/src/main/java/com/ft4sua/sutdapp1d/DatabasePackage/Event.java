@@ -28,6 +28,10 @@ public class Event implements Comparable<Event> {
     private static final String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May",
             "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
+    public Event(){
+
+    }
+
     public Event(String name, String date, String start, String end,
                  String venue, String type){
         uid = "";
@@ -64,6 +68,14 @@ public class Event implements Comparable<Event> {
         data.putString(COLUMN_EventType,type);
         data.putString(COLUMN_EventTag,tag);
         Log.v("!!!!Event bundle: ",data.toString());
+        return data;
+    }
+
+
+    public Event bundleToEvent(Bundle bundle){
+        Event data = new Event((String)bundle.get(COLUMN_Event),(String)bundle.get(COLUMN_EventDate),
+                (String)bundle.get(COLUMN_StartDate), (String)bundle.get(COLUMN_EndDate),
+                (String)bundle.get(COLUMN_Details), (String)bundle.get(COLUMN_EventType));
         return data;
     }
 

@@ -17,7 +17,7 @@ public class myPortalTest {
         String username = "";
         String password = "";
         try{
-            Event[] s = profile.timeTable(username,password);
+            Event[] s = profile.timeTable("1002208","1hcoatBs");
             System.out.println(s[0].getName());
             System.out.println(s[0].getDate());
         }catch(Exception ex){
