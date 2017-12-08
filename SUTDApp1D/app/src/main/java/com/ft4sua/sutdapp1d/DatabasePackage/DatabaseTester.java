@@ -32,7 +32,7 @@ public class DatabaseTester {
         EH.addLocalEvents(test,con);
 
         //---getList---
-        List<Bundle> l= EH.getEventList();
+        List<Bundle> l= EH.getEventBundles();
         Log.i("Bundle List", String.valueOf(l));
 
         //Call this to delete table

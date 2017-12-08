@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.ft4sua.sutdapp1d.Globals;
 import com.ft4sua.sutdapp1d.R;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,8 +58,9 @@ public class EventsHelper extends SQLiteOpenHelper {
     //<---Start of DB fields-->
     private static final String TABLE_NAME = "events";
     public final static String COLUMN_ID = "ID";
-    public final static String COLUMN_EventType = "EventType";
-    public final static String COLUMN_Event = "Event";  //if ==100xxxx admin else unique event/timetable
+    public final static String COLUMN_FID = "FID";
+    public final static String COLUMN_EventType = "EventType"; //if ==100xxxx admin else unique event/timetable
+    public final static String COLUMN_Event = "Event";
     public final static String COLUMN_Details = "Details";
     public final static String COLUMN_StartDate = "StartDate";
     public final static String COLUMN_EndDate = "EndDate";
@@ -68,7 +68,7 @@ public class EventsHelper extends SQLiteOpenHelper {
     public final static String COLUMN_EventDate = "EventDate";
     public final static String[] ALL_COLUMNS_USER_ENTER = new String[]{COLUMN_EventType,
             COLUMN_Event, COLUMN_Details, COLUMN_EventDate, COLUMN_StartDate, COLUMN_EndDate, COLUMN_EventTag};
-    public final static String[] ALL_COLUMNS = new String[]{COLUMN_ID, COLUMN_EventType,
+    public final static String[] ALL_COLUMNS = new String[]{COLUMN_FID, COLUMN_EventType,
             COLUMN_Event, COLUMN_Details, COLUMN_StartDate, COLUMN_EndDate, COLUMN_EventTag,
             COLUMN_EventDate};
     //<---End of DB fields-->
@@ -98,15 +98,15 @@ public class EventsHelper extends SQLiteOpenHelper {
         //Unique auto-increment id possibly needed
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_NAME +
                 "(" +
-                COLUMN_ID + " TEXT," +
+                COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                COLUMN_FID + " TEXT," +
                 COLUMN_EventType + " TEXT," +
                 COLUMN_Event + " TEXT," +
                 COLUMN_Details + " TEXT," +
                 COLUMN_StartDate + " TEXT," +
                 COLUMN_EndDate + " TEXT," +
                 COLUMN_EventTag + " TEXT," +
-                COLUMN_EventDate + " TEXT," +
-                "PRIMARY KEY("+COLUMN_ID+")"+
+                COLUMN_EventDate + " TEXT" +
                 ")";
 
         db.execSQL(CREATE_USERS_TABLE);
@@ -211,7 +211,7 @@ public class EventsHelper extends SQLiteOpenHelper {
         pd.show();
 
         //push to firebase
-        if (!event.getUid().equals("")) {
+        if (event.getUid().equals("")) {
             DatabaseReference newEvent = fref.push();      // unique id assigned to node
             event.setUid(newEvent.getKey());                     // assign uid to event instance
             newEvent.setValue(event);                           // set node value to event instance
@@ -283,7 +283,7 @@ public class EventsHelper extends SQLiteOpenHelper {
         pd.show();
 
         final String uid = event.getUid();
-        fref.child(uid).setValue(event);                 // update firebase
+        if (!uid.equals("")) fref.child(event.getUid()).setValue(event);                 // update firebase
 
         Bundle data=event.getBundle();
         Boolean status=true;
@@ -295,8 +295,8 @@ public class EventsHelper extends SQLiteOpenHelper {
                 }
             }
             db.update(TABLE_NAME, values, COLUMN_ID + " = ?",
-                    new String[] { String.valueOf(uid) });
-                    //new String[] { String.valueOf(Globals.currentEventID) });
+                    new String[] { String.valueOf(event.getId()) });
+            //new String[] { String.valueOf(Globals.currentEventID) });
             db.setTransactionSuccessful();
         } catch (Exception e) {
             status=false;
@@ -351,14 +351,14 @@ public class EventsHelper extends SQLiteOpenHelper {
             protected void onPreExecute() {
                 super.onPreExecute();
                 pd.show();
-                ID[0]=event.getUid();
+                ID[0]= String.valueOf(event.getId());
             }
 
             @Override
             protected Boolean doInBackground(Bundle... bundles) {
                 if (prefs.getString(con.getString(R.string.login_key), "").equals(ID[0]))
                     fref.child(event.getUid()).removeValue();
-                if (ID != null) {
+                if (!ID.equals("-1")) {
                     db.delete(TABLE_NAME, COLUMN_ID + "='" +
                             ID[0] + "'",null);
 //                    rEvent[0] = db.update(TABLE_NAME, values, COLUMN_ID + "='" +
@@ -460,7 +460,7 @@ public class EventsHelper extends SQLiteOpenHelper {
     }
 
     //-------------------------GET LIST FUNCTIONS-----------------------------
-    public List<Bundle> getEventList() { //Returns all events as a list or null if database is empty
+    public List<Bundle> getEventBundles() { //Returns all events as a list or null if database is empty
 
         db = getReadableDatabase();
         List<Bundle> eventList = new ArrayList<Bundle>();
@@ -475,6 +475,39 @@ public class EventsHelper extends SQLiteOpenHelper {
                     temp2.putString(COL,eventC.getString(eventC.getColumnIndex(COL)));
                 }
                 eventList.add(temp2);
+            }
+            eventC.close();
+        }
+        return eventList;
+    }
+
+    public List<Event> getEventList() { //Returns all events as a list or null if database is empty
+
+        db = getReadableDatabase();
+        List<Event> eventList = new ArrayList<Event>();
+        Cursor eventC;
+
+        eventC = db.query(TABLE_NAME, null, null, null, null, null, null);
+
+        //TODO: Get based on date query
+        if (eventC != null) {
+            for (eventC.moveToFirst(); !eventC.isAfterLast(); eventC.moveToNext()) {
+                Event event=new Event();
+                event.setId(eventC.getInt(eventC.getColumnIndex(COLUMN_ID)));
+                event.setUid(eventC.getString(eventC.getColumnIndex(COLUMN_FID)));
+                event.setName(eventC.getString(eventC.getColumnIndex(COLUMN_Event)));
+                event.setDate(eventC.getString(eventC.getColumnIndex(COLUMN_EventDate)));
+                event.setStart(eventC.getString(eventC.getColumnIndex(COLUMN_StartDate)));
+                event.setEnd(eventC.getString(eventC.getColumnIndex(COLUMN_EndDate)));
+                event.setVenue(eventC.getString(eventC.getColumnIndex(COLUMN_Details)));
+                event.setAdmin(eventC.getString(eventC.getColumnIndex(COLUMN_EventType)));
+                event.setTag(eventC.getString(eventC.getColumnIndex(COLUMN_EventTag)));
+
+//                Bundle temp2 = new Bundle();
+//                for (String COL:ALL_COLUMNS_USER_ENTER) {
+//                    temp2.putString(COL,eventC.getString(eventC.getColumnIndex(COL)));
+//                }
+                eventList.add(event);
             }
             eventC.close();
         }
