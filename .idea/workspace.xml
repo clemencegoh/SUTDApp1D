@@ -10,15 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed55f397-63a4-4ad0-ad8d-3f39aa47cd23" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/app_bar_tabs.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/content_subs_events.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/tab_subs.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventManagerFragment.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/EventManagerFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/MainActivity.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/SubsEvents/TabEvents.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/SubsEvents/TabEvents.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/SubsEvents/TabSub.java" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/java/com/ft4sua/sutdapp1d/SubsEvents/TabSub.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/tab_events.xml" afterPath="$PROJECT_DIR$/SUTDApp1D/app/src/main/res/layout/tab_events.xml" />
     </list>
     <ignored path="Android1D.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -643,7 +635,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512710732089" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512711111372" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -691,7 +683,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512710732089" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512711111372" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -903,7 +895,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512625478428</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="UI: SubsandEvents converted to fragment - items not yet interactive but well">
+      <created>1512710736917</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1512710736917</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView">
