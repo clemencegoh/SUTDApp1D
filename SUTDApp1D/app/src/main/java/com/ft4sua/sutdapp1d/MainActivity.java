@@ -39,8 +39,7 @@ public class MainActivity extends AppCompatActivity
         // set initial fragment
         CalendarFragment calFrag = new CalendarFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, calFrag);
-        fragmentTransaction.commit();
+        fragmentTransaction.replace(R.id.fragment_container, calFrag).commit();
 
         // Toolbar to replace ActionBar
         toolbar = (Toolbar) findViewById(R.id.toolbar);

@@ -35,6 +35,7 @@ public class EventManagerFragment extends android.support.v4.app.Fragment {
         eventRecycler = (RecyclerView)rootView.findViewById(R.id.rv_event_manager);
         eventRecycler.setLayoutManager(llm);
         eventRecycler.setHasFixedSize(true);
+        //TODO: add FAB
 
         initialiseData();
         initialiseAdapter();
