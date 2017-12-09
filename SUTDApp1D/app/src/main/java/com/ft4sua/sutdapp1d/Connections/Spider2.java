@@ -1,9 +1,10 @@
-package SpiderSingle;
+package com.ft4sua.sutdapp1d.Connections;
 
 /**
  * Created by Yu Jin on 10/20/2017.
  */
 
+import com.ft4sua.sutdapp1d.DatabasePackage.Event;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -11,7 +12,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.Calendar;
 
 public class Spider2 {
     private static final String USER_AGENT =
@@ -62,20 +69,20 @@ public class Spider2 {
      *            - The word or string to look for
      * @return whether or not the word was found
      */
-    public ArrayList<String[]> search()
+    public ArrayList<Event> search()
     {
         // Defensive coding. This method should only be used after a successful crawl.
         if (crawled == false){
             System.out.println("Crawl(link) first");
-            //return new ArrayList<Event>();
-            return new ArrayList<String[]>();
+            return new ArrayList<Event>();
+            //return new ArrayList<String[]>();
         }
 
         if(this.htmlDocument == null)
         {
             System.out.println("ERROR! Call crawl() before performing analysis on the document");
-            //return new ArrayList<Event>();
-            return new ArrayList<String[]>();
+            return new ArrayList<Event>();
+            //return new ArrayList<String[]>();
         }
         System.out.println("Searching for the word " + "...");
 
@@ -85,8 +92,8 @@ public class Spider2 {
         Set<Character> numbers = new HashSet<Character>();
         numbers.add('0');numbers.add('1');numbers.add('2');numbers.add('3');numbers.add('4');numbers.add('5');numbers.add('6');
         numbers.add('7');numbers.add('8');numbers.add('9');
-       // ArrayList<Event> week_events = new ArrayList<Event>();
-        ArrayList<String[]> week_events = new ArrayList<>();
+        ArrayList<Event> week_events = new ArrayList<Event>();
+        //ArrayList<String[]> week_events = new ArrayList<>();
         String[] monthlist = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
         HashMap<String,Integer> monthconvert = new HashMap<>();
         monthconvert.put("Jan",0); monthconvert.put("Feb",1); monthconvert.put("Mar",2); monthconvert.put("Apr", 3);
@@ -236,8 +243,8 @@ public class Spider2 {
                     rawevent = rawevent.substring(rawevent.indexOf("Read more") + 6);
                     body = body.substring(body.indexOf("Read more")+6);
                     event[5] = "School event";
-                   // Event event1 = new Event(event[2],event[0]+"|"+event[1],event[3],event[4],event[5],"1");
-                    week_events.add(event);
+                    Event event1 = new Event(event[1],event[0],event[3],event[4],event[5],"1");
+                    week_events.add(event1);
                 }
             }
         }
