@@ -111,7 +111,6 @@ public class Spider2 {
                     String[] event = new String[6];
                     String date;
                     int year = Calendar.getInstance().get(Calendar.YEAR);
-                    System.out.println(Calendar.getInstance().getFirstDayOfWeek());
                     String yearstring = Integer.toString(year);
                     int dateindex= bodyText.indexOf(", " + yearstring);
                     int nextyearindex = bodyText.indexOf(", "+ Integer.toString(year + 1));
