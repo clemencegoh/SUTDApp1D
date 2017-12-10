@@ -80,10 +80,7 @@ public class EventsHelper extends SQLiteOpenHelper {
         this.context = context;
 
         //Firebase interface
-        FirebaseDatabase firebase = FirebaseDatabase.getInstance();
-        firebase.setPersistenceEnabled(true);            // offline support, i.e. check and update changes upon reconnection
-        fref = firebase.getReference("events");
-
+        fref = FirebaseHelper.getInstance(context).getFirebaseRef();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
