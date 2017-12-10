@@ -165,7 +165,7 @@ public class AddEventActivity extends AppCompatActivity {
 
                 newEvent = new Event(name, date, start, end, venue, id, tag);
                 //createEvent(newEvent);
-                EH.addEvent(newEvent);
+                EH.addEvent(newEvent,AddEventActivity.this);
                 finish();
             }
         });
@@ -205,13 +205,13 @@ public class AddEventActivity extends AppCompatActivity {
 //        DatabaseReference newEvent = allEvents.push();  // unique id assigned to node
 //        e.setUid(newEvent.getKey());                    // assign uid to event instance
 //        newEvent.setValue(e);                           // set node value to event instance
-        EH.addEvent(e);                     // add event instance to local database
+        EH.addEvent(e,AddEventActivity.this);                     // add event instance to local database
     }
 
     // edit existing event
     public void editEvent(Event e, String s) {
 //        allEvents.child(s).setValue(e);                 // update firebase
-        EH.editEvent(e);
+//        EH.editEvent(e);
 //        for (Event i : myEvents) {                      // update local database
 //            if (s.equals(i.getUid())) {
 //                myEvents.remove(i);

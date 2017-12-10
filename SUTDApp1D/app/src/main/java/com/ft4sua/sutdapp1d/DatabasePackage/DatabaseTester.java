@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.ft4sua.sutdapp1d.MainActivity;
+import com.ft4sua.sutdapp1d.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +23,11 @@ import java.util.Objects;
 public class DatabaseTester {
     public static void test(Context con){
         EventsHelper EH= EventsHelper.getInstance(con);
+
+        Event testet=new Event("Ping Pong", "Wed, 01 Nov 2017", "16:00",
+                "18:00", "MPH", "1");
+        testet.setUid(con.getString(R.string.firebase_flag));
+        EH.addEvent(testet,con);
 
         //---adding---
         List<Event> test=new ArrayList<>();

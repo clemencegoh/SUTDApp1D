@@ -57,7 +57,7 @@ public class Event implements Comparable<Event> {
     public Event(String name, String date, String start, String end,
                  String venue, String type, String tag) {
         id=-1;
-        uid="";
+        this.uid="";
         this.name = name;
         this.date = date;
         this.start = start;

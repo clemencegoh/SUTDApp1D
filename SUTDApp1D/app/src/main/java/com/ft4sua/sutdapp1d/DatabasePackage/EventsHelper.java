@@ -203,16 +203,16 @@ public class EventsHelper extends SQLiteOpenHelper {
 
 
     //-------------------------ADD FUNCTIONS-----------------------------
-    public void addEvent(final Event event){
+    public void addEvent(final Event event,final Context con){
         db = getWritableDatabase();
         db.beginTransaction();
-        final ProgressDialog pd = new ProgressDialog(context);
+        final ProgressDialog pd = new ProgressDialog(con);
         pd.setTitle("Please Wait");
         pd.setMessage("Adding Event");
         pd.show();
 
         //push to firebase
-        if (event.getUid().equals(context.getString(R.string.firebase_flag))) {
+        if (event.getUid().equals(con.getString(R.string.firebase_flag))) {
             DatabaseReference newEvent = fref.push();      // unique id assigned to node
             event.setUid(newEvent.getKey());                     // assign uid to event instance
             newEvent.setValue(event);                           // set node value to event instance
@@ -236,17 +236,17 @@ public class EventsHelper extends SQLiteOpenHelper {
         } finally {
             db.endTransaction();
             pd.dismiss();
-            if (status) Toast.makeText(context, "Event successfully added", Toast.LENGTH_SHORT).show();
-            else Toast.makeText(context, "Failed to add event", Toast.LENGTH_SHORT).show();
+            if (status) Toast.makeText(con, "Event successfully added", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(con, "Failed to add event", Toast.LENGTH_SHORT).show();
         }
     }
 
     //ToDelete?
-    public void addLocalEvent(final Event event) { // Add event into database /true = success /false = error
+    public void addLocalEvent(final Event event, final Context con) { // Add event into database /true = success /false = error
         // Create and/or open the database for writing
         db = getWritableDatabase();
         db.beginTransaction();
-        final ProgressDialog pd = new ProgressDialog(context);
+        final ProgressDialog pd = new ProgressDialog(con);
         pd.setTitle("Please Wait");
         pd.setMessage("Adding Event");
         pd.show();
@@ -268,17 +268,17 @@ public class EventsHelper extends SQLiteOpenHelper {
         } finally {
             db.endTransaction();
             pd.dismiss();
-            if (status) Toast.makeText(context, "Event successfully added", Toast.LENGTH_SHORT).show();
-            else Toast.makeText(context, "Failed to add event", Toast.LENGTH_SHORT).show();
+            if (status) Toast.makeText(con, "Event successfully added", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(con, "Failed to add event", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void addLocalEvents(final List<Event> events) { // Add event into database /true = success /false = error
+    public void addLocalEvents(final List<Event> events, final Context con) { // Add event into database /true = success /false = error
 
         // Create and/or open the database for writing
         db = getWritableDatabase();
         db.beginTransaction();
-        final ProgressDialog pd = new ProgressDialog(context);
+        final ProgressDialog pd = new ProgressDialog(con);
         pd.setTitle("Please Wait");
         pd.setMessage("Adding Event(s)");
         pd.show();
@@ -301,16 +301,16 @@ public class EventsHelper extends SQLiteOpenHelper {
         } finally {
             db.endTransaction();
             pd.dismiss();
-            if (status) Toast.makeText(context, "Event successfully added", Toast.LENGTH_SHORT).show();
-            else Toast.makeText(context, "Failed to add event", Toast.LENGTH_SHORT).show();
+            if (status) Toast.makeText(con, "Event successfully added", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(con, "Failed to add event", Toast.LENGTH_SHORT).show();
         }
     }
 
 
     //-------------------------EDIT FUNCTIONS (Only for user-def events)-----------------------------
-    public void editEvent(final Event event) { //update event details /true = success /false = error
+    public void editEvent(final Event event, final Context con) { //update event details /true = success /false = error
 
-        final ProgressDialog pd = new ProgressDialog(context);
+        final ProgressDialog pd = new ProgressDialog(con);
         pd.setTitle("Please Wait");
         pd.setMessage("Editing Event");
         pd.show();
@@ -336,14 +336,14 @@ public class EventsHelper extends SQLiteOpenHelper {
         } finally {
             db.endTransaction();
             pd.dismiss();
-            if (status) Toast.makeText(context, "Event successfully edited", Toast.LENGTH_SHORT).show();
-            else Toast.makeText(context, "Failed to edit event", Toast.LENGTH_SHORT).show();
+            if (status) Toast.makeText(con, "Event successfully edited", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(con, "Failed to edit event", Toast.LENGTH_SHORT).show();
         }
     }
 
     //-------------------------DELETE FUNCTIONS-----------------------------
     @SuppressLint("StaticFieldLeak")
-    public void deleteEvent(final Event event) { //delete Event // clickPosition = pass in click position of listview or null to delete with currentGWOID
+    public void deleteEvent(final Event event, final Context con) { //delete Event // clickPosition = pass in click position of listview or null to delete with currentGWOID
 
         final int[] rEvent = {0};
         final String[] ID = new String[1];
@@ -358,7 +358,7 @@ public class EventsHelper extends SQLiteOpenHelper {
             @Override
             protected Boolean doInBackground(Bundle... bundles) {
                 //admin delete
-                if (prefs.getString(context.getString(R.string.login_key), "").equals(ID[0])&&!event.getUid().equals(""))
+                if (prefs.getString(con.getString(R.string.login_key), "").equals(ID[0])&&!event.getUid().equals(""))
                     fref.child(event.getUid()).removeValue();
                 if (!ID.equals("-1")) {
                     db.delete(TABLE_NAME, COLUMN_ID + "='" + ID[0],null);
@@ -371,9 +371,9 @@ public class EventsHelper extends SQLiteOpenHelper {
             protected void onPostExecute(Boolean aBoolean) {
                 super.onPostExecute(aBoolean);
                 if (aBoolean) {
-                    Toast.makeText(context, "Event successfully deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(con, "Event successfully deleted", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "Failed to delete event", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(con, "Failed to delete event", Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute();
@@ -381,11 +381,11 @@ public class EventsHelper extends SQLiteOpenHelper {
 
     //------------------------FIREBASE FUNCTIONS------------------------
     //When calling, be sure to delete all first
-    public void addFromSubs() { // Add event into database /true = success /false = error
+    public void addFromSubs(final Context con) { // Add event into database /true = success /false = error
         // Create and/or open the database for writing
         db = getWritableDatabase();
         db.beginTransaction();
-        final ProgressDialog pd = new ProgressDialog(context);
+        final ProgressDialog pd = new ProgressDialog(con);
         pd.setTitle("Please Wait");
         pd.setMessage("Adding Event(s)");
         pd.show();
@@ -396,7 +396,7 @@ public class EventsHelper extends SQLiteOpenHelper {
 
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     Event singleEvent = postSnapshot.getValue(Event.class);
-                    if (prefs.getStringSet(context.getString(R.string.subscriptions_key), new HashSet<>(Arrays.asList(""))).contains(singleEvent.getUid())) {
+                    if (prefs.getStringSet(con.getString(R.string.subscriptions_key), new HashSet<>(Arrays.asList(""))).contains(singleEvent.getUid())) {
                         Boolean status = true;
                         Bundle data=singleEvent.getBundle();
                         try {
@@ -426,8 +426,8 @@ public class EventsHelper extends SQLiteOpenHelper {
     }
 
     //updates from firebase
-    public void updateFromFirebase(String oldId, Event event){
-        final ProgressDialog pd = new ProgressDialog(context);
+    public void updateFromFirebase(String oldId, Event event, final Context con){
+        final ProgressDialog pd = new ProgressDialog(con);
         pd.setTitle("Please Wait");
         pd.setMessage("Editing Event");
         pd.show();
@@ -449,15 +449,15 @@ public class EventsHelper extends SQLiteOpenHelper {
         } finally {
             db.endTransaction();
             pd.dismiss();
-            if (status) Toast.makeText(context, "Event successfully edited", Toast.LENGTH_SHORT).show();
-            else Toast.makeText(context, "Failed to edit event", Toast.LENGTH_SHORT).show();
+            if (status) Toast.makeText(con, "Event successfully edited", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(con, "Failed to edit event", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void removedFromFirebase(String fid){
+    public void removedFromFirebase(String fid, final Context con){
         if (db.delete(TABLE_NAME, COLUMN_FID + "=" + fid,null)>0)
-            Toast.makeText(context,"Event removed",Toast.LENGTH_SHORT).show();
-        else Toast.makeText(context,"Event removal failed",Toast.LENGTH_SHORT).show();
+            Toast.makeText(con,"Event removed",Toast.LENGTH_SHORT).show();
+        else Toast.makeText(con,"Event removal failed",Toast.LENGTH_SHORT).show();
     }
 
     public void deleteAllFromSubs(final Context con){

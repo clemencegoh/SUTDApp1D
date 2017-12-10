@@ -63,7 +63,7 @@ public class FirebaseHelper {
                 Event e = dataSnapshot.getValue(Event.class);
                 Log.i("Firebase Helper", "An event was added to Firebase, checking subscriptions...");
                 if (mySubscriptions.contains(e.getTag())) {     // user is subscribed
-                    EventsHelper.getInstance(context).addLocalEvent(e);
+                    EventsHelper.getInstance(context).addLocalEvent(e,context);
                     sendNotification(e, "added");
                 }
             }
@@ -72,14 +72,14 @@ public class FirebaseHelper {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Event e = dataSnapshot.getValue(Event.class);
                 Log.i("Firebase Helper", "An event was changed in Firebase, checking local events...");
-                EventsHelper.getInstance(context).updateFromFirebase(s, e);
+                EventsHelper.getInstance(context).updateFromFirebase(s, e,context);
                 sendNotification(e, "edited");
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 EventsHelper.getInstance(context)
-                        .removedFromFirebase(dataSnapshot.getKey());
+                        .removedFromFirebase(dataSnapshot.getKey(),context);
                 Log.i("Firebase Helper", "An event was removed from Firebase, checking local events...");
             }
 
