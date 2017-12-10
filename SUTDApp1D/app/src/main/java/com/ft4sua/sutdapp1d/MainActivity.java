@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         // set initial fragment
-        CalendarFragment calFrag = new CalendarFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, calFrag).commit();
+        //CalendarFragment calFrag = new CalendarFragment();
+        //android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        //fragmentTransaction.replace(R.id.fragment_container, calFrag).commit();
 
         // Toolbar to replace ActionBar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -150,6 +150,6 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+        //fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 }
