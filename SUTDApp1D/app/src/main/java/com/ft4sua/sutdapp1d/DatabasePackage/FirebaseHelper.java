@@ -137,4 +137,6 @@ public class FirebaseHelper {
         NotificationManager nManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         nManager.notify(0, nBuilder.build());
     }
+
+    public DatabaseReference getFirebaseRef() { return this.allEvents; }
 }
