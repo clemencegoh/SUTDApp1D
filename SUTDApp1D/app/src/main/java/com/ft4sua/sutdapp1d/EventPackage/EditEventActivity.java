@@ -2,17 +2,13 @@ package com.ft4sua.sutdapp1d.EventPackage;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -21,20 +17,14 @@ import android.widget.Toast;
 import com.ft4sua.sutdapp1d.DatabasePackage.Event;
 import com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper;
 import com.ft4sua.sutdapp1d.R;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.DatabaseReference;
 
-import org.w3c.dom.Text;
-
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
-//import java.util.LinkedList;
-//import java.util.List;
+/**
+ * Created by Choco〜bourbon on 10-Dec-17.
+ */
 
-public class AddEventActivity extends AppCompatActivity {
+public class EditEventActivity extends AppCompatActivity {
 
 
     //private F
@@ -101,7 +91,7 @@ public class AddEventActivity extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 datePickerDialog = new DatePickerDialog(
-                        AddEventActivity.this,
+                        EditEventActivity.this,
                         mDateSetListener, year, month, day);
                 datePickerDialog.getWindow();
                 datePickerDialog.show();
@@ -131,7 +121,7 @@ public class AddEventActivity extends AppCompatActivity {
                 int hr = cal.get(Calendar.HOUR_OF_DAY);
                 int min = cal.get(Calendar.MINUTE);
                 timePickerDialog = new TimePickerDialog(
-                        AddEventActivity.this,
+                        EditEventActivity.this,
                         startTimeSetListener, hr, min, true);
                 timePickerDialog.show();
             }
@@ -143,7 +133,7 @@ public class AddEventActivity extends AppCompatActivity {
                 int hr = cal.get(Calendar.HOUR_OF_DAY);
                 int min = cal.get(Calendar.MINUTE);
                 timePickerDialog = new TimePickerDialog(
-                        AddEventActivity.this,
+                        EditEventActivity.this,
                         endTimeSetListener, hr, min, true);
                 timePickerDialog.show();
             }
@@ -193,7 +183,7 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
     public void showToast(String text) {
-        Toast.makeText(AddEventActivity.this, text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(EditEventActivity.this, text, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -229,3 +219,4 @@ public class AddEventActivity extends AppCompatActivity {
 
 
 }
+
