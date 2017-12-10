@@ -11,7 +11,6 @@ import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_Event;
 import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_EventDate;
 import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_EventTag;
 import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_EventType;
-//import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_ID;
 import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_FID;
 import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_StartTime;
 

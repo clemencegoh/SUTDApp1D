@@ -1,5 +1,6 @@
 package com.ft4sua.sutdapp1d.DatabasePackage;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -240,6 +241,38 @@ public class EventsHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void addLocalEvent(final Event event, final Context con) { // Add event into database /true = success /false = error
+
+        // Create and/or open the database for writing
+        db = getWritableDatabase();
+        db.beginTransaction();
+        final ProgressDialog pd = new ProgressDialog(con);
+        pd.setTitle("Please Wait");
+        pd.setMessage("Adding Event");
+        pd.show();
+
+        Boolean status=true;
+        try {
+            Bundle data=event.getBundle();
+            ContentValues values = new ContentValues();
+            for (int m = 0; ALL_COLUMNS_USER_ENTER.length > m; m++) {
+                if (data.getString(ALL_COLUMNS_USER_ENTER[m]) != null) {
+                    values.put(ALL_COLUMNS_USER_ENTER[m], data.getString(ALL_COLUMNS_USER_ENTER[m]));
+                }
+            }
+            db.insertOrThrow(TABLE_NAME, null, values);
+
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            status=false;
+        } finally {
+            db.endTransaction();
+            pd.dismiss();
+            if (status) Toast.makeText(con, "Event successfully added", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(con, "Failed to add event", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void addLocalEvents(final List<Event> events, final Context con) { // Add event into database /true = success /false = error
 
         // Create and/or open the database for writing
@@ -337,6 +370,7 @@ public class EventsHelper extends SQLiteOpenHelper {
     }
 
     //-------------------------DELETE FUNCTIONS-----------------------------
+    @SuppressLint("StaticFieldLeak")
     public void deleteEvent(final Event event, final Context con) { //delete Event // clickPosition = pass in click position of listview or null to delete with currentGWOID
 
         final ProgressDialog pd = new ProgressDialog(con);
@@ -356,7 +390,8 @@ public class EventsHelper extends SQLiteOpenHelper {
 
             @Override
             protected Boolean doInBackground(Bundle... bundles) {
-                if (prefs.getString(con.getString(R.string.login_key), "").equals(ID[0]))
+                //admin delete
+                if (prefs.getString(con.getString(R.string.login_key), "").equals(ID[0])&&!event.getUid().equals(""))
                     fref.child(event.getUid()).removeValue();
                 if (!ID.equals("-1")) {
                     db.delete(TABLE_NAME, COLUMN_ID + "='" +
