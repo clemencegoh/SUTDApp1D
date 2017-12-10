@@ -6,14 +6,14 @@ import android.util.Log;
 import java.util.Arrays;
 
 import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_Details;
-import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_EndDate;
+import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_EndTime;
 import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_Event;
 import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_EventDate;
 import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_EventTag;
 import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_EventType;
 //import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_ID;
 import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_FID;
-import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_StartDate;
+import static com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper.COLUMN_StartTime;
 
 public class Event implements Comparable<Event> {
 
@@ -74,8 +74,8 @@ public class Event implements Comparable<Event> {
         data.putString(COLUMN_FID,uid);
         data.putString(COLUMN_Event,name);
         data.putString(COLUMN_EventDate,date);
-        data.putString(COLUMN_StartDate,start);
-        data.putString(COLUMN_EndDate,end);
+        data.putString(COLUMN_StartTime,start);
+        data.putString(COLUMN_EndTime,end);
         data.putString(COLUMN_Details,venue);
         data.putString(COLUMN_EventType,type);
         data.putString(COLUMN_EventTag,tag);
@@ -85,7 +85,7 @@ public class Event implements Comparable<Event> {
 
     public Event bundleToEvent(Bundle bundle){
         Event data = new Event((String)bundle.get(COLUMN_Event),(String)bundle.get(COLUMN_EventDate),
-                (String)bundle.get(COLUMN_StartDate), (String)bundle.get(COLUMN_EndDate),
+                (String)bundle.get(COLUMN_StartTime), (String)bundle.get(COLUMN_EndTime),
                 (String)bundle.get(COLUMN_Details), (String)bundle.get(COLUMN_EventType));
         return data;
     }

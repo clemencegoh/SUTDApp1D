@@ -7,8 +7,12 @@ import android.util.Log;
 
 import com.ft4sua.sutdapp1d.MainActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -16,7 +20,7 @@ import java.util.Objects;
  */
 
 public class DatabaseTester {
-    public void test(Context con){
+    public static void test(Context con){
         EventsHelper EH= EventsHelper.getInstance(con);
 
         //---adding---
@@ -29,11 +33,21 @@ public class DatabaseTester {
                 "22:00", "Dance Studio 1", "1"));
         test.add(new Event("Shake Leg", "Wed, 01 Nov 2017", "20:00",
                 "22:00", "Dance Studio 4", "1"));
-        EH.addLocalEvents(test,con);
+//        EH.addLocalEvents(test,con);
+
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
+        try {
+            cal.setTime(sdf.parse("SUN, 29 Oct 2017"));// all done
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        cal.add(Calendar.DATE, 1);  // number of days to add
+        String dt = sdf.format(cal.getTime());  // dt is now the new date
 
         //---getList---
-        List<Bundle> l= EH.getEventBundles();
-        Log.i("Bundle List", String.valueOf(l));
+        List<Event> l= EH.getDayEventList(dt);
+        Log.i("Event List", String.valueOf(l));
 
         //Call this to delete table
         //EH.clearDataBase();

@@ -62,14 +62,14 @@ public class EventsHelper extends SQLiteOpenHelper {
     public final static String COLUMN_EventType = "EventType"; //if ==100xxxx admin else unique event/timetable
     public final static String COLUMN_Event = "Event";
     public final static String COLUMN_Details = "Details";
-    public final static String COLUMN_StartDate = "StartDate";
-    public final static String COLUMN_EndDate = "EndDate";
+    public final static String COLUMN_StartTime = "StartTime";
+    public final static String COLUMN_EndTime = "EndTime";
     public final static String COLUMN_EventTag = "EventTag";  //can combine w/ eventType field
     public final static String COLUMN_EventDate = "EventDate";
     public final static String[] ALL_COLUMNS_USER_ENTER = new String[]{COLUMN_EventType,
-            COLUMN_Event, COLUMN_Details, COLUMN_EventDate, COLUMN_StartDate, COLUMN_EndDate, COLUMN_EventTag};
+            COLUMN_Event, COLUMN_Details, COLUMN_EventDate, COLUMN_StartTime, COLUMN_EndTime, COLUMN_EventTag};
     public final static String[] ALL_COLUMNS = new String[]{COLUMN_FID, COLUMN_EventType,
-            COLUMN_Event, COLUMN_Details, COLUMN_StartDate, COLUMN_EndDate, COLUMN_EventTag,
+            COLUMN_Event, COLUMN_Details, COLUMN_StartTime, COLUMN_EndTime, COLUMN_EventTag,
             COLUMN_EventDate};
     //<---End of DB fields-->
 
@@ -103,8 +103,8 @@ public class EventsHelper extends SQLiteOpenHelper {
                 COLUMN_EventType + " TEXT," +
                 COLUMN_Event + " TEXT," +
                 COLUMN_Details + " TEXT," +
-                COLUMN_StartDate + " TEXT," +
-                COLUMN_EndDate + " TEXT," +
+                COLUMN_StartTime + " TEXT," +
+                COLUMN_EndTime + " TEXT," +
                 COLUMN_EventTag + " TEXT," +
                 COLUMN_EventDate + " TEXT" +
                 ")";
@@ -481,7 +481,7 @@ public class EventsHelper extends SQLiteOpenHelper {
         return eventList;
     }
 
-    public List<Event> getEventList() { //Returns all events as a list or null if database is empty
+    public List<Event> getAllEventsList() { //Returns all events as a list or null if database is empty
 
         db = getReadableDatabase();
         List<Event> eventList = new ArrayList<Event>();
@@ -497,8 +497,44 @@ public class EventsHelper extends SQLiteOpenHelper {
                 event.setUid(eventC.getString(eventC.getColumnIndex(COLUMN_FID)));
                 event.setName(eventC.getString(eventC.getColumnIndex(COLUMN_Event)));
                 event.setDate(eventC.getString(eventC.getColumnIndex(COLUMN_EventDate)));
-                event.setStart(eventC.getString(eventC.getColumnIndex(COLUMN_StartDate)));
-                event.setEnd(eventC.getString(eventC.getColumnIndex(COLUMN_EndDate)));
+                event.setStart(eventC.getString(eventC.getColumnIndex(COLUMN_StartTime)));
+                event.setEnd(eventC.getString(eventC.getColumnIndex(COLUMN_EndTime)));
+                event.setVenue(eventC.getString(eventC.getColumnIndex(COLUMN_Details)));
+                event.setAdmin(eventC.getString(eventC.getColumnIndex(COLUMN_EventType)));
+                event.setTag(eventC.getString(eventC.getColumnIndex(COLUMN_EventTag)));
+
+//                Bundle temp2 = new Bundle();
+//                for (String COL:ALL_COLUMNS_USER_ENTER) {
+//                    temp2.putString(COL,eventC.getString(eventC.getColumnIndex(COL)));
+//                }
+                eventList.add(event);
+            }
+            eventC.close();
+        }
+        return eventList;
+    }
+
+
+    public List<Event> getDayEventList(String date) { //Returns a day's events as a list or null if database is empty
+        db = getReadableDatabase();
+        List<Event> eventList = new ArrayList<Event>();
+
+        final String WHERE0 = "CAST("+COLUMN_EventDate+" as TEXT) = ?";
+        final String[] WHEREARGS0 = new String[] { date };
+        Cursor eventC=db.rawQuery("SELECT *"
+                +" FROM "+ TABLE_NAME
+                +" WHERE UPPER("+ COLUMN_EventDate +") = "+"UPPER('"+date+"')"
+                +" ORDER BY "+ COLUMN_StartTime +";", null);
+//        Cursor eventC= db.query(TABLE_NAME, null, WHERE0, WHEREARGS0, null, null, null);
+        if (eventC != null) {
+            for (eventC.moveToFirst(); !eventC.isAfterLast(); eventC.moveToNext()) {
+                Event event=new Event();
+                event.setId(eventC.getInt(eventC.getColumnIndex(COLUMN_ID)));
+                event.setUid(eventC.getString(eventC.getColumnIndex(COLUMN_FID)));
+                event.setName(eventC.getString(eventC.getColumnIndex(COLUMN_Event)));
+                event.setDate(eventC.getString(eventC.getColumnIndex(COLUMN_EventDate)));
+                event.setStart(eventC.getString(eventC.getColumnIndex(COLUMN_StartTime)));
+                event.setEnd(eventC.getString(eventC.getColumnIndex(COLUMN_EndTime)));
                 event.setVenue(eventC.getString(eventC.getColumnIndex(COLUMN_Details)));
                 event.setAdmin(eventC.getString(eventC.getColumnIndex(COLUMN_EventType)));
                 event.setTag(eventC.getString(eventC.getColumnIndex(COLUMN_EventTag)));
