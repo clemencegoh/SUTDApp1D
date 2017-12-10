@@ -78,8 +78,10 @@ public class FirebaseHelper {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Event e = dataSnapshot.getValue(Event.class);
                 EventsHelper.getInstance(context)
                         .removedFromFirebase(dataSnapshot.getKey(),context);
+                sendNotification(e, "removed");
                 Log.i("Firebase Helper", "An event was removed from Firebase, checking local events...");
             }
 
