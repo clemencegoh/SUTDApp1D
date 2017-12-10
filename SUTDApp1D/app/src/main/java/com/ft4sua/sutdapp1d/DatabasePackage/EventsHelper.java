@@ -48,7 +48,7 @@ public class EventsHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "saved_events";                        //packaged db
     private static final String L_DB_NAME = "events_scheduler";                 //locally saved db
 
-    private final Context context;
+    private static Context context;
     protected static SQLiteDatabase db;
     private static EventsHelper sInstance;
 
@@ -464,6 +464,35 @@ public class EventsHelper extends SQLiteOpenHelper {
         });
     }
 
+    //updates from firebase
+    public void updateFromFirebase(String oldId, Event event){
+        final ProgressDialog pd = new ProgressDialog(context);
+        pd.setTitle("Please Wait");
+        pd.setMessage("Editing Event");
+        pd.show();
+        Bundle data=event.getBundle();
+
+        Boolean status=true;
+        try {
+            ContentValues values = new ContentValues();
+            for (int m = 0; ALL_COLUMNS_USER_ENTER.length > m; m++) {
+                if (data.getString(ALL_COLUMNS_USER_ENTER[m]) != null) {
+                    values.put(ALL_COLUMNS_USER_ENTER[m], data.getString(ALL_COLUMNS_USER_ENTER[m]));
+                }
+            }
+            db.update(TABLE_NAME, values, COLUMN_FID + " = ?",
+                    new String[] { oldId });
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            status=false;
+        } finally {
+            db.endTransaction();
+            pd.dismiss();
+            if (status) Toast.makeText(context, "Event successfully edited", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(context, "Failed to edit event", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void deleteAllFromSubs(final Context con){
         Set<String> subs = prefs.getStringSet(con.getString(R.string.subscriptions_key), new HashSet<>(Arrays.asList("")));
         for (String s:subs) {
@@ -524,7 +553,6 @@ public class EventsHelper extends SQLiteOpenHelper {
 
         eventC = db.query(TABLE_NAME, null, null, null, null, null, null);
 
-        //TODO: Get based on date query
         if (eventC != null) {
             for (eventC.moveToFirst(); !eventC.isAfterLast(); eventC.moveToNext()) {
                 Event event=new Event();
@@ -546,6 +574,7 @@ public class EventsHelper extends SQLiteOpenHelper {
             }
             eventC.close();
         }
+        Log.v("EVENT DATABASE: ", String.valueOf(eventList));
         return eventList;
     }
 
