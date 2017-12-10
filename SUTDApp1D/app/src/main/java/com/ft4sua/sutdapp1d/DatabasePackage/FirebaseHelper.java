@@ -9,6 +9,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.util.Log;
 
 import com.ft4sua.sutdapp1d.MainActivity;
 import com.ft4sua.sutdapp1d.R;
@@ -60,6 +61,7 @@ public class FirebaseHelper {
                         .getStringSet(context.getString(R.string.subscriptions_key),
                                 new HashSet<>(Arrays.asList("")));
                 Event e = dataSnapshot.getValue(Event.class);
+                Log.i("Firebase Helper", "An event was added to Firebase, checking subscriptions...");
                 if (mySubscriptions.contains(e.getTag())) {     // user is subscribed
                     EventsHelper.getInstance(context).addLocalEvent(e);
                     sendNotification(e, "added");
@@ -69,6 +71,7 @@ public class FirebaseHelper {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Event e = dataSnapshot.getValue(Event.class);
+                Log.i("Firebase Helper", "An event was changed in Firebase, checking local events...");
                 EventsHelper.getInstance(context).updateFromFirebase(s, e);
                 sendNotification(e, "edited");
             }
@@ -77,6 +80,7 @@ public class FirebaseHelper {
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 EventsHelper.getInstance(context)
                         .removedFromFirebase(dataSnapshot.getKey());
+                Log.i("Firebase Helper", "An event was removed from Firebase, checking local events...");
             }
 
             @Override
