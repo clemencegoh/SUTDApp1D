@@ -241,7 +241,7 @@ public class myPortal {
                     String venue = m.group(14);
                     int Time;
                     if (m.group(6).contains("PM")){
-                        int tempTime = Integer.parseInt(m.group(9));
+                        int tempTime = Integer.parseInt(m.group(3));
                         if (tempTime!=12){
                             Time = Integer.parseInt(m.group(3)) + 12;
                         }else{
