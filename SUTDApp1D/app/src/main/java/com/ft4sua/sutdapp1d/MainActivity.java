@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,28 +21,61 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, CalendarNavigatorDialogFragment.CalendarNavigatorDialogListener{
     DrawerLayout drawer;
     NavigationView navigationView;
     Toolbar toolbar;
+    Date date = new Date();
 
     private Intent profilePageIntent;
     private Intent subsEventsIntent;
     private Intent eventManagerIntent;
     private Intent calendarIntent;
     private Intent addEventIntent;
+    private SectionPagerAdapter mAdapter;
+    private ViewPager mPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        try {
+            Intent intent = getIntent();
+            String dateString = intent.getStringExtra("date");
+            Log.i("Kenjyi", intent.getStringExtra("date"));
+
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
+            try {
+                date = sdf.parse(dateString);// all done
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+        catch(Exception ex){
+
+        }
         // set initial fragment
         //CalendarFragment calFrag = new CalendarFragment();
         //android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         //fragmentTransaction.replace(R.id.fragment_container, calFrag).commit();
+
+        mAdapter = new SectionPagerAdapter(getSupportFragmentManager());
+        mAdapter.setItem(date);
+
+        mPager = (ViewPager)findViewById(R.id.viewpager);
+        mPager.setAdapter(mAdapter);
+
+        mPager.setCurrentItem(4);
 
         // Toolbar to replace ActionBar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -75,6 +111,17 @@ public class MainActivity extends AppCompatActivity
          * Check out this class for sample usage---***/
         //DatabaseTester test=new DatabaseTester();
         //test.test(this);
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        // User touched the dialog's positive button
+
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        // User touched the dialog's negative button
     }
 
     @Override
@@ -133,7 +180,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id==R.id.nav_cal){
 
             // set initial fragment
-            Class fragmentClass = CalendarFragment.class;
+            Class fragmentClass = SectionPagerAdapter.class;
             navigateTo(fragmentClass);
         }
 ;

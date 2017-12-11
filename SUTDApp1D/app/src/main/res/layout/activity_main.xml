@@ -23,7 +23,7 @@
         <!-- The main content view where fragments are loaded -->
 
         <include
-            layout="@layout/fragment_time_table"
+            layout="@layout/fragment_view_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
