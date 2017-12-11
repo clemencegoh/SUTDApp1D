@@ -21,6 +21,9 @@ import java.util.Objects;
  */
 
 public class DatabaseTester {
+
+    List<Event> l;
+
     public static void test(Context con){
         EventsHelper EH= EventsHelper.getInstance(con);
 

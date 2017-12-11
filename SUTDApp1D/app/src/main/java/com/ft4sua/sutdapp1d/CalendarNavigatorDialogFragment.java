@@ -3,36 +3,50 @@ package com.ft4sua.sutdapp1d;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.location.GpsStatus;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 
 ///**
 // * A simple {@link Fragment} subclass.
 // * Activities that contain this fragment must implement the
-// * {@link TimeSlotDialogFragment.OnFragmentInteractionListener} interface
+// * {@link CalendarNavigatorDialogFragment.OnFragmentInteractionListener} interface
 // * to handle interaction events.
-// * Use the {@link TimeSlotDialogFragment#newInstance} factory method to
+// * Use the {@link CalendarNavigatorDialogFragment#newInstance} factory method to
 // * create an instance of this fragment.
 // */
-public class TimeSlotDialogFragment extends DialogFragment {
+public class CalendarNavigatorDialogFragment extends DialogFragment {
     // TODO: Rename parameter arguments, choose names that match
 
-    TimeSlotDialogListener mListener;
+    CalendarNavigatorDialogListener mListener;
+    CalendarView calendar;
+    Date date = new Date();
+    PagerAdapter mAdapter;
+    ViewPager mPager;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public TimeSlotDialogFragment() {
+    public CalendarNavigatorDialogFragment() {
         // Required empty public constructor
     }
 
@@ -40,23 +54,46 @@ public class TimeSlotDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Time Slot Expanded View")
-            .setPositiveButton("GO", new DialogInterface.OnClickListener() {
-                 public void onClick(DialogInterface dialog, int id) {
-                 // FIRE ZE MISSILES!
-                 }
-            })
-            .setNegativeButton("BACK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                // User cancelled the dialog
-                }
-            });
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View v = inflater.inflate(R.layout.calendar_view_navigator, null);
+
+        builder.setView(v);
+
+        calendar = (CalendarView) v.findViewById(R.id.calendarview);
+
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                mAdapter = new SectionPagerAdapter(getActivity().getSupportFragmentManager());
+                LayoutInflater inflater2 = getActivity().getLayoutInflater();
+                //getActivity().setContentView(R.layout.activity_main);
+
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("Date","SUN, 29 Oct 2017");
+                getActivity().startActivity(intent);
+
+            }
+        });
+
+
+        builder
+                .setPositiveButton("GO", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // FIRE ZE MISSILES!
+                    }
+                })
+                .setNegativeButton("BACK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+
         // Create the AlertDialog object and return it
         return builder.create();
     }
 
 
-    public interface TimeSlotDialogListener {
+    public interface CalendarNavigatorDialogListener {
         void onDialogPositiveClick(DialogFragment dialog);
         void onDialogNegativeClick(DialogFragment dialog);
     }
@@ -66,7 +103,7 @@ public class TimeSlotDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_time_slot_dialog, container, false);
+        return inflater.inflate(R.layout.fragment_calendar_navigator_dialog, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -81,14 +118,15 @@ public class TimeSlotDialogFragment extends DialogFragment {
         super.onAttach(context);
         // Verify that the host activity implements the callback interface
         try {
-            // Instantiate the NoticeDialogListener so we can send events to the host
-            mListener = (TimeSlotDialogListener) context;
+            // Instantiate the CalendarNavigatorDialogListener so we can send events to the host
+            mListener = (CalendarNavigatorDialogListener) context;
+
 
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
             Log.d("lll","ooo");
             e.printStackTrace();
-            throw new ClassCastException(context.toString() + " must implement TimeSlotDialogListener");
+            throw new ClassCastException(context.toString() + " must implement CalendarNavigatorDialogListener");
         }
     }
 

@@ -40,8 +40,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.ft4sua.sutdapp1d.Connections.*;
 import com.ft4sua.sutdapp1d.DatabasePackage.Event;
+import com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -358,13 +360,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+//            try {
+//                EventsHelper.getInstance(LoginActivity.this).addLocalEvents(Arrays.asList(new myPortal().timeTable(mStudentID,mPassword)),context);
+//            } catch (Exception e) {
+//                return false;
+//            }
+          //  EventsHelper.getInstance(LoginActivity.this).addLocalEvents(Arrays.asList(new myPortal().timeTable(mStudentID,mPassword)),context);
 
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
