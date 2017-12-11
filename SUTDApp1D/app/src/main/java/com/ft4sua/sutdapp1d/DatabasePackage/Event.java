@@ -26,7 +26,7 @@ public class Event implements Comparable<Event> {
     private String type;        // if user generated: student ID    else: 0-timetable 1-root events
     private String tag;         // subscription name
 
-    private static final String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May",
+    static final String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May",
             "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
     public Event(){
