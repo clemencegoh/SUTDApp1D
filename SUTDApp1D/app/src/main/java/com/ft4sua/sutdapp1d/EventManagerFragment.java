@@ -38,8 +38,6 @@ public class EventManagerFragment extends android.support.v4.app.Fragment {
         eventRecycler.setHasFixedSize(true);
         //TODO: add FAB
 
-        //Test-
-        DatabaseTester.test(getContext());
 
         initialiseData();
         initialiseAdapter();
