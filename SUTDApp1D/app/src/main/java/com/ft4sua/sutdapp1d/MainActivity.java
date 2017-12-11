@@ -42,6 +42,10 @@ public class MainActivity extends AppCompatActivity
     private SectionPagerAdapter mAdapter;
     private ViewPager mPager;
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +53,7 @@ public class MainActivity extends AppCompatActivity
 
         try {
             Intent intent = getIntent();
-            String dateString = intent.getStringExtra("date");
-            Log.i("Kenjyi", intent.getStringExtra("date"));
+            String dateString = intent.getStringExtra("Date");
 
             SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
             try {
@@ -197,6 +200,6 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        //fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 }

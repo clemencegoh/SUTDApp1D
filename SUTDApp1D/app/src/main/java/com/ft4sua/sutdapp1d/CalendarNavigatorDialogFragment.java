@@ -65,13 +65,19 @@ public class CalendarNavigatorDialogFragment extends DialogFragment {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 mAdapter = new SectionPagerAdapter(getActivity().getSupportFragmentManager());
-                LayoutInflater inflater2 = getActivity().getLayoutInflater();
-                //getActivity().setContentView(R.layout.activity_main);
+
+                Calendar calendar = Calendar.getInstance();
+
+                calendar.set(year, month, dayOfMonth);
+
+                String dateString = calendar.getTime().toString();
+                String dateStringParsed = dateString.substring(0,3) + ", " + dayOfMonth + " " + dateString.substring(4,7) + " " + year;
+
+                Log.i("Kenjyi", dateString);
 
                 Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("Date","SUN, 29 Oct 2017");
+                intent.putExtra("Date", dateStringParsed);
                 getActivity().startActivity(intent);
-
             }
         });
 

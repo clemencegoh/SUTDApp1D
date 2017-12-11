@@ -87,8 +87,6 @@ public class TimeTableFragment extends Fragment{
 //                events = getArguments().get(eventList.);
 //            }
         }
-
-
     }
 
     @Override
@@ -99,6 +97,7 @@ public class TimeTableFragment extends Fragment{
         View v = inflater.inflate(R.layout.fragment_time_table, container, false);
 
         ImageView background = (ImageView) v.findViewById(R.id.background);
+
         background.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,115 +105,31 @@ public class TimeTableFragment extends Fragment{
             }
         });
 
-        TextView dateView= (TextView) v.findViewById(R.id.date);
+        TextView dateView = (TextView) v.findViewById(R.id.date);
 
         Log.i("Kenjyi","Reaches Timetable createView");
         EventsHelper EH= EventsHelper.getInstance(getActivity());
-//        Calendar cal = Calendar.getInstance();
-//        SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
-//        String dt = sdf.format(cal.getTime());
         List<Event> test=EH.getDayEventList(dateTracker);
-//        EventsHelper eventsHelper = EventsHelper.getInstance(getContext());
-//        for(Bundle ii: eventsHelper.getInstance(getContext()).getEventList()){
-//            test.add(new Event().bundleToEvent(ii));
-//            Log.i("kenjyi", new Event().bundleToEvent(ii).getName());
-//        }
-//
-//        myPortal timeTable = new myPortal();
-//
-//        class DownloadThread extends Thread {
-//            List<Event> innerEventList = new ArrayList<>();
-//            public void run(){
-//                try{
-//                    myPortal profile = new myPortal();
-//                    Event[] events = profile.timeTable("1002208", "1hcoatBs");
-//                    Log.i("Login","Login successful, events initialized");
-//                    innerEventList = Arrays.asList(events);
-//                }catch(Exception e){
-//                    Log.d("Login","User or password may be wrong");
-//                }
-//            }
-//        }
-//        DownloadThread downloadThread = new DownloadThread();
-//        Thread downloadThread = new Thread(){
-//            public void run(){
-//                try{
-//                    myPortal profile = new myPortal();
-//                    Event[] events = profile.timeTable("1002208", "1hcoatBs");
-//                    Log.i("Login","Login successful, events initialized");
-//                    List<Event> innerEventList = Arrays.asList(events);
-//                    test.addAll(innerEventList);
-//                }catch(Exception e){
-//                    Log.d("Login","User or password may be wrong");
-//                }
-//            }
-//        };
-//        downloadThread.start();
-//        test = downloadThread.innerEventList;
-//        Log.d("running", String.valueOf(test.size()));
-//        Log.d("running2", String.valueOf(downloadThread.innerEventList.size()));
 
+        if(dateTracker.substring(0,3).equalsIgnoreCase("Mon")){
+            background.setBackgroundResource(R.drawable.schoolbackground1);
+        }
+        else if(dateTracker.substring(0,3).equalsIgnoreCase("Tue")){
+            background.setBackgroundResource(R.drawable.schoolbackground2);
+        }
+        else if(dateTracker.substring(0,3).equalsIgnoreCase("Wed")){
+            background.setBackgroundResource(R.drawable.schoolbackground3);
+        }
+        else if(dateTracker.substring(0,3).equalsIgnoreCase("Thu")){
+            background.setBackgroundResource(R.drawable.schoolbackground4);
+        }
+        else if(dateTracker.substring(0,3).equalsIgnoreCase("Fri")){
+            background.setBackgroundResource(R.drawable.schoolbackground5);
+        }
+        else{
+            background.setBackgroundResource(R.drawable.restbackground1);
+        }
 
-
-//        if(dayTracker == 0){
-//            test.add(new Event("Sing Song", "Mon, 30 Oct 2017", "16:00",
-//                    "18:00", "MPH", "2"));
-//            test.add(new Event("Ping Pong", "Wed, 01 Nov 2017", "16:00",
-//                    "18:00", "MPH", "2"));
-//            background.setBackgroundResource(R.drawable.schoolbackground1);
-//        }
-//        else if (dayTracker == 1) {
-//            test.add(new Event("Shake Hand", "Mon, 30 Oct 2017", "20:00",
-//                    "22:00", "Dance Studio 1", "1"));
-//            test.add(new Event("Shake Leg", "Wed, 01 Nov 2017", "20:00",
-//                    "22:00", "Dance Studio 4", "1"));
-//            background.setBackgroundResource(R.drawable.schoolbackground2);
-//        }
-//        else{
-//        }
-
-//        EventsHelper EH= EventsHelper.getInstance(getActivity());
-//
-//        Event testet=new Event("Ping Pong", "Wed, 01 Nov 2017", "16:00",
-//                "18:00", "MPH", "1");
-//        testet.setUid(getActivity().getString(R.string.firebase_flag));
-//        EH.addEvent(testet,getActivity());
-//
-//        //---adding---
-//        List<Event> test=new ArrayList<>();
-//        test.add(new Event("Sing Song", "Mon, 30 Oct 2017", "16:00",
-//                "18:00", "MPH", "1"));
-//        test.add(new Event("Ping Pong", "Wed, 01 Nov 2017", "16:00",
-//                "18:00", "MPH", "1"));
-//        test.add(new Event("Shake Hand", "Mon, 30 Oct 2017", "20:00",
-//                "22:00", "Dance Studio 1", "1"));
-//        test.add(new Event("Shake Leg", "Wed, 01 Nov 2017", "20:00",
-//                "22:00", "Dance Studio 4", "1"));
-//        EH.addLocalEvents(test,con);
-
-//        Calendar cal = Calendar.getInstance();
-//        SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
-//        try {
-//            cal.setTime(sdf.parse("SUN, 29 Oct 2017"));// all done
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        cal.add(Calendar.DATE, 1);  // number of days to add
-//        String dt = sdf.format(cal.getTime());  // dt is now the new date
-//
-//        //---getList---
-//        List<Event> l= EH.getDayEventList(dt);
-//        Log.i("Event List", String.valueOf(l));
-//
-//        if(test.size()==0){
-//            test.add(new Event("", "", "",
-//                    "", "", ""));
-//            Calendar cal = Calendar.getInstance();
-//            dateView.setText(cal.setTime(););
-//        }
-//        else {
-//
-//        }
         dateView.setText(dateTracker);
 
         RecyclerView mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
