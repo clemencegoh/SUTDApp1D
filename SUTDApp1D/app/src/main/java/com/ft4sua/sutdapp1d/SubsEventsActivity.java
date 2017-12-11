@@ -1,6 +1,8 @@
 package com.ft4sua.sutdapp1d;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +24,10 @@ import android.widget.TextView;
 import com.ft4sua.sutdapp1d.SubsEvents.ViewPagerAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static android.view.View.GONE;
 
@@ -41,6 +47,7 @@ public class SubsEventsActivity extends AppCompatActivity {
     private List<String> tagList = new ArrayList<String>();
     private ListView container;
     private TextView emptyTagMessage;
+    private Set<String> setString = new HashSet<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,12 +105,23 @@ public class SubsEventsActivity extends AppCompatActivity {
             rowView.findViewById(R.id.delete_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    setString.remove(tagList.get(position));
                     tagList.remove(position);
                     notifyDataSetChanged();
                     if (tagList.size() == 0) {
                         findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
 //                        itinenaryButton.setVisibility(View.GONE);
                     }
+                    SharedPreferences prefs = PreferenceManager
+                            .getDefaultSharedPreferences(SubsEventsActivity.this);
+                    Set<String> mySubscriptions = prefs
+                            .getStringSet(SubsEventsActivity.this.getString(R.string.subscriptions_key),
+                                    new HashSet<>(Arrays.asList("")));
+                    prefs.edit().remove(getString(R.string.subscriptions_key));
+                    prefs.edit().putStringSet(getString(R.string.subscriptions_key),setString).apply();
+
+                    Log.i("Kenjyi", prefs.getStringSet(SubsEventsActivity.this.getString(R.string.subscriptions_key),
+                            new HashSet<>(Arrays.asList(""))).toString());
                 }
             });
             return rowView;
@@ -116,10 +134,20 @@ public class SubsEventsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 tagList.add(tagEntry.getText().toString());
                 selectedListAdapter.notifyDataSetChanged();
+                setString.add(tagEntry.getText().toString());
                 tagEntry.setText("");
+                SharedPreferences prefs = PreferenceManager
+                        .getDefaultSharedPreferences(SubsEventsActivity.this);
+                Set<String> mySubscriptions = prefs
+                        .getStringSet(SubsEventsActivity.this.getString(R.string.subscriptions_key),
+                                new HashSet<>(Arrays.asList("")));
+                prefs.edit().putStringSet(getString(R.string.subscriptions_key),setString).apply();
 
+                Log.i("Kenjyi", prefs.getStringSet(SubsEventsActivity.this.getString(R.string.subscriptions_key),
+                        new HashSet<>(Arrays.asList(""))).toString());
             }
         });
+
 //        for (int i=0;i<tagList.size();i++) { selectedPositions.add(i);}
         selectedListAdapter=new SelectedListAdapter();
         container.setAdapter(selectedListAdapter);
