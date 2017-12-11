@@ -1,5 +1,6 @@
 package com.ft4sua.sutdapp1d;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +13,7 @@ import android.view.View;
 
 import com.ft4sua.sutdapp1d.DatabasePackage.DatabaseTester;
 import com.ft4sua.sutdapp1d.DatabasePackage.Event;
+import com.ft4sua.sutdapp1d.EventPackage.AddEventActivity;
 import com.ft4sua.sutdapp1d.EventPackage.RVAdapter;
 
 import java.util.ArrayList;
@@ -45,8 +47,7 @@ public class EventManagerFragment extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(EventManagerFragment.this, AddEventActivity.class));
             }
         });
 

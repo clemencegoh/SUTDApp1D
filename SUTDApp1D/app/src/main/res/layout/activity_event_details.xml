@@ -7,22 +7,23 @@
     android:layout_height="match_parent"
     tools:context="com.ft4sua.sutdapp1d.MainActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
-
     </android.support.design.widget.AppBarLayout>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -36,32 +37,24 @@
                 android:paddingRight="@dimen/activity_horizontal_margin">
 
                 <!-- Event name and type -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginEnd="@dimen/detail_titles_horizontal">
-                    <Spinner
+                    <EditText
                         android:id="@+id/event_type_dropdown"
                         android:layout_marginTop="@dimen/detail_titles_top"
                         android:layout_marginStart="@dimen/detail_titles_horizontal"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:entries="@array/event_type"
                         android:spinnerMode="dropdown"
                         />
                     <EditText
                         android:id="@+id/eventNameInput"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
                         android:layout_marginTop="@dimen/detail_titles_top"
                         android:hint="Event Name"
                         android:inputType="text"
                         android:singleLine="false"
                         />
-                </LinearLayout>
                 <!-- Venue -->
                 <EditText
                     android:id="@+id/venueInput"
@@ -144,9 +137,16 @@
                     style="@style/detail_fields"
                     android:hint="Admin ID"
                     android:inputType="text" />
+
+                <CheckBox
+                    android:id="@+id/check_firebase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/detail_fields"
+                    android:text="Push to firebase"/>
             </LinearLayout>
         </ScrollView>
-
+    </LinearLayout>
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_done"
             android:layout_width="wrap_content"
@@ -162,6 +162,5 @@
             android:layout_margin="@dimen/fab_margin"
             android:src ="@drawable/ic_action_edit" />
 
-    </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>
 
