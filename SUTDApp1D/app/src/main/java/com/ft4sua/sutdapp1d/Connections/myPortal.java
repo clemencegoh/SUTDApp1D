@@ -8,6 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -241,7 +242,7 @@ public class myPortal {
                     String venue = m.group(14);
                     int Time;
                     if (m.group(6).contains("PM")){
-                        int tempTime = Integer.parseInt(m.group(9));
+                        int tempTime = Integer.parseInt(m.group(3));
                         if (tempTime!=12){
                             Time = Integer.parseInt(m.group(3)) + 12;
                         }else{
@@ -299,18 +300,45 @@ public class myPortal {
         return toReturn;
     }
 
-    public Event[] timeTable(String userId,String password){
+    public ArrayList<Event> timeTable(String userId,String password){
         String[][] events = getTimeTableDetails(userId,password);
         Event[] Overall = new Event[events.length];
+        ArrayList<Event> O2 = new ArrayList<>();
         int i=0;
         for (String[] s:events){
             if (s!=null){
                 Event tempEvent = new Event(s[1],s[0],s[2],s[3],s[4],"0");
                 Overall[i]=tempEvent;
+                O2.add(tempEvent);
                 i++;
             }
         }
-        return Overall;
+        this.overallTimeTable = Overall;
+
+        return O2;
 
     }
+
+    private Event[] overallTimeTable;
+    private final String[] weekDays = new String[]{"MON","TUE","WED","THU","FRI","SAT","SUN"};
+
+    public ArrayList<Event> getEmptyDays(){
+        ArrayList<String> present = new ArrayList<>();
+        ArrayList<Event> absent = new ArrayList<>();
+        for (Event e:overallTimeTable){
+            if (e.getDate()!=null) {
+                if (!present.contains(e.getDate().substring(0, 3))) {
+                    // new day
+                    present.add(e.getDate().substring(0, 3));
+                }
+            }
+        }
+        for (String s:weekDays){
+            if (!present.contains(s)){
+                absent.add(new Event("",s,"","","",""));
+            }
+        }
+        return absent;
+    }
+
 }
