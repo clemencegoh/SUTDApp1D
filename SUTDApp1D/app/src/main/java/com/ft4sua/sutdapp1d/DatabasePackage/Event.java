@@ -117,7 +117,9 @@ public class Event implements Comparable<Event> {
     public void setTag(String tag) { this.tag = tag; }
 
     public String toString() {
-        return this.date + ", from " + this.start + " to " + this.end
+        return "ID: "+getId()+"\n"
+                +"FID: "+uid+"\n"
+                + this.date + ", from " + this.start + " to " + this.end
                 + ": " + this.name + " @ " + this.venue;
     }
 
