@@ -8,6 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -299,18 +300,19 @@ public class myPortal {
         return toReturn;
     }
 
-    public Event[] timeTable(String userId,String password){
+    public ArrayList<Event> timeTable(String userId,String password){
         String[][] events = getTimeTableDetails(userId,password);
-        Event[] Overall = new Event[events.length];
+        ArrayList<Event> O2 = new ArrayList<>();
         int i=0;
         for (String[] s:events){
-            if (s!=null){
+            if (s[0]!=null){
                 Event tempEvent = new Event(s[1],s[0],s[2],s[3],s[4],"0");
-                Overall[i]=tempEvent;
+                O2.add(tempEvent);
                 i++;
             }
         }
-        return Overall;
+
+        return O2;
 
     }
 }
