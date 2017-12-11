@@ -189,8 +189,14 @@ public class Spider2 {
                         if (rawtime.length() == 1){
                             event[2] = "0" + rawtime + "00";
                         } else if (rawtime.length() == 2){
+                            if (rawtime.equals("12")){
+                                rawtime = "00";
+                            }
                             event[2] = rawtime + "00";
                         } else if (rawtime.length() == 3){
+                            if (rawtime.substring(0,2).equals("12")){
+                                rawtime = "00" + rawtime.charAt(2);
+                            }
                             event[2] = "0" + rawtime;
                         } else {
                             event[2] = rawtime;
@@ -207,6 +213,7 @@ public class Spider2 {
                         event[1] = rawevent.substring(4, spaceindex);
                         int rawtime = Integer.parseInt(rawevent.substring(spaceindex + 1, timeindex));
                         if (rawtime < 13){
+                            rawtime = rawtime % 12;
                             event[2] = Integer.toString(rawtime*100 + 1200);
                             if (rawtime < 10){
                                 event[3] = Integer.toString((rawtime+2)*100 + 1200);
@@ -214,6 +221,9 @@ public class Spider2 {
                                 event[3] = Integer.toString((rawtime+2-12)*100 + 1200);
                             }
                         } else {
+                            if (rawtime > 1159){
+                                rawtime = rawtime - 1200;
+                            }
                             event[2] = Integer.toString(rawtime + 1200);
                             if (rawtime < 1000){
                                 event[3] = Integer.toString(rawtime+200 + 1200);
@@ -224,7 +234,7 @@ public class Spider2 {
                     }
                     StringBuilder venue = new StringBuilder();
                     int breakpoint = body.indexOf("Read more");
-                    while (breakpoint < 600){
+                    while (breakpoint < 800){
                         body = body.substring(body.indexOf("Read more")+6);
                         breakpoint = body.indexOf("Read more");
                     }
@@ -233,8 +243,8 @@ public class Spider2 {
                         searchpoint = body.indexOf("am,",body.indexOf(event[1]));
                     }
 
-                    searchlocation = body.substring(searchpoint+4, searchpoint + 70);
-                    for (int j =0; j < 70; j++){
+                    searchlocation = body.substring(searchpoint+4, searchpoint + 80);
+                    for (int j =0; j < 80; j++){
                         if (rawevent.charAt(timeindex+4+j) == searchlocation.charAt(0+j)){
                             venue.append(rawevent.charAt(timeindex+4+j));
                         } else {

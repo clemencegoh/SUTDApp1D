@@ -73,6 +73,7 @@ public class FirebaseHelper {
                 Event e = dataSnapshot.getValue(Event.class);
                 EventsHelper.getInstance(context).updateFromFirebase(s, e, context);
                 sendNotification(e, "edited");
+                unscheduleNotification(e);
                 scheduleNotification(e);
             }
 
@@ -126,6 +127,7 @@ public class FirebaseHelper {
                 .setContentTitle(title)
                 .setContentText(e.getName())
                 .setStyle(nStyle);
+        int notificationId = createNotificationId(e.getUid());
 
         Intent mIntent = new Intent(context, MainActivity.class);
 
@@ -133,12 +135,12 @@ public class FirebaseHelper {
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(mIntent);
 
-        PendingIntent nPendingIntent = stackBuilder.getPendingIntent(e.getId(),
+        PendingIntent nPendingIntent = stackBuilder.getPendingIntent(notificationId,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         nBuilder.setContentIntent(nPendingIntent);
 
         NotificationManager nManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        nManager.notify(e.getId(), nBuilder.build());
+        nManager.notify(notificationId, nBuilder.build());
     }
 
     public void scheduleNotification(Event e) {
@@ -155,6 +157,7 @@ public class FirebaseHelper {
                 .setContentTitle("Upcoming Event")
                 .setContentText(e.getName())
                 .setStyle(nStyle);
+        int notificationId = createNotificationId(e.getUid());
         Notification reminderNotification = nBuilder.build();
 
         Intent mIntent = new Intent(context, EventManagerFragment.class);
@@ -163,14 +166,15 @@ public class FirebaseHelper {
         stackBuilder.addParentStack(EventManagerFragment.class);
         stackBuilder.addNextIntent(mIntent);
 
-        PendingIntent nPendingIntent = stackBuilder.getPendingIntent(e.getId(),
+        PendingIntent nPendingIntent = stackBuilder.getPendingIntent(notificationId,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         nBuilder.setContentIntent(nPendingIntent);
 
+
         Intent nIntent = new Intent(context, ReminderReceiver.class);
-        nIntent.putExtra("notification_id", e.getId());
+        nIntent.putExtra("notification_id", notificationId);
         nIntent.putExtra("notification", reminderNotification);
-        PendingIntent bIntent = PendingIntent.getBroadcast(context, e.getId(),
+        PendingIntent bIntent = PendingIntent.getBroadcast(context, notificationId,
                 nIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         String[] date = e.getDate().split(" ");
@@ -190,11 +194,20 @@ public class FirebaseHelper {
         calendar.set(Calendar.MINUTE, minute);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), bIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - 900000, bIntent);
     }
 
     public void unscheduleNotification(Event e) {
+        int notificationId = createNotificationId(e.getUid());
+        Intent uIntent = new Intent(context, ReminderReceiver.class);
+        PendingIntent bIntent = PendingIntent.getBroadcast(context, notificationId, 
+                uIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(bIntent);
+    }
 
+    public int createNotificationId(String uid) {
+        return Integer.parseInt(new String(uid.toCharArray()));
     }
 
     public DatabaseReference getFirebaseRef() { return this.allEvents; }
