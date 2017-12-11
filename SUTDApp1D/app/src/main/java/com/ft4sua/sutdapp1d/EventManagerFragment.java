@@ -8,7 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ft4sua.sutdapp1d.EventPackage.Event;
+import com.ft4sua.sutdapp1d.DatabasePackage.DatabaseTester;
+import com.ft4sua.sutdapp1d.DatabasePackage.Event;
 import com.ft4sua.sutdapp1d.EventPackage.RVAdapter;
 
 import java.util.ArrayList;
@@ -36,6 +37,9 @@ public class EventManagerFragment extends android.support.v4.app.Fragment {
         eventRecycler.setLayoutManager(llm);
         eventRecycler.setHasFixedSize(true);
         //TODO: add FAB
+
+        //Test-
+        DatabaseTester.test(getContext());
 
         initialiseData();
         initialiseAdapter();

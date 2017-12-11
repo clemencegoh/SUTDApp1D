@@ -185,38 +185,5 @@ public class EditEventActivity extends AppCompatActivity {
     public void showToast(String text) {
         Toast.makeText(EditEventActivity.this, text, Toast.LENGTH_SHORT).show();
     }
-
-    /**
-     * ADMINISTRATOR METHODS
-     * TODO: Move to local database helper
-     */
-    // create a new event
-    public void createEvent(Event e) {
-//        DatabaseReference newEvent = allEvents.push();  // unique id assigned to node
-//        e.setUid(newEvent.getKey());                    // assign uid to event instance
-//        newEvent.setValue(e);                           // set node value to event instance
-//        EH.addEvent(e);                     // add event instance to local database
-    }
-
-    // edit existing event
-    public void editEvent(Event e, String s) {
-//        allEvents.child(s).setValue(e);                 // update firebase
-//        EH.editEvent(e);
-//        for (Event i : myEvents) {                      // update local database
-//            if (s.equals(i.getUid())) {
-//                myEvents.remove(i);
-//                myEvents.add(e);
-//            }
-//        }
-    }
-
-    // remove event
-    public void deleteEvent(Event e) {
-//        allEvents.child(e.getUid()).removeValue();
-
-//        myEvents.remove(e);
-    }
-
-
 }
 

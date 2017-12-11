@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.ft4sua.sutdapp1d.DatabasePackage.Event;
 import com.ft4sua.sutdapp1d.R;
 
 import java.util.List;
@@ -60,12 +62,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CardViewHolder>{
     @Override
     public void onBindViewHolder(CardViewHolder cardViewHolder, int i) {
         Event event = events.get(i);
-        cardViewHolder.event_name.setText(event.event_name);
-        cardViewHolder.event_date.setText(event.event_date);
-        cardViewHolder.event_type.setText(event.event_type);
-        cardViewHolder.event_start.setText(event.event_start);
-        cardViewHolder.event_end.setText(event.event_end);
-        cardViewHolder.event_venue.setText(event.event_venue);
+        cardViewHolder.event_name.setText(event.getName());
+        cardViewHolder.event_date.setText(event.getDate());
+        cardViewHolder.event_type.setText(event.getTag());
+        cardViewHolder.event_start.setText(event.getStart());
+        cardViewHolder.event_end.setText(event.getEnd());
+        cardViewHolder.event_venue.setText(event.getVenue());
     }
 
     @Override
