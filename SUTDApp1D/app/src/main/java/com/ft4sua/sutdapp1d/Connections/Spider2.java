@@ -246,7 +246,7 @@ public class Spider2 {
                     rawevent = rawevent.substring(rawevent.indexOf("Read more") + 6);
                     body = body.substring(body.indexOf("Read more")+6);
                     event[5] = "School event";
-                    Event event1 = new Event(event[1],event[0],event[3],event[4],event[5],"1");
+                    Event event1 = new Event(event[1],event[0],event[2],event[3],event[4],event[5]);
                     week_events.add(event1);
                 }
             }
