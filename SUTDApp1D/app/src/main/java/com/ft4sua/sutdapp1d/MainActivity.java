@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -178,6 +180,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id==R.id.action_logout) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             prefs.edit().putInt(getString(R.string.login_key), 0).apply();
+            EventsHelper.getInstance(MainActivity.this).clearDataBase();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         } else if (id==R.id.nav_cal){

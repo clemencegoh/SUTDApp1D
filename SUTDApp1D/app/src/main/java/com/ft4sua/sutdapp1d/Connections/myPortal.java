@@ -217,8 +217,8 @@ public class myPortal {
             }else if (dayDate[count].equals("SUN")){
                 dayDate[count] = "FRI";
             }
-            dayDate[count] += ",";
-            dayDate[count] += temp[1] + " " + temp[2];
+            dayDate[count] += ", ";
+            dayDate[count] += temp[1] + " " + temp[2] + " 2017";
             count++;
         }
         count = 0;

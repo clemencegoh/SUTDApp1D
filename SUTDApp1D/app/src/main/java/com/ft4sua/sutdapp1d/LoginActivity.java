@@ -361,6 +361,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             Log.v("PARSED TIMETABLE ",timetable.toString());
             if(timetable.size()!=0) {
                 eventsHelper.addLocalEvents(timetable, LoginActivity.this);
+                Spider2 b = new Spider2();
+                b.crawl("http://root.sutd.edu.sg/2017/09/25/tldr-25-sep-17-issue/");
+                ArrayList<Event> a = b.search();
+                eventsHelper.addLocalEvents(a,LoginActivity.this);
+                eventsHelper.getAllEventsList();
                 return true;
             }
 //            for (String credential : DUMMY_CREDENTIALS) {

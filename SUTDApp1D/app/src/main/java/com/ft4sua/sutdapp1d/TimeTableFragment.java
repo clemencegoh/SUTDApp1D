@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ft4sua.sutdapp1d.Connections.Spider2;
 import com.ft4sua.sutdapp1d.Connections.myPortal;
 import com.ft4sua.sutdapp1d.DatabasePackage.DatabaseTester;
 import com.ft4sua.sutdapp1d.DatabasePackage.Event;
@@ -109,6 +110,9 @@ public class TimeTableFragment extends Fragment{
 
         Log.i("Kenjyi","Reaches Timetable createView");
         EventsHelper EH= EventsHelper.getInstance(getActivity());
+
+
+
         List<Event> test=EH.getDayEventList(dateTracker);
 
         if(dateTracker.substring(0,3).equalsIgnoreCase("Mon")){
