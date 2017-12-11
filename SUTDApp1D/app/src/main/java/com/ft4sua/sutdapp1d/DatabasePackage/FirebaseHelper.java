@@ -1,7 +1,10 @@
 package com.ft4sua.sutdapp1d.DatabasePackage;
 
+import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +14,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
+import com.ft4sua.sutdapp1d.EventManagerFragment;
 import com.ft4sua.sutdapp1d.MainActivity;
 import com.ft4sua.sutdapp1d.R;
 
@@ -21,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,13 +38,6 @@ public class FirebaseHelper {
     ChildEventListener myListener;
 
     public static FirebaseHelper sInstance;
-
-    public static synchronized FirebaseHelper getInstance(Context context) {
-        if (sInstance == null) {
-            sInstance = new FirebaseHelper(context.getApplicationContext());
-        }
-        return sInstance;
-    }
 
     public FirebaseHelper() {}
 
@@ -56,33 +54,36 @@ public class FirebaseHelper {
         myListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.i("Firebase Helper", "An event was added to Firebase, checking subscriptions...");
                 Set<String> mySubscriptions = PreferenceManager
                         .getDefaultSharedPreferences(context)
                         .getStringSet(context.getString(R.string.subscriptions_key),
                                 new HashSet<>(Arrays.asList("")));
                 Event e = dataSnapshot.getValue(Event.class);
-                Log.i("Firebase Helper", "An event was added to Firebase, checking subscriptions...");
                 if (mySubscriptions.contains(e.getTag())) {     // user is subscribed
                     EventsHelper.getInstance(context).addLocalEvent(e,context);
                     sendNotification(e, "added");
+                    scheduleNotification(e);
                 }
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Event e = dataSnapshot.getValue(Event.class);
                 Log.i("Firebase Helper", "An event was changed in Firebase, checking local events...");
-                EventsHelper.getInstance(context).updateFromFirebase(s, e,context);
+                Event e = dataSnapshot.getValue(Event.class);
+                EventsHelper.getInstance(context).updateFromFirebase(s, e, context);
                 sendNotification(e, "edited");
+                scheduleNotification(e);
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.i("Firebase Helper", "An event was removed from Firebase, checking local events...");
                 Event e = dataSnapshot.getValue(Event.class);
                 EventsHelper.getInstance(context)
-                        .removedFromFirebase(dataSnapshot.getKey(),context);
+                        .removedFromFirebase(e.getUid(),context);
                 sendNotification(e, "removed");
-                Log.i("Firebase Helper", "An event was removed from Firebase, checking local events...");
+                unscheduleNotification(e);
             }
 
             @Override
@@ -132,13 +133,86 @@ public class FirebaseHelper {
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(mIntent);
 
-        PendingIntent nPendingIntent = stackBuilder.getPendingIntent(0,
+        PendingIntent nPendingIntent = stackBuilder.getPendingIntent(e.getId(),
                 PendingIntent.FLAG_UPDATE_CURRENT);
         nBuilder.setContentIntent(nPendingIntent);
 
         NotificationManager nManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        nManager.notify(0, nBuilder.build());
+        nManager.notify(e.getId(), nBuilder.build());
+    }
+
+    public void scheduleNotification(Event e) {
+        NotificationCompat.InboxStyle nStyle = new NotificationCompat.InboxStyle();
+        String[] info = {e.getName(), e.getDate() + ", " + e.getStart() + " to " + e.getEnd(), e.getVenue(), e.getTag()};
+        nStyle.setBigContentTitle("Upcoming Event");
+
+        for (int i = 0; i < info.length; i++) {
+            nStyle.addLine(info[i]);
+        }
+
+        NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.app_logo_b)
+                .setContentTitle("Upcoming Event")
+                .setContentText(e.getName())
+                .setStyle(nStyle);
+        Notification reminderNotification = nBuilder.build();
+
+        Intent mIntent = new Intent(context, EventManagerFragment.class);
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addParentStack(EventManagerFragment.class);
+        stackBuilder.addNextIntent(mIntent);
+
+        PendingIntent nPendingIntent = stackBuilder.getPendingIntent(e.getId(),
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        nBuilder.setContentIntent(nPendingIntent);
+
+        Intent nIntent = new Intent(context, ReminderReceiver.class);
+        nIntent.putExtra("notification_id", e.getId());
+        nIntent.putExtra("notification", reminderNotification);
+        PendingIntent bIntent = PendingIntent.getBroadcast(context, e.getId(),
+                nIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        String[] date = e.getDate().split(" ");
+        String[] time = e.getStart().split(":");
+        int year = Integer.parseInt(date[3]);
+        int month = Arrays.asList(Event.MONTHS)
+                .indexOf(date[2]);
+        int dayOfMonth = Integer.parseInt(date[2]);
+        int hourOfDay = Integer.parseInt(time[1]);
+        int minute = Integer.parseInt(time[2]);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calendar.set(Calendar.MINUTE, minute);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), bIntent);
+    }
+
+    public void unscheduleNotification(Event e) {
+
     }
 
     public DatabaseReference getFirebaseRef() { return this.allEvents; }
+    public static synchronized FirebaseHelper getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new FirebaseHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    public class ReminderReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            Notification notification = intent.getParcelableExtra("notification");
+            int id = intent.getIntExtra("notification_id", 0);
+            notificationManager.notify(id, notification);
+        }
+    }
 }
