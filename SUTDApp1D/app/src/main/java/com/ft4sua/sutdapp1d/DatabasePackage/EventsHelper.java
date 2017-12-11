@@ -203,10 +203,6 @@ public class EventsHelper extends SQLiteOpenHelper {
     public void addEvent(final Event event,final Context con){
         db = getWritableDatabase();
         db.beginTransaction();
-//        final ProgressDialog pd = new ProgressDialog(con);
-//        pd.setTitle("Please Wait");
-//        pd.setMessage("Adding Event");
-//        pd.show();
 
         //push to firebase
         if (event.getUid().equals(con.getString(R.string.firebase_flag))) {
@@ -233,7 +229,6 @@ public class EventsHelper extends SQLiteOpenHelper {
                 status = false;
             } finally {
                 db.endTransaction();
-//            pd.dismiss();
                 if (status)
                     Toast.makeText(con, "Event successfully added", Toast.LENGTH_SHORT).show();
                 else Toast.makeText(con, "Failed to add event", Toast.LENGTH_SHORT).show();
