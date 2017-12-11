@@ -352,6 +352,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
             List<Event> timetable=new myPortal().timeTable(mStudentID, mPassword);
+
+            //TODO: remove null(?) objects
+            timetable.removeAll( Collections.singleton(null));
+
             Log.v("PARSED TIMETABLE ",timetable.toString());
             if(timetable.size()!=0) {
                 eventsHelper.addLocalEvents(timetable, LoginActivity.this);

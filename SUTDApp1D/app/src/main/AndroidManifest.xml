@@ -49,6 +49,9 @@
             android:name=".SubsEventsActivity"
             android:label="@string/title_activity_subs_events"
             android:theme="@style/AppTheme" />
+        <activity android:name=".EventManagerFragment"
+            android:label="EventsManagerFragment"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

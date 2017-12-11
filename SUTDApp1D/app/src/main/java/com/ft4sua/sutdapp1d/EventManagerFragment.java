@@ -1,12 +1,14 @@
 package com.ft4sua.sutdapp1d;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.ft4sua.sutdapp1d.DatabasePackage.DatabaseTester;
 import com.ft4sua.sutdapp1d.DatabasePackage.Event;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventManagerFragment extends android.support.v4.app.Fragment {
+public class EventManagerFragment extends AppCompatActivity {
     ArrayList<Event> events;
     private RecyclerView eventRecycler;
 
@@ -27,22 +29,38 @@ public class EventManagerFragment extends android.support.v4.app.Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        getActivity().setTitle(R.string.nav_event_manager);
-        View rootView = inflater.inflate(R.layout.fragment_event_manager, container, false);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_event_manager);
 
-        eventRecycler = (RecyclerView)rootView.findViewById(R.id.rv_event_manager);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+
+        eventRecycler = (RecyclerView)findViewById(R.id.rv_event_manager);
         eventRecycler.setLayoutManager(llm);
         eventRecycler.setHasFixedSize(true);
-        //TODO: add FAB
 
+        //Floating Action Button
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabEventManager);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
         initialiseData();
         initialiseAdapter();
-        return rootView;
     }
+
+        //Test-
+//        DatabaseTester.test(this);
+
+
+
+
+
 
 
     private void initialiseAdapter() {

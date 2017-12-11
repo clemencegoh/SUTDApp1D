@@ -218,8 +218,8 @@ public class myPortal {
             }else if (dayDate[count].equals("SUN")){
                 dayDate[count] = "FRI";
             }
-            dayDate[count] += ", ";
-            dayDate[count] += temp[1] + " " + temp[2] + " 2017";
+            dayDate[count] += ",";
+            dayDate[count] += temp[1] + " " + temp[2];
             count++;
         }
         count = 0;
@@ -302,17 +302,29 @@ public class myPortal {
 
     public ArrayList<Event> timeTable(String userId,String password){
         String[][] events = getTimeTableDetails(userId,password);
+
+        Event[] Overall = new Event[events.length];
+        ArrayList<String> eventNames = new ArrayList<>();
+
         ArrayList<Event> O2 = new ArrayList<>();
         int i=0;
         for (String[] s:events){
             if (s[0]!=null){
                 Event tempEvent = new Event(s[1],s[0],s[2],s[3],s[4],"0");
-                O2.add(tempEvent);
+
+                Overall[i]=tempEvent;
+                if (!eventNames.contains(tempEvent.getName() + tempEvent.getStart())){
+                    eventNames.add(tempEvent.getName() + tempEvent.getStart());
+                    O2.add(tempEvent);
+                }
+
                 i++;
             }
         }
 
+
         return O2;
 
     }
+
 }
