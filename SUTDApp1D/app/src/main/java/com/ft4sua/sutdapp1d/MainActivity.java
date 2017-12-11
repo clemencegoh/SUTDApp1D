@@ -168,12 +168,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.nav_event_manager) {
             Toast.makeText(MainActivity.this, "Events u created", Toast.LENGTH_SHORT).show();
-            Class fragmentClass = EventManagerFragment.class;
-            navigateTo(fragmentClass);
+//            Class fragmentClass = EventManagerFragment.class;
+            Class activityClass = EventManagerFragment.class;
+            navigateToActivity(activityClass);
         } else if (id == R.id.nav_subs_events) {
             Toast.makeText(MainActivity.this, "Events u subbed", Toast.LENGTH_SHORT).show();
-            Class fragmentClass = SubsEventsFragment.class;
-            navigateTo(fragmentClass);
+            //Class fragmentClass = SubsEventsActivity.class;
+            Class activityClass = SubsEventsActivity.class;
+            navigateToActivity(activityClass);
 
         } else if (id == R.id.nav_sync_timetable) {
             Toast.makeText(MainActivity.this, "Timetable synced", Toast.LENGTH_SHORT).show();
@@ -187,7 +189,7 @@ public class MainActivity extends AppCompatActivity
 
             // set initial fragment
             Class fragmentClass = SectionPagerAdapter.class;
-            navigateTo(fragmentClass);
+            navigateToFragment(fragmentClass);
         }
 ;
 
@@ -195,7 +197,13 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void navigateTo(Class fragmentClass){
+    private void navigateToActivity(Class activityClass){
+        Intent intent = new Intent(this, activityClass);
+        startActivity(intent);
+    }
+
+
+    private void navigateToFragment(Class fragmentClass){
         android.support.v4.app.Fragment fragment = null;
         try {
             fragment = (android.support.v4.app.Fragment) fragmentClass.newInstance();

@@ -5,9 +5,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ft4sua.sutdapp1d.SubsEventsFragment">
+    tools:context="com.ft4sua.sutdapp1d.SubsEventsActivity">
 
-    <android.support.design.widget.TabLayout
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/gray"
+        android:textSize="20sp"
+        android:layout_above="@+id/addtag"
+        android:id="@+id/tagentry"/>
+
+    <Button
+        android:id="@+id/addtag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@android:id/empty"
+        android:text="Add!"/>
+
+    <ListView
+        android:id="@+id/drawer_list"
+        android:layout_below="@+id/addtag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="start"
+        android:animateLayoutChanges="true"
+        android:divider="?android:dividerHorizontal"
+        android:orientation="vertical"
+        android:showDividers="middle" />
+    <!-- The "empty" view to show when there are no items in the "list" view defined above. -->
+    <TextView
+        android:id="@android:id/empty"
+        style="?android:textAppearanceSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:padding="32dp"
+        android:text="Add tags to begin!" />
+
+    <!--<android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,6 +62,6 @@
         android:layout_height="match_parent"
         android:layout_below="@id/tab_layout"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        />-->
 
 </RelativeLayout>

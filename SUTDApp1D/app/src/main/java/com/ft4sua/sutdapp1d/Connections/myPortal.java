@@ -302,13 +302,16 @@ public class myPortal {
 
     public ArrayList<Event> timeTable(String userId,String password){
         String[][] events = getTimeTableDetails(userId,password);
+
         Event[] Overall = new Event[events.length];
         ArrayList<String> eventNames = new ArrayList<>();
+
         ArrayList<Event> O2 = new ArrayList<>();
         int i=0;
         for (String[] s:events){
-            if (s!=null){
+            if (s[0]!=null){
                 Event tempEvent = new Event(s[1],s[0],s[2],s[3],s[4],"0");
+
                 Overall[i]=tempEvent;
                 if (!eventNames.contains(tempEvent.getName() + tempEvent.getStart())){
                     eventNames.add(tempEvent.getName() + tempEvent.getStart());
@@ -318,6 +321,8 @@ public class myPortal {
                 i++;
             }
         }
+
+
         return O2;
 
     }

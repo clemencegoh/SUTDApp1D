@@ -18,9 +18,11 @@ public class myPortalTest {
         String username = "";
         String password = "";
         try{
+
             ArrayList<Event> s = profile.timeTable("1002208","1hcoatBs");
             System.out.println(s.get(0).getName());
             System.out.println(s.get(0).getDate());
+
         }catch(Exception ex){
             System.out.println("Login failed");
         }
