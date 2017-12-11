@@ -351,7 +351,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            List<Event> timetable=Arrays.asList(new myPortal().timeTable(mStudentID, mPassword));
+            List<Event> timetable=new myPortal().timeTable(mStudentID, mPassword);
 //            Iterator<Event> it = timetable.iterator();
 //            while (it.hasNext()) {
 //                if (it.next()==null) it.remove();
