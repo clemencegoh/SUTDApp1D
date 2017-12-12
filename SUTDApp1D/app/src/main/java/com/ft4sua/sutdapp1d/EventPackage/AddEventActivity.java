@@ -32,9 +32,12 @@ import org.w3c.dom.Text;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 //import java.util.LinkedList;
 //import java.util.List;
@@ -81,7 +84,7 @@ public class AddEventActivity extends AppCompatActivity {
         eventType = (EditText) findViewById(R.id.event_type_dropdown);
         pushCheck = (CheckBox) findViewById(R.id.check_firebase);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         int id = prefs.getInt(getString(R.string.login_key),0);
         idInput.setText(Integer.toString(id));
         idInput.setFocusable(false);
@@ -170,7 +173,16 @@ public class AddEventActivity extends AppCompatActivity {
                 String tag = eventType.getText().toString();
 
                 newEvent = new Event(name, date, start, end, venue, id, tag);
-                if (pushCheck.isChecked()) newEvent.setUid(getString(R.string.firebase_flag));
+                if (pushCheck.isChecked()) {
+
+                    Set<String> mySubscriptions = prefs.getStringSet(AddEventActivity.this.getString(R.string.subscriptions_key),
+                                    new HashSet<>(Arrays.asList("")));
+                    if (!mySubscriptions.contains(newEvent.getTag())){
+                        mySubscriptions.add(tag);
+                        prefs.edit().putStringSet(AddEventActivity.this.getString(R.string.subscriptions_key),mySubscriptions).apply();
+                    }
+                    newEvent.setUid(getString(R.string.firebase_flag));
+                }
                 EH.addEvent(newEvent,AddEventActivity.this);
                 //EH.getAllEventsList();    For debugging
                 setResult(RESULT_OK, null);

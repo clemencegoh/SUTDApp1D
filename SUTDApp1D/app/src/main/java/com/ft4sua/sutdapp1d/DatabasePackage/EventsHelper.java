@@ -201,7 +201,7 @@ public class EventsHelper extends SQLiteOpenHelper {
 
 
     //-------------------------ADD FUNCTIONS-----------------------------
-    public void addEvent(final Event event,final Context con){
+    public void addEvent(Event event,final Context con){
         db = getWritableDatabase();
         db.beginTransaction();
 
@@ -225,14 +225,17 @@ public class EventsHelper extends SQLiteOpenHelper {
                         values.put(ALL_COLUMNS[m], data.getString(ALL_COLUMNS[m]));
                     }
                 }
-                db.insertOrThrow(TABLE_NAME, null, values);
+                long dbId = db.insert(TABLE_NAME, null, values);
                 db.setTransactionSuccessful();
+                event.setId((int)dbId); //to stage event for alarm subscription
             } catch (Exception e) {
                 status = false;
             } finally {
                 db.endTransaction();
-                if (status)
+                if (status) {
+                    FirebaseHelper.getInstance(con).scheduleNotification(event);
                     Toast.makeText(con, "Event successfully added", Toast.LENGTH_SHORT).show();
+                }
                 else Toast.makeText(con, "Failed to add event", Toast.LENGTH_SHORT).show();
             }
         }
@@ -302,24 +305,29 @@ public class EventsHelper extends SQLiteOpenHelper {
         db.beginTransaction();
 
         final String uid = event.getUid();
-        if (prefs.getInt(con.getString(R.string.login_key), 0)==Integer.parseInt(event.getAdmin()) &&!uid.equals(""))
+        if (prefs.getInt(con.getString(R.string.login_key), 0)!=Integer.parseInt(event.getAdmin()))
+            Toast.makeText(con, "You do not have rights over this event", Toast.LENGTH_SHORT).show();
+        else if (!uid.equals("")) {
             fref.child(uid).setValue(event);                 // update firebase
-
-        Bundle data=event.getBundle();
-        try {
-            ContentValues values = new ContentValues();
-            for (String COL : ALL_COLUMNS) {
-                if (data.getString(COL) != null) {
-                    values.put(COL, data.getString(COL));
+            Toast.makeText(con, "Edit committed", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Bundle data = event.getBundle();
+            try {
+                ContentValues values = new ContentValues();
+                for (String COL : ALL_COLUMNS) {
+                    if (data.getString(COL) != null) {
+                        values.put(COL, data.getString(COL));
+                    }
                 }
+                db.update(TABLE_NAME, values, COLUMN_ID + " = ?",
+                        new String[]{String.valueOf(event.getId())});
+                db.setTransactionSuccessful();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                db.endTransaction();
             }
-            db.update(TABLE_NAME, values, COLUMN_ID + " = ?",
-                    new String[] { String.valueOf(event.getId()) });
-            db.setTransactionSuccessful();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            db.endTransaction();
         }
     }
 
@@ -328,14 +336,19 @@ public class EventsHelper extends SQLiteOpenHelper {
 
         final int ID = event.getId();
         Log.v("Id to delete ", String.valueOf(ID));
-        if (prefs.getInt(con.getString(R.string.login_key), 0)==Integer.parseInt(event.getAdmin()) &&!event.getUid().equals(""))
+        if (prefs.getInt(con.getString(R.string.login_key), 0)!=Integer.parseInt(event.getAdmin()))
+            Toast.makeText(con, "You do not have rights over this event", Toast.LENGTH_SHORT).show();
+        else if (!event.getUid().equals("")) {
             fref.child(event.getUid()).removeValue();
-        if (ID!=-1) {
+            Toast.makeText(con, "Delete committed", Toast.LENGTH_SHORT).show();
+        }
+        else if (ID!=-1) {
             db = getWritableDatabase();
             db.beginTransaction();
             db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + "= '" + ID + "'");
             db.setTransactionSuccessful();
             db.endTransaction();
+            FirebaseHelper.getInstance(con).unscheduleNotification(event);
             Toast.makeText(con, "Event successfully deleted", Toast.LENGTH_SHORT).show();
         }
         else Toast.makeText(con, "Failed to delete event", Toast.LENGTH_SHORT).show();

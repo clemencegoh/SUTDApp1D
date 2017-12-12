@@ -73,7 +73,8 @@ public class FirebaseHelper {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Log.i("Firebase Helper", "An event was changed in Firebase, checking local events...");
                 Event e = dataSnapshot.getValue(Event.class);
-                EventsHelper.getInstance(context).updateFromFirebase(s, e, context);
+//                EventsHelper.getInstance(context).updateFromFirebase(s, e, context);
+                EventsHelper.getInstance(context).removedFromFirebase(s,context);
                 sendNotification(e, "edited");
             }
 

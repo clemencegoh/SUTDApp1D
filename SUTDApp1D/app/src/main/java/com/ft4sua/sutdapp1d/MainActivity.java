@@ -170,18 +170,21 @@ public class MainActivity extends AppCompatActivity
         // note! must do the fragment thing inside the if clause
         int id = item.getItemId();
         if (id == R.id.nav_event_manager) {
-            Toast.makeText(MainActivity.this, "Events u created", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Events Subscribed", Toast.LENGTH_SHORT).show();
 //            Class fragmentClass = EventManagerFragment.class;
             Class activityClass = EventManagerFragment.class;
             navigateToActivity(activityClass);
         } else if (id == R.id.nav_subs_events) {
-            Toast.makeText(MainActivity.this, "Events u subbed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Subscribed Tags", Toast.LENGTH_SHORT).show();
             //Class fragmentClass = SubsEventsActivity.class;
             Class activityClass = SubsEventsActivity.class;
             navigateToActivity(activityClass);
 
         } else if (id == R.id.nav_sync_timetable) {
             Toast.makeText(MainActivity.this, "Timetable synced", Toast.LENGTH_SHORT).show();
+            Intent refresh = new Intent(this, MainActivity.class);
+            startActivity(refresh);
+            this.finish();
         } else if (id==R.id.action_logout) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             prefs.edit().putInt(getString(R.string.login_key), 0).apply();
