@@ -13,6 +13,7 @@
         android:layout_height="0sp"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/gray"
+        android:hint="Enter Tag"
         android:textSize="20sp"
         android:layout_weight="4"
         android:layout_gravity="center"
