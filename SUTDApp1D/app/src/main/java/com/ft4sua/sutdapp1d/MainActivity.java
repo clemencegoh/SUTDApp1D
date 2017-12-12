@@ -103,7 +103,8 @@ public class MainActivity extends AppCompatActivity
         ImageView profilePic = (ImageView) headerView.findViewById(R.id.profile_pic);
         //TODO: if database records student names, change this to display student name. Otherwise just student ID. Link to settings?
         // or edit student name from here idk
-        studentName.setText(R.string.student_name);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        studentName.setText(prefs.getString("Name","Student Name"));
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

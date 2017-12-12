@@ -25,6 +25,7 @@ public class myPortal {
             "https://myportal.sutd.edu.sg/psp/EPPRD/?&cmd=login&languageCd=ENG";
     private String userId;
     private String password;
+    private String name;
 
     public myPortal() {
     }
@@ -62,6 +63,14 @@ public class myPortal {
                     method(Connection.Method.POST).
                     execute();
 
+            Document d1 = Jsoup.connect("https://myportal.sutd.edu.sg/psp/EPPRD/EMPLOYEE/EMPL/h/?tab=DEFAULT").
+                    userAgent(USER_AGENT).
+                    validateTLSCertificates(false).
+                    followRedirects(true).
+                    cookies(login.cookies()).
+                    get();
+
+
             Document doc = Jsoup.
                     connect("https://sams.sutd.edu.sg/psc/CSPRD/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SSR_SSENRL_SCHD_W.GBL").
                     userAgent(USER_AGENT).
@@ -69,6 +78,17 @@ public class myPortal {
                     followRedirects(true).
                     cookies(login.cookies()).
                     get();
+
+
+            Elements e = d1.getElementsByClass("EPPBRHDRHYPERLINKCELLNEWWIN");
+            String nameParse = e.get(0).text();
+            Pattern p = Pattern.compile("Welcome (.*) (.*)");
+            Matcher m = p.matcher(nameParse);
+            if (m.find()){
+                this.name = m.group(1);
+            }else{
+                this.name = nameParse;
+            }
 
 
             System.out.println("Connection successful!");
@@ -319,4 +339,9 @@ public class myPortal {
         return O2;
 
     }
+
+    public String getName(){
+        return name;
+    }
+
 }

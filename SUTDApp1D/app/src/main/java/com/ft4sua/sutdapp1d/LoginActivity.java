@@ -335,6 +335,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         SharedPreferences prefs;
         Context context;
         private EventsHelper eventsHelper;
+        List<Event> timetable;
+        myPortal myPortal;
 
         UserLoginTask(String id, String password, Context context) {
             mStudentID = id;
@@ -351,7 +353,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            List<Event> timetable=new myPortal().timeTable(mStudentID, mPassword);
+            myPortal = new myPortal();
+            timetable=myPortal.timeTable(mStudentID, mPassword);
 
             //TODO: remove null(?) objects
             timetable.removeAll( Collections.singleton(null));
@@ -385,7 +388,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 prefs.edit().putInt(getString(R.string.login_key), Integer.parseInt(mStudentID)).apply();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 Toast.makeText(context, "Welcome, " + mStudentID, Toast.LENGTH_SHORT).show();
+                prefs.edit().putString("Name",myPortal.getName());
                 finish();
+
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
