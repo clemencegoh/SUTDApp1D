@@ -63,7 +63,6 @@ public class FirebaseHelper {
                 if (mySubscriptions.contains(e.getTag())) {     // user is subscribed
                     EventsHelper.getInstance(context).addLocalEvent(e,context);
                     sendNotification(e, "added");
-                    scheduleNotification(e);
                 }
             }
 
@@ -73,7 +72,6 @@ public class FirebaseHelper {
                 Event e = dataSnapshot.getValue(Event.class);
                 EventsHelper.getInstance(context).updateFromFirebase(s, e, context);
                 sendNotification(e, "edited");
-                scheduleNotification(e);
             }
 
             @Override
@@ -83,10 +81,6 @@ public class FirebaseHelper {
                 EventsHelper.getInstance(context)
                         .removedFromFirebase(e.getUid(),context);
                 sendNotification(e, "removed");
-<<<<<<< HEAD
-                unscheduleNotification(e);
-=======
->>>>>>> 344bd0f45543a6232955558cd787ede1ea4b4845
             }
 
             @Override
@@ -137,76 +131,12 @@ public class FirebaseHelper {
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(mIntent);
 
-<<<<<<< HEAD
-        PendingIntent nPendingIntent = stackBuilder.getPendingIntent(e.getId(),
-=======
         PendingIntent nPendingIntent = stackBuilder.getPendingIntent(notificationId,
->>>>>>> 344bd0f45543a6232955558cd787ede1ea4b4845
                 PendingIntent.FLAG_UPDATE_CURRENT);
         nBuilder.setContentIntent(nPendingIntent);
 
         NotificationManager nManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-<<<<<<< HEAD
-        nManager.notify(e.getId(), nBuilder.build());
-    }
-
-    public void scheduleNotification(Event e) {
-        NotificationCompat.InboxStyle nStyle = new NotificationCompat.InboxStyle();
-        String[] info = {e.getName(), e.getDate() + ", " + e.getStart() + " to " + e.getEnd(), e.getVenue(), e.getTag()};
-        nStyle.setBigContentTitle("Upcoming Event");
-
-        for (int i = 0; i < info.length; i++) {
-            nStyle.addLine(info[i]);
-        }
-
-        NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.app_logo_b)
-                .setContentTitle("Upcoming Event")
-                .setContentText(e.getName())
-                .setStyle(nStyle);
-        Notification reminderNotification = nBuilder.build();
-
-        Intent mIntent = new Intent(context, EventManagerFragment.class);
-
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(EventManagerFragment.class);
-        stackBuilder.addNextIntent(mIntent);
-
-        PendingIntent nPendingIntent = stackBuilder.getPendingIntent(e.getId(),
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        nBuilder.setContentIntent(nPendingIntent);
-
-        Intent nIntent = new Intent(context, ReminderReceiver.class);
-        nIntent.putExtra("notification_id", e.getId());
-        nIntent.putExtra("notification", reminderNotification);
-        PendingIntent bIntent = PendingIntent.getBroadcast(context, e.getId(),
-                nIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        String[] date = e.getDate().split(" ");
-        String[] time = e.getStart().split(":");
-        int year = Integer.parseInt(date[3]);
-        int month = Arrays.asList(Event.MONTHS)
-                .indexOf(date[2]);
-        int dayOfMonth = Integer.parseInt(date[2]);
-        int hourOfDay = Integer.parseInt(time[1]);
-        int minute = Integer.parseInt(time[2]);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        calendar.set(Calendar.MINUTE, minute);
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), bIntent);
-    }
-
-    public void unscheduleNotification(Event e) {
-
-=======
         nManager.notify(notificationId, nBuilder.build());
->>>>>>> 344bd0f45543a6232955558cd787ede1ea4b4845
     }
 
     public void scheduleNotification(Event e) {
@@ -293,5 +223,3 @@ public class FirebaseHelper {
         }
     }
 }
-
-
