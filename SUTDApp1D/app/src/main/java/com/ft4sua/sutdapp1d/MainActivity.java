@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper;
+import com.ft4sua.sutdapp1d.DatabasePackage.FirebaseHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseHelper.getInstance(this).setListener();
         setContentView(R.layout.activity_main);
 
         try {

@@ -36,8 +36,7 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Even
         public final TextView locationView;
         public final TextView timeView;
         //public final ImageView typeView;
-        public final LinearLayout layoutBgView;
-        public final View tmrEventView;
+        public final View layoutBgView;
         public final TextView eventNameView;
         final TimeTableAdapter mAdapter;
 
@@ -53,8 +52,7 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Even
             locationView = (TextView) itemView.findViewById(R.id.location);
             timeView = (TextView) itemView.findViewById(R.id.time);
             //typeView = (ImageView) itemView.findViewById(R.id.eventtype);
-            layoutBgView = (LinearLayout) itemView.findViewById(R.id.recyclerbg);
-            tmrEventView = (View) itemView.findViewById(R.id.nextdaytype);
+            layoutBgView = (View) itemView.findViewById(R.id.eventtype);
             eventNameView = (TextView) itemView.findViewById(R.id.eventname);
             this.mAdapter = adapter;
         }
@@ -110,18 +108,18 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Even
 
         holder.timeView.setText(timePeriod);
         String eventType = mCurrent.getAdmin();
-//        if(eventType.equalsIgnoreCase("0")){
-//            //holder.vehicleView.setImageResource(R.drawable.walking);
-//            holder.layoutBgView.setBackgroundColor(Color.GREEN);
-//        }
-//        else if(eventType.equalsIgnoreCase("1")){
-//            //holder.vehicleView.setImageResource(R.drawable.bus);
-//            holder.layoutBgView.setBackgroundColor(Color.RED);
-//        }
-//        else if(eventType.equalsIgnoreCase("2")){
-//            //holder.vehicleView.setImageResource(R.drawable.cab);
-//            holder.layoutBgView.setBackgroundColor(Color.parseColor("purple"));
-//        }
+        if(eventType.equalsIgnoreCase("0")){
+            //holder.vehicleView.setImageResource(R.drawable.walking);
+            holder.layoutBgView.setBackgroundResource(R.drawable.paint_splatter_green);
+        }
+        else if(eventType.equalsIgnoreCase("1")){
+            //holder.vehicleView.setImageResource(R.drawable.bus);
+            holder.layoutBgView.setBackgroundResource(R.drawable.paint_splatter_red);
+        }
+        else{
+            //holder.vehicleView.setImageResource(R.drawable.cab);
+            holder.layoutBgView.setBackgroundResource(R.drawable.paint_splatter_purple);
+        }
 
     }
 

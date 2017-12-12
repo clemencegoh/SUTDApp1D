@@ -52,6 +52,12 @@
         <activity android:name=".EventManagerFragment"
             android:label="EventsManagerFragment"
             android:theme="@style/AppTheme" />
+        <receiver android:name=".DatabasePackage.ReminderReceiver"  android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
