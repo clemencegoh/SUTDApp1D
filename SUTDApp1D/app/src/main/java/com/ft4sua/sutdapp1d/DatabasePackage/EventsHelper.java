@@ -389,12 +389,10 @@ public class EventsHelper extends SQLiteOpenHelper {
 
     //updates from firebase
     public void updateFromFirebase(String oldId, Event event, final Context con){
-        final ProgressDialog pd = new ProgressDialog(con);
-        pd.setTitle("Please Wait");
-        pd.setMessage("Editing Event");
-        pd.show();
         Bundle data=event.getBundle();
-
+        // Create and/or open the database for writing
+        db = getWritableDatabase();
+        db.beginTransaction();
         Boolean status=true;
         try {
             ContentValues values = new ContentValues();
@@ -410,7 +408,6 @@ public class EventsHelper extends SQLiteOpenHelper {
             status=false;
         } finally {
             db.endTransaction();
-            pd.dismiss();
             if (status) Toast.makeText(con, "Event successfully edited", Toast.LENGTH_SHORT).show();
             else Toast.makeText(con, "Failed to edit event", Toast.LENGTH_SHORT).show();
         }

@@ -354,29 +354,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
             myPortal = new myPortal();
-            timetable=myPortal.timeTable(mStudentID, mPassword);
+            try {
+                timetable = myPortal.timeTable(mStudentID, mPassword);
 
-            //TODO: remove null(?) objects
-            timetable.removeAll( Collections.singleton(null));
-
-            Log.v("PARSED TIMETABLE ",timetable.toString());
-            if(timetable.size()!=0) {
-                eventsHelper.addLocalEvents(timetable, LoginActivity.this);
-                Spider2 b = new Spider2();
-                b.crawl("http://root.sutd.edu.sg/tldr/latest-issue/");
-                ArrayList<Event> a = b.search();
-                eventsHelper.addLocalEvents(a,LoginActivity.this);
-                eventsHelper.getAllEventsList();
-                return true;
+                Log.v("PARSED TIMETABLE ", timetable.toString());
+                if (timetable.size() != 0) {
+                    eventsHelper.addLocalEvents(timetable, LoginActivity.this);
+                    Spider2 b = new Spider2();
+                    b.crawl("http://root.sutd.edu.sg/tldr/latest-issue/");
+                    ArrayList<Event> a = b.search();
+                    eventsHelper.addLocalEvents(a, LoginActivity.this);
+                    eventsHelper.getAllEventsList();
+                }
             }
-//            for (String credential : DUMMY_CREDENTIALS) {
-//                String[] pieces = credential.split(":");
-//                if (pieces[0].equals(mStudentID)) {
-//                    // Account exists, return true if the password matches.
-//                    return pieces[1].equals(mPassword);
-//                }
-//            }
-            return false;
+            catch (Exception e) {
+                return false;
+            }
+            return true;
         }
 
         @Override
@@ -385,16 +379,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
             eventsHelper.getAllEventsList();
             if (success) {
-                prefs.edit().putInt(getString(R.string.login_key), Integer.parseInt(mStudentID)).apply();
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                Toast.makeText(context, "Welcome, " + mStudentID, Toast.LENGTH_SHORT).show();
-                prefs.edit().putString("Name",myPortal.getName()).apply();
-                finish();
+//                prefs.edit().putInt(getString(R.string.login_key), Integer.parseInt(mStudentID)).apply();
+//                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                Toast.makeText(context, "Welcome, " + mStudentID, Toast.LENGTH_SHORT).show();
+//                prefs.edit().putString("Name",myPortal.getName()).apply();
+//                finish();
 
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.setError("No credentials found.");
                 mPasswordView.requestFocus();
             }
+            prefs.edit().putInt(getString(R.string.login_key), Integer.parseInt(mStudentID)).apply();
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            Toast.makeText(context, "Welcome, " + mStudentID, Toast.LENGTH_SHORT).show();
+            prefs.edit().putString("Name",myPortal.getName()).apply();
+            finish();
         }
 
         @Override
