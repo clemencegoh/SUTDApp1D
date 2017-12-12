@@ -70,7 +70,7 @@ public class EventManagerFragment extends AppCompatActivity {
 
 
     private void initialiseAdapter() {
-        RVAdapter adapter = new RVAdapter(events);
+        RVAdapter adapter = new RVAdapter(events,this);
         eventRecycler.setAdapter(adapter);
     }
 
@@ -81,6 +81,4 @@ public class EventManagerFragment extends AppCompatActivity {
         events = EventsHelper.getInstance(EventManagerFragment.this).getTaggedEventList();
 
     }
-
-
 }
