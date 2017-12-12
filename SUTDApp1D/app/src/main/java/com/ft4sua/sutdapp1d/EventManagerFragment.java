@@ -13,17 +13,19 @@ import android.view.View;
 
 import com.ft4sua.sutdapp1d.DatabasePackage.DatabaseTester;
 import com.ft4sua.sutdapp1d.DatabasePackage.Event;
+import com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper;
 import com.ft4sua.sutdapp1d.EventPackage.AddEventActivity;
 import com.ft4sua.sutdapp1d.EventPackage.RVAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class EventManagerFragment extends AppCompatActivity {
-    ArrayList<Event> events;
+    List<Event> events;
     private RecyclerView eventRecycler;
 
     public EventManagerFragment() {
@@ -47,7 +49,7 @@ public class EventManagerFragment extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EventManagerFragment.this, AddEventActivity.class));
+                startActivityForResult(new Intent(EventManagerFragment.this, AddEventActivity.class),1);
             }
         });
 
@@ -55,13 +57,16 @@ public class EventManagerFragment extends AppCompatActivity {
         initialiseAdapter();
     }
 
-        //Test-
-//        DatabaseTester.test(this);
-
-
-
-
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            Intent refresh = new Intent(this, EventManagerFragment.class);
+            startActivity(refresh);
+            setResult(RESULT_OK, null);
+            finish();
+        }
+    }
 
 
     private void initialiseAdapter() {
@@ -73,13 +78,7 @@ public class EventManagerFragment extends AppCompatActivity {
     // details: Date, Start Time, Location
     // this is where JSON comes in? or firebase
     private void initialiseData(){
-        events = new ArrayList<>();
-        events.add(new Event("Dance Prac", "6 Dec 2017","fifth row","2 pm","5pm","DS 5"));
-        events.add(new Event("Guest Lecture", "7 Dec 2017","root","2 pm","3pm","LT 5"));
-        events.add(new Event("Hostel Event", "7 Dec 2017", "house guardian","7 pm","8pm","BLK 55"));
-        events.add(new Event("Dance Prac", "8 Dec 2017", "fifth row","7 pm","9pm","DS 5"));
-        events.add(new Event("Guest Lecture", "9 Dec 2017", "root","12 pm","2pm","LT 3"));
-        events.add(new Event("Hostel Event", "9 Dec 2017", "house guardian","8 pm","9pm","BLK 55"));
+        events = EventsHelper.getInstance(EventManagerFragment.this).getTaggedEventList();
 
     }
 
