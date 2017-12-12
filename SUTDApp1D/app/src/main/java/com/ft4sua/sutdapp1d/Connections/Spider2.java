@@ -152,12 +152,12 @@ public class Spider2 {
                             if (newdate < 10){
                                 strnewdate = "0" + strnewdate;
                             }
-                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + newmonth;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + newmonth+" "+ correctyear;
                         } else {
                             if (newdate < 10){
                                 strnewdate = "0" + strnewdate;
                             }
-                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + month;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + month+" "+ correctyear;
                         }
                     } else if (month.equals("Apr") || month.equals("Jun") ||month.equals("Sep")
                             || month.equals("Nov") ){
@@ -169,12 +169,12 @@ public class Spider2 {
                             if (newdate < 10){
                                 strnewdate = "0" + strnewdate;
                             }
-                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + newmonth;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + newmonth+" "+ correctyear;
                         }else {
                             if (newdate < 10){
                                 strnewdate = "0" + strnewdate;
                             }
-                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + month;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + month+" "+ correctyear;
                         }
                     } else if (month.equals("Feb")){
                         int newdate = Integer.parseInt(date) + i;
@@ -196,12 +196,12 @@ public class Spider2 {
                             if (newdate < 10){
                                 strnewdate = "0" + strnewdate;
                             }
-                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + newmonth;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + newmonth +" "+ correctyear;
                         }else {
                             if (newdate < 10){
                                 strnewdate = "0" + strnewdate;
                             }
-                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + month;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + month+" "+ correctyear;
                         }
                     }
                     int timeindex = rawevent.indexOf("pm,");
