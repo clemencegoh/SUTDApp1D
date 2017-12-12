@@ -47,6 +47,8 @@ public class FirebaseHelper {
         database = FirebaseDatabase.getInstance();
         database.setPersistenceEnabled(true);            // offline support, i.e. check and update changes upon reconnection
         allEvents = database.getReference("events");
+        allEvents.keepSynced(true);
+//        this.setListener();
     }
 
     public void setListener() {
@@ -60,7 +62,7 @@ public class FirebaseHelper {
                         .getStringSet(context.getString(R.string.subscriptions_key),
                                 new HashSet<>(Arrays.asList("")));
                 Event e = dataSnapshot.getValue(Event.class);
-                if (mySubscriptions.contains(e.getTag())) {     // user is subscribed
+                if (mySubscriptions.contains(e.getTag())&&!EventsHelper.getInstance(context).CheckIsFidIn(e)) {     // user is subscribed
                     EventsHelper.getInstance(context).addLocalEvent(e,context);
                     sendNotification(e, "added");
                     scheduleNotification(e);

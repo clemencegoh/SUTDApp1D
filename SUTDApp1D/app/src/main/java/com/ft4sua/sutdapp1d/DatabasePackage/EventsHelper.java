@@ -302,7 +302,8 @@ public class EventsHelper extends SQLiteOpenHelper {
         db.beginTransaction();
 
         final String uid = event.getUid();
-        if (!uid.equals("")) fref.child(event.getUid()).setValue(event);                 // update firebase
+        if (prefs.getInt(con.getString(R.string.login_key), 0)==Integer.parseInt(event.getAdmin()) &&!uid.equals(""))
+            fref.child(uid).setValue(event);                 // update firebase
 
         Bundle data=event.getBundle();
         try {
@@ -327,7 +328,7 @@ public class EventsHelper extends SQLiteOpenHelper {
 
         final int ID = event.getId();
         Log.v("Id to delete ", String.valueOf(ID));
-        if (prefs.getInt(con.getString(R.string.login_key), 0)==ID && !event.getUid().equals(""))
+        if (prefs.getInt(con.getString(R.string.login_key), 0)==Integer.parseInt(event.getAdmin()) &&!event.getUid().equals(""))
             fref.child(event.getUid()).removeValue();
         if (ID!=-1) {
             db = getWritableDatabase();
@@ -493,7 +494,7 @@ public class EventsHelper extends SQLiteOpenHelper {
 
         Cursor eventC=db.rawQuery("SELECT *"
                 +" FROM "+ TABLE_NAME
-                +" WHERE UPPER("+ COLUMN_EventDate +") = "+"UPPER('"+date+"')"
+                +" WHERE UPPER("+ COLUMN_EventDate +") = UPPER('"+date+"')"
                 +" ORDER BY "+ COLUMN_StartTime +";", null);
         if (eventC != null) {
             for (eventC.moveToFirst(); !eventC.isAfterLast(); eventC.moveToNext()) {
@@ -513,7 +514,6 @@ public class EventsHelper extends SQLiteOpenHelper {
         }
         return eventList;
     }
-
 
     public List<Event> getTaggedEventList() { //Returns a day's events as a list or null if database is empty
         db = getReadableDatabase();
@@ -541,5 +541,42 @@ public class EventsHelper extends SQLiteOpenHelper {
         Collections.sort(eventList);
         Log.v("TAGGED EVENTS: ", String.valueOf(eventList));
         return eventList;
+    }
+
+    public Event getEvent(int id) { //Returns a day's events as a list or null if database is empty
+        db = getReadableDatabase();
+        Event event=new Event();
+        Cursor eventC=db.rawQuery("SELECT *"
+                +" FROM "+ TABLE_NAME
+                +" WHERE "+ COLUMN_ID +" = "+id+";", null);
+
+        if (eventC != null) {
+            for (eventC.moveToFirst(); !eventC.isAfterLast(); eventC.moveToNext()) {
+                event.setId(eventC.getInt(eventC.getColumnIndex(COLUMN_ID)));
+                event.setUid(eventC.getString(eventC.getColumnIndex(COLUMN_FID)));
+                event.setName(eventC.getString(eventC.getColumnIndex(COLUMN_Event)));
+                event.setDate(eventC.getString(eventC.getColumnIndex(COLUMN_EventDate)));
+                event.setStart(eventC.getString(eventC.getColumnIndex(COLUMN_StartTime)));
+                event.setEnd(eventC.getString(eventC.getColumnIndex(COLUMN_EndTime)));
+                event.setVenue(eventC.getString(eventC.getColumnIndex(COLUMN_Details)));
+                event.setAdmin(eventC.getString(eventC.getColumnIndex(COLUMN_EventType)));
+                event.setTag(eventC.getString(eventC.getColumnIndex(COLUMN_EventTag)));
+            }
+            eventC.close();
+        }
+        Log.v("EVENT TO EDIT: ", event.toString());
+        return event;
+    }
+
+    public boolean CheckIsFidIn(Event event) {
+        db = getReadableDatabase();
+        String Query = "Select * from " + TABLE_NAME + " where " + COLUMN_FID + " = '" + event.getUid() +"';";
+        Cursor cursor = db.rawQuery(Query, null);
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
     }
 }

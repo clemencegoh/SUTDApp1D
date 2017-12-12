@@ -61,6 +61,7 @@ public class EditEventActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         EH=EventsHelper.getInstance(this);
+        final Event defEvent=EH.getEvent(dbId);
 
         // assign inputs
         nameInput = (EditText) findViewById(R.id.eventNameInput);
@@ -72,19 +73,21 @@ public class EditEventActivity extends AppCompatActivity {
         eventType = (EditText) findViewById(R.id.event_type_dropdown);
         pushCheck = (CheckBox) findViewById(R.id.check_firebase);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        int id = prefs.getInt(getString(R.string.login_key),0);
-        idInput.setText(Integer.toString(id));
+        nameInput.setText(defEvent.getName());
+        dateInput.setText(defEvent.getDate());
+        startTimeInput.setText(defEvent.getStart());
+        endTimeInput.setText(defEvent.getEnd());
+        venueInput.setText(defEvent.getVenue());
+        idInput.setText(defEvent.getAdmin());
         idInput.setFocusable(false);
         idInput.setEnabled(false);
-
+        eventType.setText(defEvent.getTag());
+        pushCheck.setVisibility(View.GONE);
 
         // Pick out Date
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-//                month ++;
-//                String date = day + "/" + month + "/" + year;
                 Calendar cal = Calendar.getInstance();
                 cal.set(year, month, day);
                 dateInput.setText(DateFormat.format("EEE, dd MMM yyyy", cal));
@@ -163,6 +166,7 @@ public class EditEventActivity extends AppCompatActivity {
 
                 newEvent = new Event(name, date, start, end, venue, id, tag);
                 newEvent.setId(dbId);
+                newEvent.setUid(defEvent.getUid());
 //                if (pushCheck.isChecked()) newEvent.setUid(getString(R.string.firebase_flag));
                 EH.editEvent(newEvent,EditEventActivity.this);
                 setResult(RESULT_OK, null);
