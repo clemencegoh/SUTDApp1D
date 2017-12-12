@@ -44,6 +44,9 @@
         <activity
             android:name=".EventPackage.AddEventActivity"
             android:label="@string/title_activity_add_event" />
+        <activity
+            android:name=".EventPackage.EditEventActivity"
+            android:label="@string/title_activity_edit_event" />
         <activity android:name=".ProfilePage" />
         <activity
             android:name=".SubsEventsActivity"

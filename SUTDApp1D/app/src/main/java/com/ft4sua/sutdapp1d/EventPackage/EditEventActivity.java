@@ -55,7 +55,7 @@ public class EditEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
-        final int dbId=getIntent().getIntExtra("id_cursor",-1);
+        final int dbId=getIntent().getIntExtra(getString(R.string.id_extra),-1);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

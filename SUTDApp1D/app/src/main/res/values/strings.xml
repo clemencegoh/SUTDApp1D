@@ -71,6 +71,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="firebase_flag">push_to_firebase</string>
+    <string name="id_extra">id_cursor</string>
+    <string name="title_activity_edit_event">Edit Event</string>
 
 
 </resources>
