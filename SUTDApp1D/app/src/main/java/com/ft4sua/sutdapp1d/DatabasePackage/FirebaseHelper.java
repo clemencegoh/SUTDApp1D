@@ -63,6 +63,7 @@ public class FirebaseHelper {
                 if (mySubscriptions.contains(e.getTag())) {     // user is subscribed
                     EventsHelper.getInstance(context).addLocalEvent(e,context);
                     sendNotification(e, "added");
+                    scheduleNotification(e);
                 }
             }
 
@@ -81,6 +82,7 @@ public class FirebaseHelper {
                 EventsHelper.getInstance(context)
                         .removedFromFirebase(e.getUid(),context);
                 sendNotification(e, "removed");
+                unscheduleNotification(e);
             }
 
             @Override
@@ -156,10 +158,10 @@ public class FirebaseHelper {
         int notificationId = e.getId();
         Notification reminderNotification = nBuilder.build();
 
-        Intent mIntent = new Intent(context, EventManagerFragment.class);
+        Intent mIntent = new Intent(context, MainActivity.class);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(EventManagerFragment.class);
+        stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(mIntent);
 
         PendingIntent nPendingIntent = stackBuilder.getPendingIntent(notificationId,
@@ -177,9 +179,9 @@ public class FirebaseHelper {
         int year = Integer.parseInt(date[3]);
         int month = Arrays.asList(Event.MONTHS)
                 .indexOf(date[2]);
-        int dayOfMonth = Integer.parseInt(date[2]);
-        int hourOfDay = Integer.parseInt(time[1]);
-        int minute = Integer.parseInt(time[2]);
+        int dayOfMonth = Integer.parseInt(date[1]);
+        int hourOfDay = Integer.parseInt(time[0]);
+        int minute = Integer.parseInt(time[1]);
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
@@ -188,6 +190,7 @@ public class FirebaseHelper {
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         calendar.set(Calendar.MINUTE, minute);
 
+        Log.i("Firebase Helper", "Alarm Time: " + calendar.getTime());
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - 900000, bIntent);
     }
@@ -210,16 +213,5 @@ public class FirebaseHelper {
             sInstance = new FirebaseHelper(context.getApplicationContext());
         }
         return sInstance;
-    }
-
-    public class ReminderReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            Notification notification = intent.getParcelableExtra("notification");
-            int id = intent.getIntExtra("notification_id", 0);
-            notificationManager.notify(id, notification);
-        }
     }
 }
