@@ -48,6 +48,7 @@ public class SubsEventsActivity extends AppCompatActivity {
     private ListView container;
     private TextView emptyTagMessage;
     private Set<String> setString = new HashSet<String>();
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +130,15 @@ public class SubsEventsActivity extends AppCompatActivity {
     }
 
     public void addTags(){
+        prefs = PreferenceManager
+                .getDefaultSharedPreferences(SubsEventsActivity.this);
+        Set<String> mySubscriptions = prefs
+                .getStringSet(SubsEventsActivity.this.getString(R.string.subscriptions_key),
+                        new HashSet<>(Arrays.asList("")));
+        for(String ii: mySubscriptions){
+            tagList.add(ii);
+            setString.add(ii);
+        }
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,11 +146,7 @@ public class SubsEventsActivity extends AppCompatActivity {
                 selectedListAdapter.notifyDataSetChanged();
                 setString.add(tagEntry.getText().toString());
                 tagEntry.setText("");
-                SharedPreferences prefs = PreferenceManager
-                        .getDefaultSharedPreferences(SubsEventsActivity.this);
-                Set<String> mySubscriptions = prefs
-                        .getStringSet(SubsEventsActivity.this.getString(R.string.subscriptions_key),
-                                new HashSet<>(Arrays.asList("")));
+
                 prefs.edit().putStringSet(getString(R.string.subscriptions_key),setString).apply();
 
                 Log.i("Kenjyi", prefs.getStringSet(SubsEventsActivity.this.getString(R.string.subscriptions_key),
