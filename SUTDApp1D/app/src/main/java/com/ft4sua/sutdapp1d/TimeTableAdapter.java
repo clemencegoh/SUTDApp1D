@@ -102,8 +102,19 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Even
         String timePeriod = "  " + timeStart + "\n- " + timeEnd;
 
         // Add the data to the view holder.
-        holder.eventNameView.setText(eventName);
-        holder.locationView.setText(location);
+        if(eventName.length()>=25){
+            holder.eventNameView.setText(eventName.substring(0,24) + "...");
+        }
+        else{
+            holder.eventNameView.setText(eventName);
+        }
+        if(location.length()>=35){
+            holder.locationView.setText(location.substring(0,34) + "...");
+        }
+        else{
+            holder.locationView.setText(location);
+        }
+
         Log.i("Kenjyi", date);
 
         holder.timeView.setText(timePeriod);
@@ -112,7 +123,7 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Even
             //holder.vehicleView.setImageResource(R.drawable.walking);
             holder.layoutBgView.setBackgroundResource(R.drawable.paint_splatter_green);
         }
-        else if(eventType.equalsIgnoreCase("1")){
+        else if(eventType.equalsIgnoreCase("School event")){
             //holder.vehicleView.setImageResource(R.drawable.bus);
             holder.layoutBgView.setBackgroundResource(R.drawable.paint_splatter_red);
         }
