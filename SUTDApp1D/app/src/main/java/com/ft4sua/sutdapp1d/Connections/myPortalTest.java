@@ -1,11 +1,9 @@
 package com.ft4sua.sutdapp1d.Connections;
 
-import android.provider.ContactsContract;
 
 import com.ft4sua.sutdapp1d.DatabasePackage.Event;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 /**
@@ -20,6 +18,7 @@ public class myPortalTest {
         try{
 
             ArrayList<Event> s = profile.timeTable("1002208","1hcoatBs");
+            System.out.println("Name: " + profile.getName());
             System.out.println(s.get(0).getName());
             System.out.println(s.get(0).getDate());
 
