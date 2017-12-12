@@ -63,7 +63,6 @@ public class FirebaseHelper {
                 if (mySubscriptions.contains(e.getTag())) {     // user is subscribed
                     EventsHelper.getInstance(context).addLocalEvent(e,context);
                     sendNotification(e, "added");
-                    scheduleNotification(e);
                 }
             }
 
@@ -73,8 +72,6 @@ public class FirebaseHelper {
                 Event e = dataSnapshot.getValue(Event.class);
                 EventsHelper.getInstance(context).updateFromFirebase(s, e, context);
                 sendNotification(e, "edited");
-                unscheduleNotification(e);
-                scheduleNotification(e);
             }
 
             @Override
@@ -84,7 +81,6 @@ public class FirebaseHelper {
                 EventsHelper.getInstance(context)
                         .removedFromFirebase(e.getUid(),context);
                 sendNotification(e, "removed");
-                unscheduleNotification(e);
             }
 
             @Override
@@ -127,7 +123,7 @@ public class FirebaseHelper {
                 .setContentTitle(title)
                 .setContentText(e.getName())
                 .setStyle(nStyle);
-        int notificationId = createNotificationId(e.getUid());
+        int notificationId = e.getId();
 
         Intent mIntent = new Intent(context, MainActivity.class);
 
@@ -157,7 +153,7 @@ public class FirebaseHelper {
                 .setContentTitle("Upcoming Event")
                 .setContentText(e.getName())
                 .setStyle(nStyle);
-        int notificationId = createNotificationId(e.getUid());
+        int notificationId = e.getId();
         Notification reminderNotification = nBuilder.build();
 
         Intent mIntent = new Intent(context, EventManagerFragment.class);
@@ -169,7 +165,6 @@ public class FirebaseHelper {
         PendingIntent nPendingIntent = stackBuilder.getPendingIntent(notificationId,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         nBuilder.setContentIntent(nPendingIntent);
-
 
         Intent nIntent = new Intent(context, ReminderReceiver.class);
         nIntent.putExtra("notification_id", notificationId);
@@ -198,17 +193,16 @@ public class FirebaseHelper {
     }
 
     public void unscheduleNotification(Event e) {
-        int notificationId = createNotificationId(e.getUid());
+        int notificationId = e.getId();
         Intent uIntent = new Intent(context, ReminderReceiver.class);
-        PendingIntent bIntent = PendingIntent.getBroadcast(context, notificationId, 
-                uIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent bIntent = PendingIntent.getBroadcast(context, notificationId, uIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(bIntent);
     }
 
-    public int createNotificationId(String uid) {
+    /*public int createNotificationId(String uid) {
         return Integer.parseInt(new String(uid.toCharArray()));
-    }
+    }*/
 
     public DatabaseReference getFirebaseRef() { return this.allEvents; }
     public static synchronized FirebaseHelper getInstance(Context context) {
