@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,28 +21,66 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, CalendarNavigatorDialogFragment.CalendarNavigatorDialogListener{
     DrawerLayout drawer;
     NavigationView navigationView;
     Toolbar toolbar;
+    Date date = new Date();
 
     private Intent profilePageIntent;
     private Intent subsEventsIntent;
     private Intent eventManagerIntent;
     private Intent calendarIntent;
     private Intent addEventIntent;
+    private SectionPagerAdapter mAdapter;
+    private ViewPager mPager;
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        try {
+            Intent intent = getIntent();
+            String dateString = intent.getStringExtra("Date");
+
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
+            try {
+                date = sdf.parse(dateString);// all done
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+        catch(Exception ex){
+
+        }
         // set initial fragment
-        CalendarFragment calFrag = new CalendarFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, calFrag).commit();
+        //CalendarFragment calFrag = new CalendarFragment();
+        //android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        //fragmentTransaction.replace(R.id.fragment_container, calFrag).commit();
+
+        mAdapter = new SectionPagerAdapter(getSupportFragmentManager());
+        mAdapter.setItem(date);
+
+        mPager = (ViewPager)findViewById(R.id.viewpager);
+        mPager.setAdapter(mAdapter);
+
+        mPager.setCurrentItem(4);
 
         // Toolbar to replace ActionBar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -75,6 +116,17 @@ public class MainActivity extends AppCompatActivity
          * Check out this class for sample usage---***/
         //DatabaseTester test=new DatabaseTester();
         //test.test(this);
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        // User touched the dialog's positive button
+
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        // User touched the dialog's negative button
     }
 
     @Override
@@ -116,25 +168,28 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.nav_event_manager) {
             Toast.makeText(MainActivity.this, "Events u created", Toast.LENGTH_SHORT).show();
-            Class fragmentClass = EventManagerFragment.class;
-            navigateTo(fragmentClass);
+//            Class fragmentClass = EventManagerFragment.class;
+            Class activityClass = EventManagerFragment.class;
+            navigateToActivity(activityClass);
         } else if (id == R.id.nav_subs_events) {
             Toast.makeText(MainActivity.this, "Events u subbed", Toast.LENGTH_SHORT).show();
-            Class fragmentClass = SubsEventsFragment.class;
-            navigateTo(fragmentClass);
+            //Class fragmentClass = SubsEventsActivity.class;
+            Class activityClass = SubsEventsActivity.class;
+            navigateToActivity(activityClass);
 
         } else if (id == R.id.nav_sync_timetable) {
             Toast.makeText(MainActivity.this, "Timetable synced", Toast.LENGTH_SHORT).show();
         } else if (id==R.id.action_logout) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             prefs.edit().putInt(getString(R.string.login_key), 0).apply();
+            EventsHelper.getInstance(MainActivity.this).clearDataBase();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         } else if (id==R.id.nav_cal){
 
             // set initial fragment
-            Class fragmentClass = CalendarFragment.class;
-            navigateTo(fragmentClass);
+            Class fragmentClass = SectionPagerAdapter.class;
+            navigateToFragment(fragmentClass);
         }
 ;
 
@@ -142,7 +197,13 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void navigateTo(Class fragmentClass){
+    private void navigateToActivity(Class activityClass){
+        Intent intent = new Intent(this, activityClass);
+        startActivity(intent);
+    }
+
+
+    private void navigateToFragment(Class fragmentClass){
         android.support.v4.app.Fragment fragment = null;
         try {
             fragment = (android.support.v4.app.Fragment) fragmentClass.newInstance();

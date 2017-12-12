@@ -25,7 +25,7 @@ import java.util.ListIterator;
  * Created by Lim Ken Jyi on 5/12/2017.
  */
 
-public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.EventHolder> implements TimeSlotDialogFragment.TimeSlotDialogListener {
+public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.EventHolder>{
 
     private final List<Event> mTimeTableList;
     private final LayoutInflater mInflater;
@@ -61,34 +61,11 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Even
 
     }
 
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-        // User touched the dialog's positive button
-
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-        // User touched the dialog's negative button
-    }
-
 
     public TimeTableAdapter(Context context, List<Event> eventList) {
         mInflater = LayoutInflater.from(context);
         this.mTimeTableList = eventList;
-        List<Integer> numOfEvents = new ArrayList<Integer>();
-        for(int ii=6; ii<24; ii++){
-            for(Event jj: eventList){
-                if(!(jj.getStart()+":00").equals(ii + ":00") && !numOfEvents.contains(ii)){
-                    numOfEvents.add(ii);
-                    Log.i("Kenjyi", ""+ii);
-                }
-            }
-        }
-        Log.i("Kenjyi", ""+numOfEvents.size());
-        for(Integer ii: numOfEvents){
-            eventList.add(new Event("","",ii+":00",(ii+1)+":00","",""));
-        }
+
     }
 
     /**
@@ -106,11 +83,6 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Even
         return new EventHolder(mItemView, this);
     }
 
-    public final void showTimeSlotDialog() {
-        // Create an instance of the dialog fragment and show it
-        DialogFragment dialog = new TimeSlotDialogFragment();
-        dialog.show(TimeTableFragment.getInstance().getFragmentManager(), "TimeSlotDialogFragment");
-    }
 
     /**
      * Sets the contents of an item at a given position in the RecyclerView.
@@ -123,22 +95,7 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Even
     public void onBindViewHolder(EventHolder holder, int position) {
         // Retrieve the data for that position.
         Event mCurrent = mTimeTableList.get(position);
-        if(position!=mTimeTableList.size()-1) {
-            Event mNext = mTimeTableList.get(position + 1);
-            String tomorrowEvent = mNext.getAdmin();
-            if(tomorrowEvent.equalsIgnoreCase("0")){
-                //holder.vehicleView.setImageResource(R.drawable.walking);
-                holder.tmrEventView.setBackgroundColor(Color.GREEN);
-            }
-            else if(tomorrowEvent.equalsIgnoreCase("1")){
-                //holder.vehicleView.setImageResource(R.drawable.bus);
-                holder.tmrEventView.setBackgroundColor(Color.RED);
-            }
-            else if(tomorrowEvent.equalsIgnoreCase("2")){
-                //holder.vehicleView.setImageResource(R.drawable.cab);
-                holder.tmrEventView.setBackgroundColor(Color.parseColor("purple"));
-            }
-        }
+
         String eventName = mCurrent.getName();
         String date = mCurrent.getDate();
         String location = mCurrent.getVenue();
@@ -153,25 +110,19 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Even
 
         holder.timeView.setText(timePeriod);
         String eventType = mCurrent.getAdmin();
-        if(eventType.equalsIgnoreCase("0")){
-            //holder.vehicleView.setImageResource(R.drawable.walking);
-            holder.layoutBgView.setBackgroundColor(Color.GREEN);
-        }
-        else if(eventType.equalsIgnoreCase("1")){
-            //holder.vehicleView.setImageResource(R.drawable.bus);
-            holder.layoutBgView.setBackgroundColor(Color.RED);
-        }
-        else if(eventType.equalsIgnoreCase("2")){
-            //holder.vehicleView.setImageResource(R.drawable.cab);
-            holder.layoutBgView.setBackgroundColor(Color.parseColor("purple"));
-        }
+//        if(eventType.equalsIgnoreCase("0")){
+//            //holder.vehicleView.setImageResource(R.drawable.walking);
+//            holder.layoutBgView.setBackgroundColor(Color.GREEN);
+//        }
+//        else if(eventType.equalsIgnoreCase("1")){
+//            //holder.vehicleView.setImageResource(R.drawable.bus);
+//            holder.layoutBgView.setBackgroundColor(Color.RED);
+//        }
+//        else if(eventType.equalsIgnoreCase("2")){
+//            //holder.vehicleView.setImageResource(R.drawable.cab);
+//            holder.layoutBgView.setBackgroundColor(Color.parseColor("purple"));
+//        }
 
-        holder.layoutBgView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                showTimeSlotDialog();
-            }
-        });
     }
 
     /**

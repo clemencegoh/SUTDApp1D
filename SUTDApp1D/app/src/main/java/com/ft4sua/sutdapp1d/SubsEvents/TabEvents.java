@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ft4sua.sutdapp1d.EventPackage.Event;
 import com.ft4sua.sutdapp1d.R;
 
 import java.util.ArrayList;

@@ -115,19 +115,23 @@ public class Spider2 {
                     int dateindex= bodyText.indexOf(", " + yearstring);
                     int nextyearindex = bodyText.indexOf(", "+ Integer.toString(year + 1));
                     int prevyearindex = bodyText.indexOf(", "+ Integer.toString(year - 1));
+                    int correctyear;
                     if (dateindex != -1) {
+                        correctyear = year;
                         if (numbers.contains(bodyText.charAt(dateindex - 2))) {
                             date = bodyText.substring(dateindex - 2, dateindex);
                         } else {
                             date = bodyText.substring(dateindex - 1, dateindex);
                         }
                     } else if (nextyearindex != -1){
+                        correctyear = year+1;
                         if (numbers.contains(bodyText.charAt(nextyearindex-2))){
                             date = bodyText.substring(nextyearindex-2,nextyearindex);
                         } else {
                             date = bodyText.substring(nextyearindex-1,nextyearindex);
                         }
                     } else {
+                        correctyear = year-1;
                         if (numbers.contains(bodyText.charAt(prevyearindex-2))){
                             date = bodyText.substring(prevyearindex-2,prevyearindex);
                         } else {
@@ -143,18 +147,18 @@ public class Spider2 {
                         int newdate = Integer.parseInt(date) + i;
                         if ((newdate/31) > 0){
                             String newmonth = monthlist[(monthconvert.get(month) + 1)%12];
-                            event[0] = daysinweek[i].substring(0, 3) + "," + Integer.toString(newdate%31) + " " + newmonth;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + Integer.toString(newdate%31) + " " + newmonth + " " + correctyear;
                         } else {
-                            event[0] = daysinweek[i].substring(0, 3) + "," + newdate + " " + month;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + newdate + " " + month + " " + correctyear;
                         }
                     } else if (month.equals("Apr") || month.equals("Jun") ||month.equals("Sep")
                             || month.equals("Nov") ){
                         int newdate = Integer.parseInt(date) + i;
                         if ((newdate/30) > 0){
                             String newmonth = monthlist[monthconvert.get(month) + 1];
-                            event[0] = daysinweek[i].substring(0, 3) + "," +Integer.toString(newdate%30) + " " + newmonth;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " +Integer.toString(newdate%30) + " " + newmonth + " " + correctyear;
                         }else {
-                            event[0] = daysinweek[i].substring(0, 3) + "," + newdate + " " + month;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + newdate + " " + month + " " + correctyear;
                         }
                     } else if (month.equals("Feb")){
                         int newdate = Integer.parseInt(date) + i;
@@ -171,9 +175,9 @@ public class Spider2 {
                         }
                         if ((newdate/(28+leapyear)) > 0){
                             String newmonth = monthlist[monthconvert.get(month) + 1];
-                            event[0] = daysinweek[i].substring(0, 3) + "," +Integer.toString(newdate%(28+leapyear)) + " " + newmonth;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " +Integer.toString(newdate%(28+leapyear)) + " " + newmonth + " " + correctyear;
                         }else {
-                            event[0] = daysinweek[i].substring(0, 3) + "," + newdate + " " + month;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + newdate + " " + month + " " + correctyear;
                         }
                     }
                     int timeindex = rawevent.indexOf("pm,");
@@ -185,8 +189,14 @@ public class Spider2 {
                         if (rawtime.length() == 1){
                             event[2] = "0" + rawtime + "00";
                         } else if (rawtime.length() == 2){
+                            if (rawtime.equals("12")){
+                                rawtime = "00";
+                            }
                             event[2] = rawtime + "00";
                         } else if (rawtime.length() == 3){
+                            if (rawtime.substring(0,2).equals("12")){
+                                rawtime = "00" + rawtime.charAt(2);
+                            }
                             event[2] = "0" + rawtime;
                         } else {
                             event[2] = rawtime;
@@ -203,6 +213,7 @@ public class Spider2 {
                         event[1] = rawevent.substring(4, spaceindex);
                         int rawtime = Integer.parseInt(rawevent.substring(spaceindex + 1, timeindex));
                         if (rawtime < 13){
+                            rawtime = rawtime % 12;
                             event[2] = Integer.toString(rawtime*100 + 1200);
                             if (rawtime < 10){
                                 event[3] = Integer.toString((rawtime+2)*100 + 1200);
@@ -210,6 +221,9 @@ public class Spider2 {
                                 event[3] = Integer.toString((rawtime+2-12)*100 + 1200);
                             }
                         } else {
+                            if (rawtime > 1159){
+                                rawtime = rawtime - 1200;
+                            }
                             event[2] = Integer.toString(rawtime + 1200);
                             if (rawtime < 1000){
                                 event[3] = Integer.toString(rawtime+200 + 1200);
@@ -220,7 +234,7 @@ public class Spider2 {
                     }
                     StringBuilder venue = new StringBuilder();
                     int breakpoint = body.indexOf("Read more");
-                    while (breakpoint < 600){
+                    while (breakpoint < 800){
                         body = body.substring(body.indexOf("Read more")+6);
                         breakpoint = body.indexOf("Read more");
                     }
@@ -229,8 +243,8 @@ public class Spider2 {
                         searchpoint = body.indexOf("am,",body.indexOf(event[1]));
                     }
 
-                    searchlocation = body.substring(searchpoint+4, searchpoint + 70);
-                    for (int j =0; j < 70; j++){
+                    searchlocation = body.substring(searchpoint+4, searchpoint + 80);
+                    for (int j =0; j < 80; j++){
                         if (rawevent.charAt(timeindex+4+j) == searchlocation.charAt(0+j)){
                             venue.append(rawevent.charAt(timeindex+4+j));
                         } else {
@@ -242,7 +256,7 @@ public class Spider2 {
                     rawevent = rawevent.substring(rawevent.indexOf("Read more") + 6);
                     body = body.substring(body.indexOf("Read more")+6);
                     event[5] = "School event";
-                    Event event1 = new Event(event[1],event[0],event[3],event[4],event[5],"1");
+                    Event event1 = new Event(event[1],event[0],event[2],event[3],event[4],event[5]);
                     week_events.add(event1);
                 }
             }

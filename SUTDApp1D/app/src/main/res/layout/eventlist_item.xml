@@ -3,11 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:showDividers="end"
+    android:divider="?android:dividerVertical"
     android:padding="2dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:showDividers="middle"
+        android:divider="?android:dividerHorizontal"
         android:padding="2dp"
         android:id="@+id/recyclerbg">
         <TextView
@@ -16,18 +20,27 @@
             android:layout_weight="1"
             android:textSize="20sp"
             android:id="@+id/time"/>
-        <TextView
-            android:layout_height="wrap_content"
+        <LinearLayout
             android:layout_width="0sp"
-            android:textSize="20sp"
-            android:layout_weight="3"
-            android:id="@+id/eventname"/>
-        <TextView
             android:layout_height="wrap_content"
-            android:layout_width="0sp"
-            android:layout_weight="1"
-            android:textSize="20sp"
-            android:id="@+id/location"/>
+            android:layout_weight="5"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="20sp"
+                android:layout_weight="3"
+                android:id="@+id/eventname"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:id="@+id/location"/>
+
+        </LinearLayout>
+
         <!--style="@style/word_title"-->
         <!--<ImageView
             android:layout_width="30sp"

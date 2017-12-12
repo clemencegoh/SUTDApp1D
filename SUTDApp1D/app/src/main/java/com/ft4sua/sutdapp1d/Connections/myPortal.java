@@ -8,6 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -217,8 +218,8 @@ public class myPortal {
             }else if (dayDate[count].equals("SUN")){
                 dayDate[count] = "FRI";
             }
-            dayDate[count] += ",";
-            dayDate[count] += temp[1] + " " + temp[2];
+            dayDate[count] += ", ";
+            dayDate[count] += temp[1] + " " + temp[2] + " 2017";
             count++;
         }
         count = 0;
@@ -241,7 +242,7 @@ public class myPortal {
                     String venue = m.group(14);
                     int Time;
                     if (m.group(6).contains("PM")){
-                        int tempTime = Integer.parseInt(m.group(9));
+                        int tempTime = Integer.parseInt(m.group(3));
                         if (tempTime!=12){
                             Time = Integer.parseInt(m.group(3)) + 12;
                         }else{
@@ -299,18 +300,23 @@ public class myPortal {
         return toReturn;
     }
 
-    public Event[] timeTable(String userId,String password){
+    public ArrayList<Event> timeTable(String userId,String password){
         String[][] events = getTimeTableDetails(userId,password);
-        Event[] Overall = new Event[events.length];
+        ArrayList<Event> O2 = new ArrayList<>();
+        ArrayList<String> eventList = new ArrayList<>();
         int i=0;
         for (String[] s:events){
-            if (s!=null){
+            if (s[0]!=null){
                 Event tempEvent = new Event(s[1],s[0],s[2],s[3],s[4],"0");
-                Overall[i]=tempEvent;
+                if (!eventList.contains(tempEvent.getName() + tempEvent.getStart())){
+                    eventList.add(tempEvent.getName() + tempEvent.getStart());
+                    O2.add(tempEvent);
+                }
                 i++;
             }
         }
-        return Overall;
+
+        return O2;
 
     }
 }

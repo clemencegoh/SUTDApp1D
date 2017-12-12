@@ -40,8 +40,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.ft4sua.sutdapp1d.Connections.*;
 import com.ft4sua.sutdapp1d.DatabasePackage.Event;
+import com.ft4sua.sutdapp1d.DatabasePackage.EventsHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -208,23 +212,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            //TODO LOGIN to myportal
-            showProgress(true);
-            Thread downloadThread = new Thread(){
-                public void run(){
-                    try{
-                        myPortal profile = new myPortal();
-                        Event[] events = profile.timeTable(id, password);
-                        Log.i("Login","Login successful, events initialized");
-                    }catch(Exception e){
-                        Log.d("Login","User or password may be wrong");
-                    }
-                }
-            };
-            downloadThread.start();
-
             mAuthTask = new UserLoginTask(id, password, this);
             mAuthTask.execute((Void) null);
         }
@@ -244,7 +232,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -309,7 +296,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             emails.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
-
         addStudentIDToAutoComplete(emails);
     }
 
@@ -348,41 +334,53 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private final String mPassword;
         SharedPreferences prefs;
         Context context;
+        private EventsHelper eventsHelper;
 
         UserLoginTask(String id, String password, Context context) {
             mStudentID = id;
             mPassword = password;
             this.context = context;
             prefs = PreferenceManager.getDefaultSharedPreferences(this.context);
+            eventsHelper=EventsHelper.getInstance(context);
+        }
+
+        @Override
+        protected void onPreExecute(){
+            showProgress(true);
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+            List<Event> timetable=new myPortal().timeTable(mStudentID, mPassword);
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mStudentID)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
+            //TODO: remove null(?) objects
+            timetable.removeAll( Collections.singleton(null));
 
-            // TODO: register the new account here.
-            return true;
+            Log.v("PARSED TIMETABLE ",timetable.toString());
+            if(timetable.size()!=0) {
+                eventsHelper.addLocalEvents(timetable, LoginActivity.this);
+                Spider2 b = new Spider2();
+                b.crawl("http://root.sutd.edu.sg/2017/09/25/tldr-25-sep-17-issue/");
+                ArrayList<Event> a = b.search();
+                eventsHelper.addLocalEvents(a,LoginActivity.this);
+                eventsHelper.getAllEventsList();
+                return true;
+            }
+//            for (String credential : DUMMY_CREDENTIALS) {
+//                String[] pieces = credential.split(":");
+//                if (pieces[0].equals(mStudentID)) {
+//                    // Account exists, return true if the password matches.
+//                    return pieces[1].equals(mPassword);
+//                }
+//            }
+            return false;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-
+            eventsHelper.getAllEventsList();
             if (success) {
                 prefs.edit().putInt(getString(R.string.login_key), Integer.parseInt(mStudentID)).apply();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
