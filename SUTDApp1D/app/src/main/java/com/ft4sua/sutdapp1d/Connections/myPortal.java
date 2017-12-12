@@ -195,7 +195,7 @@ public class myPortal {
 
         // Get html body from a connection
         Document doc = this.timeTableHtmlBody();
-        if (doc.text().isEmpty()){
+        if (doc.text()==null){
             System.out.println("Empty doc");
         }
 

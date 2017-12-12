@@ -18,7 +18,9 @@ public class myPortalTest {
         try{
 
             ArrayList<Event> s = profile.timeTable("1002208","1hcoatBs");
+
             System.out.println("Name: " + profile.getName());
+
             System.out.println(s.get(0).getName());
             System.out.println(s.get(0).getDate());
 

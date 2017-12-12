@@ -34,6 +34,7 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 //import java.util.LinkedList;
 //import java.util.List;
@@ -118,14 +119,14 @@ public class AddEventActivity extends AppCompatActivity {
         startTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hr, int min) {
-                String time = hr + ":" + min;
+                String time = String.format(Locale.ENGLISH,"%02d:%02d",hr,min);
                 startTimeInput.setText(time);
             }
         };
         endTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hr, int min) {
-                String time = hr + ":" + min;
+                String time = String.format(Locale.ENGLISH,"%02d:%02d",hr,min);
                 endTimeInput.setText(time);
             }
         };
