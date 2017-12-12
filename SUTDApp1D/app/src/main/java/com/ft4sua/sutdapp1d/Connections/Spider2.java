@@ -145,23 +145,40 @@ public class Spider2 {
                     if (month.equals("Jan") || month.equals("Mar") || month.equals("May") || month.equals("Jul")
                             || month.equals("Aug") || month.equals("Oct") || month.equals("Dec")){
                         int newdate = Integer.parseInt(date) + i;
+                        String strnewdate = Integer.toString(newdate);
                         if ((newdate/31) > 0){
                             String newmonth = monthlist[(monthconvert.get(month) + 1)%12];
-                            event[0] = daysinweek[i].substring(0, 3) + ", " + Integer.toString(newdate%31) + " " + newmonth + " " + correctyear;
+                            newdate = newdate%31;
+                            if (newdate < 10){
+                                strnewdate = "0" + strnewdate;
+                            }
+                            event[0] = daysinweek[i].substring(0, 3) + "," + strnewdate + " " + newmonth;
                         } else {
-                            event[0] = daysinweek[i].substring(0, 3) + ", " + newdate + " " + month + " " + correctyear;
+                            if (newdate < 10){
+                                strnewdate = "0" + strnewdate;
+                            }
+                            event[0] = daysinweek[i].substring(0, 3) + "," + strnewdate + " " + month;
                         }
                     } else if (month.equals("Apr") || month.equals("Jun") ||month.equals("Sep")
                             || month.equals("Nov") ){
                         int newdate = Integer.parseInt(date) + i;
+                        String strnewdate = Integer.toString(newdate);
                         if ((newdate/30) > 0){
                             String newmonth = monthlist[monthconvert.get(month) + 1];
-                            event[0] = daysinweek[i].substring(0, 3) + ", " +Integer.toString(newdate%30) + " " + newmonth + " " + correctyear;
+                            newdate = newdate%30;
+                            if (newdate < 10){
+                                strnewdate = "0" + strnewdate;
+                            }
+                            event[0] = daysinweek[i].substring(0, 3) + "," + strnewdate + " " + newmonth;
                         }else {
-                            event[0] = daysinweek[i].substring(0, 3) + ", " + newdate + " " + month + " " + correctyear;
+                            if (newdate < 10){
+                                strnewdate = "0" + strnewdate;
+                            }
+                            event[0] = daysinweek[i].substring(0, 3) + "," + strnewdate + " " + month;
                         }
                     } else if (month.equals("Feb")){
                         int newdate = Integer.parseInt(date) + i;
+                        String strnewdate = Integer.toString(newdate);
                         int leap1 = year %400;
                         int leap2 = leap1 % 100;
                         int leap3 = leap2 %4;
@@ -175,9 +192,16 @@ public class Spider2 {
                         }
                         if ((newdate/(28+leapyear)) > 0){
                             String newmonth = monthlist[monthconvert.get(month) + 1];
-                            event[0] = daysinweek[i].substring(0, 3) + ", " +Integer.toString(newdate%(28+leapyear)) + " " + newmonth + " " + correctyear;
+                            newdate = newdate%(28+leapyear);
+                            if (newdate < 10){
+                                strnewdate = "0" + strnewdate;
+                            }
+                            event[0] = daysinweek[i].substring(0, 3) + "," + strnewdate + " " + newmonth;
                         }else {
-                            event[0] = daysinweek[i].substring(0, 3) + ", " + newdate + " " + month + " " + correctyear;
+                            if (newdate < 10){
+                                strnewdate = "0" + strnewdate;
+                            }
+                            event[0] = daysinweek[i].substring(0, 3) + "," + strnewdate + " " + month;
                         }
                     }
                     int timeindex = rawevent.indexOf("pm,");
