@@ -165,6 +165,7 @@ public class EditEventActivity extends AppCompatActivity {
                 newEvent.setId(dbId);
 //                if (pushCheck.isChecked()) newEvent.setUid(getString(R.string.firebase_flag));
                 EH.editEvent(newEvent,EditEventActivity.this);
+                setResult(RESULT_OK, null);
                 finish();
             }
         });

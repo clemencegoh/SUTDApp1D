@@ -31,6 +31,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -477,10 +478,6 @@ public class EventsHelper extends SQLiteOpenHelper {
                 event.setVenue(eventC.getString(eventC.getColumnIndex(COLUMN_Details)));
                 event.setAdmin(eventC.getString(eventC.getColumnIndex(COLUMN_EventType)));
                 event.setTag(eventC.getString(eventC.getColumnIndex(COLUMN_EventTag)));
-//                Bundle temp2 = new Bundle();
-//                for (String COL:ALL_COLUMNS_USER_ENTER) {
-//                    temp2.putString(COL,eventC.getString(eventC.getColumnIndex(COL)));
-//                }
                 eventList.add(event);
             }
             eventC.close();
@@ -494,8 +491,6 @@ public class EventsHelper extends SQLiteOpenHelper {
         db = getReadableDatabase();
         List<Event> eventList = new ArrayList<Event>();
 
-        final String WHERE0 = "CAST("+COLUMN_EventDate+" as TEXT) = ?";
-        final String[] WHEREARGS0 = new String[] { date };
         Cursor eventC=db.rawQuery("SELECT *"
                 +" FROM "+ TABLE_NAME
                 +" WHERE UPPER("+ COLUMN_EventDate +") = "+"UPPER('"+date+"')"
@@ -516,6 +511,35 @@ public class EventsHelper extends SQLiteOpenHelper {
             }
             eventC.close();
         }
+        return eventList;
+    }
+
+
+    public List<Event> getTaggedEventList() { //Returns a day's events as a list or null if database is empty
+        db = getReadableDatabase();
+        List<Event> eventList = new ArrayList<Event>();
+        Cursor eventC=db.rawQuery("SELECT *"
+                +" FROM "+ TABLE_NAME
+                +" WHERE "+ COLUMN_EventTag +" != '';", null);
+
+        if (eventC != null) {
+            for (eventC.moveToFirst(); !eventC.isAfterLast(); eventC.moveToNext()) {
+                Event event=new Event();
+                event.setId(eventC.getInt(eventC.getColumnIndex(COLUMN_ID)));
+                event.setUid(eventC.getString(eventC.getColumnIndex(COLUMN_FID)));
+                event.setName(eventC.getString(eventC.getColumnIndex(COLUMN_Event)));
+                event.setDate(eventC.getString(eventC.getColumnIndex(COLUMN_EventDate)));
+                event.setStart(eventC.getString(eventC.getColumnIndex(COLUMN_StartTime)));
+                event.setEnd(eventC.getString(eventC.getColumnIndex(COLUMN_EndTime)));
+                event.setVenue(eventC.getString(eventC.getColumnIndex(COLUMN_Details)));
+                event.setAdmin(eventC.getString(eventC.getColumnIndex(COLUMN_EventType)));
+                event.setTag(eventC.getString(eventC.getColumnIndex(COLUMN_EventTag)));
+                eventList.add(event);
+            }
+            eventC.close();
+        }
+        Collections.sort(eventList);
+        Log.v("TAGGED EVENTS: ", String.valueOf(eventList));
         return eventList;
     }
 }
