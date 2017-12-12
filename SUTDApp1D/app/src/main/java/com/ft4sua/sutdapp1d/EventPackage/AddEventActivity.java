@@ -171,6 +171,8 @@ public class AddEventActivity extends AppCompatActivity {
                 newEvent = new Event(name, date, start, end, venue, id, tag);
                 if (pushCheck.isChecked()) newEvent.setUid(getString(R.string.firebase_flag));
                 EH.addEvent(newEvent,AddEventActivity.this);
+                //EH.getAllEventsList();    For debugging
+                setResult(RESULT_OK, null);
                 finish();
             }
         });

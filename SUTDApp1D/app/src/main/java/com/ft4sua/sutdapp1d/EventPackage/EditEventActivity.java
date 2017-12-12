@@ -55,6 +55,8 @@ public class EditEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
+        final int dbId=getIntent().getIntExtra("id_cursor",-1);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -160,8 +162,9 @@ public class EditEventActivity extends AppCompatActivity {
                 String tag = eventType.getText().toString();
 
                 newEvent = new Event(name, date, start, end, venue, id, tag);
-                if (pushCheck.isChecked()) newEvent.setUid(getString(R.string.firebase_flag));
-                //EH.addEvent(newEvent,AddEventActivity.this);
+                newEvent.setId(dbId);
+//                if (pushCheck.isChecked()) newEvent.setUid(getString(R.string.firebase_flag));
+                EH.editEvent(newEvent,EditEventActivity.this);
                 finish();
             }
         });

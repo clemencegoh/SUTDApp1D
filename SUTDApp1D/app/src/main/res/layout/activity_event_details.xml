@@ -38,22 +38,12 @@
 
                 <!-- Event name and type -->
                     <EditText
-                        android:id="@+id/event_type_dropdown"
-                        android:layout_marginTop="@dimen/detail_titles_top"
-                        android:layout_marginStart="@dimen/detail_titles_horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/event_type"
-                        android:spinnerMode="dropdown"
-                        />
-                    <EditText
                         android:id="@+id/eventNameInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/detail_titles_top"
+                        style="@style/detail_fields"
                         android:hint="Event Name"
                         android:inputType="text"
-                        android:singleLine="false"
                         />
                 <!-- Venue -->
                 <EditText
@@ -129,6 +119,7 @@
                         android:background="@drawable/dropdown_border"
                         />
                 </LinearLayout>
+
                 <!-- Organiser IDs -->
                 <EditText
                     android:id="@+id/idInput"
@@ -137,6 +128,15 @@
                     style="@style/detail_fields"
                     android:hint="Admin ID"
                     android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/event_type_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/detail_fields"
+                    android:hint="Event tag"
+                    android:inputType="text"
+                    />
 
                 <CheckBox
                     android:id="@+id/check_firebase"
