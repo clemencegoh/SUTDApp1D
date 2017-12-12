@@ -211,25 +211,22 @@ public class Spider2 {
                         event[1] = rawevent.substring(4, spaceindex);
                         String rawtime = rawevent.substring(spaceindex + 1, timeindex);
                         if (rawtime.length() == 1){
-                            event[2] = "0" + rawtime + "00";
+                            event[2] = "0" + rawtime + ":00";
                         } else if (rawtime.length() == 2){
                             if (rawtime.equals("12")){
-                                rawtime = "00";
+                                rawtime = ":00";
                             }
                             event[2] = rawtime + "00";
                         } else if (rawtime.length() == 3){
-                            if (rawtime.substring(0,2).equals("12")){
-                                rawtime = "00" + rawtime.charAt(2);
-                            }
-                            event[2] = "0" + rawtime;
+                            event[2] = "0" + rawtime.charAt(0) + ":" + rawtime.substring(1,3);
                         } else {
-                            event[2] = rawtime;
+                            event[2] = rawtime.substring(0,2) + ":" + rawtime.substring(2,4);
                         }
                         int val = Integer.parseInt(event[2].substring(0,2)) + 2;
                         if (val < 10){
-                            event[3] = "0" + Integer.toString(val) + event[2].substring(2,4);
+                            event[3] = "0" + Integer.toString(val) + event[2].substring(2,5);
                         } else {
-                            event[3] = Integer.toString(val) + event[2].substring(2, 4);
+                            event[3] = Integer.toString(val) + event[2].substring(2, 5);
                         }
 
                     } else {
@@ -238,21 +235,25 @@ public class Spider2 {
                         int rawtime = Integer.parseInt(rawevent.substring(spaceindex + 1, timeindex));
                         if (rawtime < 13){
                             rawtime = rawtime % 12;
-                            event[2] = Integer.toString(rawtime*100 + 1200);
+
+                            event[2] = rawtime+12 + ":00";
                             if (rawtime < 10){
-                                event[3] = Integer.toString((rawtime+2)*100 + 1200);
+                                event[3] = rawtime+12+2 + ":00";
                             } else {
-                                event[3] = Integer.toString((rawtime+2-12)*100 + 1200);
+                                event[3] = rawtime-12+2 + ":00";;
                             }
                         } else {
                             if (rawtime > 1159){
                                 rawtime = rawtime - 1200;
                             }
-                            event[2] = Integer.toString(rawtime + 1200);
+                            String updatedtime1 = Integer.toString(rawtime + 1200);
+                            event[2] = updatedtime1.substring(0,2) + ":" + updatedtime1.substring(2,4);
                             if (rawtime < 1000){
-                                event[3] = Integer.toString(rawtime+200 + 1200);
+                                String updatedtime2 = Integer.toString(rawtime+200 + 1200);
+                                event[3] = updatedtime2.substring(0,2) + ":" + updatedtime2.substring(2,4);
                             } else {
-                                event[3] = Integer.toString((rawtime-1000) + 1200);
+                                String updatedtime2 = Integer.toString(rawtime-1000 + 1200);
+                                event[3] = updatedtime2.substring(0,2) + ":" + updatedtime2.substring(2,4);
                             }
                         }
                     }
