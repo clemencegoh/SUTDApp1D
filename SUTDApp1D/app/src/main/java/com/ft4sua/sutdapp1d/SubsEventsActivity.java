@@ -88,10 +88,9 @@ public class SubsEventsActivity extends AppCompatActivity {
         public SelectedListAdapter() {
             super(SubsEventsActivity.this, R.layout.nav_drawer_item, tagList);
             if (tagList.size() != 0) {
-
                 //findViewById(android.R.id.empty).setVisibility(View.GONE);
-                emptyTagMessage.setVisibility(View.GONE);
                 //addButton.setVisibility(View.VISIBLE);
+
             }
         }
         @Override
@@ -109,8 +108,8 @@ public class SubsEventsActivity extends AppCompatActivity {
                     setString.remove(tagList.get(position));
                     tagList.remove(position);
                     notifyDataSetChanged();
-                    if (tagList.size() == 0) {
-                        findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
+                    if (tagList.isEmpty()) {
+                        emptyTagMessage.setVisibility(View.VISIBLE);
 //                        itinenaryButton.setVisibility(View.GONE);
                     }
                     SharedPreferences prefs = PreferenceManager
@@ -139,6 +138,9 @@ public class SubsEventsActivity extends AppCompatActivity {
             tagList.add(ii);
             setString.add(ii);
         }
+        if(!tagList.isEmpty()){
+            emptyTagMessage.setVisibility(View.GONE);
+        }
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,6 +150,10 @@ public class SubsEventsActivity extends AppCompatActivity {
                 tagEntry.setText("");
 
                 prefs.edit().putStringSet(getString(R.string.subscriptions_key),setString).apply();
+
+                if(!tagList.isEmpty()){
+                    emptyTagMessage.setVisibility(View.GONE);
+                }
 
                 Log.i("Kenjyi", prefs.getStringSet(SubsEventsActivity.this.getString(R.string.subscriptions_key),
                         new HashSet<>(Arrays.asList(""))).toString());
