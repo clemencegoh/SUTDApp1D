@@ -388,7 +388,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 prefs.edit().putInt(getString(R.string.login_key), Integer.parseInt(mStudentID)).apply();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 Toast.makeText(context, "Welcome, " + mStudentID, Toast.LENGTH_SHORT).show();
-                prefs.edit().putString("Name",myPortal.getName());
+                prefs.edit().putString("Name",myPortal.getName()).apply();
                 finish();
 
             } else {
