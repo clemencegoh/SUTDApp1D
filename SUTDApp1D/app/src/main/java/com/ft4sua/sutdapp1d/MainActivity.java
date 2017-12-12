@@ -191,7 +191,6 @@ public class MainActivity extends AppCompatActivity
             Class fragmentClass = SectionPagerAdapter.class;
             navigateToFragment(fragmentClass);
         }
-;
 
         drawer.closeDrawer(GravityCompat.START);
         return true;

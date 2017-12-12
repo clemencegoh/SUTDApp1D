@@ -1,22 +1,29 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/eventmanager"
     tools:context="com.ft4sua.sutdapp1d.EventManagerFragment">
+    <Gallery
+        android:id="@+id/overview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabEventManager"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_alignBottom="@+id/overview"
+        android:layout_alignRight="@+id/overview"
         android:layout_margin="@dimen/fab_margin"
-        android:layout_marginEnd="@dimen/fab_margin"
         android:src="@android:drawable/ic_input_add" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_event_manager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"/>
 
 
-</LinearLayout>
+</RelativeLayout>
