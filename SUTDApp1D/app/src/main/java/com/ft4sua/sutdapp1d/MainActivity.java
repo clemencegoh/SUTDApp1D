@@ -191,7 +191,6 @@ public class MainActivity extends AppCompatActivity
             Class fragmentClass = SectionPagerAdapter.class;
             navigateToFragment(fragmentClass);
         }
-;
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -199,7 +198,17 @@ public class MainActivity extends AppCompatActivity
 
     private void navigateToActivity(Class activityClass){
         Intent intent = new Intent(this, activityClass);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            Intent refresh = new Intent(this, MainActivity.class);
+            startActivity(refresh);
+            this.finish();
+        }
     }
 
 

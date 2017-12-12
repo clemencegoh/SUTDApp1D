@@ -31,6 +31,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -203,10 +204,6 @@ public class EventsHelper extends SQLiteOpenHelper {
     public void addEvent(final Event event,final Context con){
         db = getWritableDatabase();
         db.beginTransaction();
-//        final ProgressDialog pd = new ProgressDialog(con);
-//        pd.setTitle("Please Wait");
-//        pd.setMessage("Adding Event");
-//        pd.show();
 
         //push to firebase
         if (event.getUid().equals(con.getString(R.string.firebase_flag))) {
@@ -215,6 +212,7 @@ public class EventsHelper extends SQLiteOpenHelper {
             newEvent.setValue(event);                           // set node value to event instance
             Log.v("Event: ", event.toString());
             Toast.makeText(con, "Event committed to firebase", Toast.LENGTH_SHORT).show();
+            //Hold off data pushing to prevent double adding
         }
         else {
             //add to local
@@ -233,7 +231,6 @@ public class EventsHelper extends SQLiteOpenHelper {
                 status = false;
             } finally {
                 db.endTransaction();
-//            pd.dismiss();
                 if (status)
                     Toast.makeText(con, "Event successfully added", Toast.LENGTH_SHORT).show();
                 else Toast.makeText(con, "Failed to add event", Toast.LENGTH_SHORT).show();
@@ -246,10 +243,6 @@ public class EventsHelper extends SQLiteOpenHelper {
         // Create and/or open the database for writing
         db = getWritableDatabase();
         db.beginTransaction();
-//        final ProgressDialog pd = new ProgressDialog(con);
-//        pd.setTitle("Please Wait");
-//        pd.setMessage("Adding Event");
-//        pd.show();
 
         Boolean status=true;
         try {
@@ -281,7 +274,6 @@ public class EventsHelper extends SQLiteOpenHelper {
         db = getWritableDatabase();
         db.beginTransaction();
 
-        Boolean status=true;
         try {
             for (Event e: events) {
                 Bundle data=e.getBundle();
@@ -295,7 +287,7 @@ public class EventsHelper extends SQLiteOpenHelper {
             }
             db.setTransactionSuccessful();
         } catch (Exception e) {
-            status=false;
+            e.printStackTrace();
         } finally {
             db.endTransaction();
         }
@@ -305,16 +297,14 @@ public class EventsHelper extends SQLiteOpenHelper {
     //-------------------------EDIT FUNCTIONS (Only for user-def events)-----------------------------
     public void editEvent(final Event event, final Context con) { //update event details /true = success /false = error
 
-        final ProgressDialog pd = new ProgressDialog(con);
-        pd.setTitle("Please Wait");
-        pd.setMessage("Editing Event");
-        pd.show();
+        // Create and/or open the database for writing
+        db = getWritableDatabase();
+        db.beginTransaction();
 
         final String uid = event.getUid();
         if (!uid.equals("")) fref.child(event.getUid()).setValue(event);                 // update firebase
 
         Bundle data=event.getBundle();
-        Boolean status=true;
         try {
             ContentValues values = new ContentValues();
             for (String COL : ALL_COLUMNS) {
@@ -324,54 +314,30 @@ public class EventsHelper extends SQLiteOpenHelper {
             }
             db.update(TABLE_NAME, values, COLUMN_ID + " = ?",
                     new String[] { String.valueOf(event.getId()) });
-            //new String[] { String.valueOf(Globals.currentEventID) });
             db.setTransactionSuccessful();
         } catch (Exception e) {
-            status=false;
+            e.printStackTrace();
         } finally {
             db.endTransaction();
-            pd.dismiss();
-            if (status) Toast.makeText(con, "Event successfully edited", Toast.LENGTH_SHORT).show();
-            else Toast.makeText(con, "Failed to edit event", Toast.LENGTH_SHORT).show();
         }
     }
 
     //-------------------------DELETE FUNCTIONS-----------------------------
-    @SuppressLint("StaticFieldLeak")
     public void deleteEvent(final Event event, final Context con) { //delete Event // clickPosition = pass in click position of listview or null to delete with currentGWOID
 
-        final int[] rEvent = {0};
-        final String[] ID = new String[1];
-
-        new AsyncTask<Bundle, Integer, Boolean>() {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                ID[0]= String.valueOf(event.getId());
-            }
-
-            @Override
-            protected Boolean doInBackground(Bundle... bundles) {
-                //admin delete
-                if (prefs.getString(con.getString(R.string.login_key), "").equals(ID[0])&&!event.getUid().equals(""))
-                    fref.child(event.getUid()).removeValue();
-                if (!ID.equals("-1")) {
-                    db.delete(TABLE_NAME, COLUMN_ID + "='" + ID[0],null);
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-            @Override
-            protected void onPostExecute(Boolean aBoolean) {
-                super.onPostExecute(aBoolean);
-                if (aBoolean) {
-                    Toast.makeText(con, "Event successfully deleted", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(con, "Failed to delete event", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }.execute();
+        final int ID = event.getId();
+        Log.v("Id to delete ", String.valueOf(ID));
+        if (prefs.getInt(con.getString(R.string.login_key), 0)==ID && !event.getUid().equals(""))
+            fref.child(event.getUid()).removeValue();
+        if (ID!=-1) {
+            db = getWritableDatabase();
+            db.beginTransaction();
+            db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + "= '" + ID + "'");
+            db.setTransactionSuccessful();
+            db.endTransaction();
+            Toast.makeText(con, "Event successfully deleted", Toast.LENGTH_SHORT).show();
+        }
+        else Toast.makeText(con, "Failed to delete event", Toast.LENGTH_SHORT).show();
     }
 
     //------------------------FIREBASE FUNCTIONS------------------------
@@ -447,19 +413,22 @@ public class EventsHelper extends SQLiteOpenHelper {
             if (status) Toast.makeText(con, "Event successfully edited", Toast.LENGTH_SHORT).show();
             else Toast.makeText(con, "Failed to edit event", Toast.LENGTH_SHORT).show();
         }
-        Log.v("Database now:","");
+        Log.v("Database now:","-------------");
         getAllEventsList();
     }
 
     public void removedFromFirebase(String fid, final Context con){
-        Log.v("Database before:","");
+        Log.v("Database before:","------------------");
         getAllEventsList();
 
-        if (db.delete(TABLE_NAME, COLUMN_FID + "=?", new String[]{"'"+fid+"'"}) > 0)
-            Toast.makeText(con, "Event removed", Toast.LENGTH_SHORT).show();
-        else Toast.makeText(con, "Event removal failed", Toast.LENGTH_SHORT).show();
+        db = getWritableDatabase();
+        db.beginTransaction();
+        db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_FID + "= '" + fid + "'");
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        Toast.makeText(con, "Event removed", Toast.LENGTH_SHORT).show();
 
-        Log.v("Database after:","");
+        Log.v("Database after ","--------------------");
         getAllEventsList();
     }
 
@@ -509,10 +478,6 @@ public class EventsHelper extends SQLiteOpenHelper {
                 event.setVenue(eventC.getString(eventC.getColumnIndex(COLUMN_Details)));
                 event.setAdmin(eventC.getString(eventC.getColumnIndex(COLUMN_EventType)));
                 event.setTag(eventC.getString(eventC.getColumnIndex(COLUMN_EventTag)));
-//                Bundle temp2 = new Bundle();
-//                for (String COL:ALL_COLUMNS_USER_ENTER) {
-//                    temp2.putString(COL,eventC.getString(eventC.getColumnIndex(COL)));
-//                }
                 eventList.add(event);
             }
             eventC.close();
@@ -526,8 +491,6 @@ public class EventsHelper extends SQLiteOpenHelper {
         db = getReadableDatabase();
         List<Event> eventList = new ArrayList<Event>();
 
-        final String WHERE0 = "CAST("+COLUMN_EventDate+" as TEXT) = ?";
-        final String[] WHEREARGS0 = new String[] { date };
         Cursor eventC=db.rawQuery("SELECT *"
                 +" FROM "+ TABLE_NAME
                 +" WHERE UPPER("+ COLUMN_EventDate +") = "+"UPPER('"+date+"')"
@@ -548,6 +511,35 @@ public class EventsHelper extends SQLiteOpenHelper {
             }
             eventC.close();
         }
+        return eventList;
+    }
+
+
+    public List<Event> getTaggedEventList() { //Returns a day's events as a list or null if database is empty
+        db = getReadableDatabase();
+        List<Event> eventList = new ArrayList<Event>();
+        Cursor eventC=db.rawQuery("SELECT *"
+                +" FROM "+ TABLE_NAME
+                +" WHERE "+ COLUMN_EventTag +" != '';", null);
+
+        if (eventC != null) {
+            for (eventC.moveToFirst(); !eventC.isAfterLast(); eventC.moveToNext()) {
+                Event event=new Event();
+                event.setId(eventC.getInt(eventC.getColumnIndex(COLUMN_ID)));
+                event.setUid(eventC.getString(eventC.getColumnIndex(COLUMN_FID)));
+                event.setName(eventC.getString(eventC.getColumnIndex(COLUMN_Event)));
+                event.setDate(eventC.getString(eventC.getColumnIndex(COLUMN_EventDate)));
+                event.setStart(eventC.getString(eventC.getColumnIndex(COLUMN_StartTime)));
+                event.setEnd(eventC.getString(eventC.getColumnIndex(COLUMN_EndTime)));
+                event.setVenue(eventC.getString(eventC.getColumnIndex(COLUMN_Details)));
+                event.setAdmin(eventC.getString(eventC.getColumnIndex(COLUMN_EventType)));
+                event.setTag(eventC.getString(eventC.getColumnIndex(COLUMN_EventTag)));
+                eventList.add(event);
+            }
+            eventC.close();
+        }
+        Collections.sort(eventList);
+        Log.v("TAGGED EVENTS: ", String.valueOf(eventList));
         return eventList;
     }
 }
