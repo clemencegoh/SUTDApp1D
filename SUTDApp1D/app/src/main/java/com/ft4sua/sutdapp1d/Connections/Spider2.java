@@ -140,7 +140,7 @@ public class Spider2 {
                     }
 
                     dateindex = bodyText.indexOf(" ", 12);
-                    event[0] = daysinweek[i].substring(0, 3) + "," + date + bodyText.substring(dateindex,dateindex+4);
+                    event[0] = daysinweek[i].substring(0, 3) + ", " + date + bodyText.substring(dateindex,dateindex+4);
                     String month = bodyText.substring(dateindex+1,dateindex+4);
                     if (month.equals("Jan") || month.equals("Mar") || month.equals("May") || month.equals("Jul")
                             || month.equals("Aug") || month.equals("Oct") || month.equals("Dec")){
@@ -152,12 +152,12 @@ public class Spider2 {
                             if (newdate < 10){
                                 strnewdate = "0" + strnewdate;
                             }
-                            event[0] = daysinweek[i].substring(0, 3) + "," + strnewdate + " " + newmonth;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + newmonth;
                         } else {
                             if (newdate < 10){
                                 strnewdate = "0" + strnewdate;
                             }
-                            event[0] = daysinweek[i].substring(0, 3) + "," + strnewdate + " " + month;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + month;
                         }
                     } else if (month.equals("Apr") || month.equals("Jun") ||month.equals("Sep")
                             || month.equals("Nov") ){
@@ -169,12 +169,12 @@ public class Spider2 {
                             if (newdate < 10){
                                 strnewdate = "0" + strnewdate;
                             }
-                            event[0] = daysinweek[i].substring(0, 3) + "," + strnewdate + " " + newmonth;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + newmonth;
                         }else {
                             if (newdate < 10){
                                 strnewdate = "0" + strnewdate;
                             }
-                            event[0] = daysinweek[i].substring(0, 3) + "," + strnewdate + " " + month;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + month;
                         }
                     } else if (month.equals("Feb")){
                         int newdate = Integer.parseInt(date) + i;
@@ -196,12 +196,12 @@ public class Spider2 {
                             if (newdate < 10){
                                 strnewdate = "0" + strnewdate;
                             }
-                            event[0] = daysinweek[i].substring(0, 3) + "," + strnewdate + " " + newmonth;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + newmonth;
                         }else {
                             if (newdate < 10){
                                 strnewdate = "0" + strnewdate;
                             }
-                            event[0] = daysinweek[i].substring(0, 3) + "," + strnewdate + " " + month;
+                            event[0] = daysinweek[i].substring(0, 3) + ", " + strnewdate + " " + month;
                         }
                     }
                     int timeindex = rawevent.indexOf("pm,");

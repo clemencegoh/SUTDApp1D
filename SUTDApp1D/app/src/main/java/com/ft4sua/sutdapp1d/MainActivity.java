@@ -188,12 +188,12 @@ public class MainActivity extends AppCompatActivity
             EventsHelper.getInstance(MainActivity.this).clearDataBase();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
-        } else if (id==R.id.nav_cal){
+        } //else if (id==R.id.nav_cal){
 
             // set initial fragment
-            Class fragmentClass = SectionPagerAdapter.class;
-            navigateToFragment(fragmentClass);
-        }
+//            Class fragmentClass = SectionPagerAdapter.class;
+//            navigateToFragment(fragmentClass);
+//        }
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
